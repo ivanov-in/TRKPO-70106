@@ -1,0 +1,54 @@
+<style>
+  .k-form {
+    width: 240px;
+  }
+</style>
+
+<form    translate="no"  class="k-form mx-auto notranslate" style="padding-top: 10%;" [formGroup]="form" (ngSubmit)="onSubmit()">
+  <div class="d-flex align-items-center">
+    <fieldset class="k-form-fieldset" style="width: 500px">
+      <legend class="k-form-legend">Войти в систему</legend>
+<!--      <kendo-avatar style="margin-left: 80px; font-size: 24px;" class="k-avatar" [initials]="'UX'" width="60px" height="60px" [shape]="'circle'"></kendo-avatar>-->
+      <kendo-formfield>
+        <kendo-label [for]="email" text="Логин"></kendo-label>
+        <input formControlName="email" id="email" type="email" kendoTextBox #email required
+               [ngClass]="{'invalid': form.get('email').invalid && form.get('email').touched, 'valid': form.get('email').valid && form.get('email').touched}"
+        />
+        <span class="helper-text red-text"
+              *ngIf="form.get('email').invalid && form.get('email').touched"
+        >
+        <span *ngIf="form.get('email').errors['required']">Email не должен быть пустым</span>
+        <span *ngIf="form.get('email').errors['email']">Введите корректный email адрес</span>
+          </span>
+
+      </kendo-formfield>
+      <kendo-formfield>
+
+        <kendo-label [for]="password" text="Пароль">
+        </kendo-label>
+        <input type="password" id="password" formControlName="password" kendoTextBox #password required
+               [ngClass]="{'invalid': form.get('password').invalid && form.get('password').touched, 'valid': form.get('password').valid && form.get('password').touched}"/>
+        <span
+          class="helper-text red-text"
+          *ngIf="form.get('password').invalid && form.get('password').touched">
+        <span
+          *ngIf="form.get('password').errors['required']">Пароль не должен быть пустым</span>
+        <span
+          *ngIf="form.get('password').errors['minlength'] && form.get('password').errors['minlength']['requiredLength']">
+          Пароль должен быть больше {{form.get('password').errors['minlength']['requiredLength']}} символов</span>
+        <span *ngIf="form.get('password').errors['incorrect']">Логин или пароль введен не верно</span>
+      </span>
+      </kendo-formfield>
+      <div class="k-form-buttons d-flex flex-row-reverse bd-highlight">
+        <button type="submit" class="k-button k-primary btn" [disabled]="form.invalid || form.disabled">Вход</button>
+      </div>
+    </fieldset>
+  </div>
+</form>
+
+
+
+
+
+
+

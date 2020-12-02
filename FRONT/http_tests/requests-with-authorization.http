@@ -1,0 +1,52 @@
+#### Basic authorization.
+#GET https://httpbin.org/basic-auth/user/passwd
+#Authorization: Basic user passwd
+#
+#### Basic authorization with variables.
+#GET https://httpbin.org/basic-auth/user/passwd
+#Authorization: Basic {{username}} {{password}}
+#
+#### Digest authorization.
+#GET https://httpbin.org/digest-auth/realm/user/passwd
+#Authorization: Digest user passwd
+#
+#### Digest authorization with variables.
+#GET https://httpbin.org/digest-auth/realm/user/passwd
+#Authorization: Digest {{username}} {{password}}
+#
+#### Authorization by token, part 1. Retrieve and save token.
+#POST https://httpbin.org/post
+#Content-Type: application/json
+#
+#{
+#  "token": "my-secret-token"
+#}
+#
+#> {% client.global.set("auth_token", response.body.json.token); %}
+#
+#### Authorization by token, part 2. Use token to authorize.
+#GET https://httpbin.org/headers
+#Authorization: Bearer {{auth_token}}
+
+###
+
+###get ticket for ticket
+POST http://localhost:3070/api/getticketforticket
+Content-Type: application/json
+email: ABLAKOVAII
+key: LS0tLS1CRUdJTiBQVUJMSUMgS0VZLS0tLS1NSUdmTUEwR0NTcUdTSWIzRFFFQkFRVUFBNEdOQURDQmlRS0JnUUN6Kzhma1dhNWlxZzdsTjlqMnVTM1NvbElDDQphdkZiVTl3TU9TbzdmWUxTRnJjdkN6Z3NibzVFREc2cWtDNXRFS1MzSEF3dVhRdTgxTHc5UmFkcGJnNEdMaWc1DQp0S09CNG9EaUVvcWNPYjB0QllrTnNsK1VHMWE5MFNaOGhxLzVjWTNHOGFFMGQxem5nc0lNcS85SVVOeXpVK0VFDQpWOFZxMjZFU0hlb0JsUTdnZndJREFRQUINCi0tLS0tRU5EIFBVQkxJQyBLRVktLS0tLQ0K
+
+> {% client.global.set("ticket_for_ticket", response.body.data.ticket_for_ticket);
+     client.global.set("server_key", response.body.data.server_key)%}
+
+###get ticket for token
+POST http://localhost:3070/api/getticketfortoken
+Content-Type: application/json
+ticketforticket: {{ticket_for_ticket}}
+
+{
+  "pass": null
+}
+
+
+

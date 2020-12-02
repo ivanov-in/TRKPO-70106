@@ -1,0 +1,128 @@
+<div class="d-flex justify-content-center  " style="background-color: chocolate;">
+
+    <form class="k-form" [formGroup]="registerForm">
+        <kendo-grid [data]="view | async" [rowClass]="rowCallback"
+                    [pageSize]="gridState.take" [pageable]="true"
+                    [skip]="gridState.skip"
+                    style="height: 74.8vh; padding-left: 30px; padding-right: 25px; border-style: none">
+            <ng-template kendoGridNoRecordsTemplate>
+                Нет заданий.
+                Попробуйте поменять условия поиска.
+            </ng-template>
+
+            <ng-template kendoGridToolbarTemplate>
+                <div style="max-width: 150px; float:left;">
+                    <span>C:</span>
+                    <kendo-datepicker
+                                      formControlName="date" format="dd.MM.yyyy"
+                                      [(ngModel)]="dateS"
+                                      [min]='min'
+                                      [max]='datePo'>
+
+                        <kendo-datetimepicker-messages
+                                today="Сегодня"
+                        >
+                        </kendo-datetimepicker-messages>
+                    </kendo-datepicker>
+                </div>
+                <div style="max-width: 150px; float:left;">
+                    <span>По:</span>
+                    <kendo-datepicker (valueChange)="onDatePicker($event)"
+                                      formControlName="date" format="dd.MM.yyyy"
+                                      [(ngModel)]="datePo"
+                                      [min]='min'
+                                      [max]='max'>
+
+                        <kendo-datetimepicker-messages
+                                today="Сегодня"
+                        >
+                        </kendo-datetimepicker-messages>
+                    </kendo-datepicker>
+                </div>
+
+                <div style="float: left; width: 263px">
+                    <span>Инспектор:</span>
+                    <kendo-combobox formControlName="insp"
+                                    [(ngModel)]="insp"
+                                    [textField]="'FIO'" [valueField]="'ID'"
+                                    [data]="listInsp"
+                                    placeholder="Введите ФИО курьера">
+                    </kendo-combobox>
+                </div>
+
+                <br/>
+                <br/>
+                <br/>
+                <div style="float: left; width: 568px">
+                    <span>Адрес:</span>
+                    <kendo-combobox formControlName="adrASUSE" (keyup)="getLookUpASUSE($event)"
+                                    [textField]="'RES'" [valueField]="'KOD'"
+                                    [(ngModel)]="adrASUSE"
+                                    [data]="listASUSE"
+                                    placeholder="Выберете адрес"></kendo-combobox>
+                </div>
+                <br/>
+
+<!--                <div style=" float: left;width: 568px">-->
+<!--                    <span>Абонент или номер договора:</span>-->
+<!--                    <kendo-combobox formControlName="abonOrDog" (keyup)="getDogPayers($event)"-->
+<!--                                    [textField]="'RES'" [valueField]="'KOD'" [data]="listAbonOrDog"-->
+<!--                                    placeholder="Выберете наименование абонента или номер договора"-->
+<!--                                    [(ngModel)]="abonOrDog">-->
+
+<!--                    </kendo-combobox>-->
+
+<!--                </div>-->
+
+                <div style="float:left">
+                    <button kendoButton style="float: left" [title]="'Подобрать фильтры'"
+                            (click)="search($event)">
+                        <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-search"
+                             fill="currentColor"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
+                            <path fill-rule="evenodd"
+                                  d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
+                        </svg>
+                    </button>
+                </div>
+                <div style="float: left">
+                    <br/>
+                </div>
+
+            </ng-template>
+            <kendo-grid-column field="TTIME" title="Плановое время посещения" width="130"
+                               [class]="{'codeColumn': true}">
+                <ng-template kendoGridCellTemplate let-dataItem>
+                    <span>{{dataItem.TTIME | date: 'dd.MM.yyy  HH:mm'}}</span>
+                </ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column field="ID_TASK" title="№" width="40" [class]="{'codeColumn': true}">
+            </kendo-grid-column>
+            <kendo-grid-column field="FIO" title="Курьер Ф.И.О" width="160" [class]="{'codeColumn': true}">
+            </kendo-grid-column>
+            <kendo-grid-column field="ADR" title="Адрес" width="290" [class]="{'codeColumn': true}">
+            </kendo-grid-column>
+            <kendo-grid-column title="Статус оплаты" width="120"
+                               [class]="{'codeColumn': true}">
+            </kendo-grid-column>
+            <kendo-grid-column title="Сумма заказа" width="60"
+                               [class]="{'codeColumn': true}">
+            </kendo-grid-column>
+<!--            <kendo-grid-column field="PURPOSE" title="Цель посещения" width="100"-->
+<!--                               [class]="{'codeColumn': true}">-->
+<!--                <ng-template kendoGridCellTemplate let-dataItem>-->
+<!--                    <span *ngIf="dataItem.PURPOSE == 1"> Технический аудит</span>-->
+<!--                    <span *ngIf="dataItem.PURPOSE == 2"> Присоединение</span>-->
+<!--                    <span *ngIf="dataItem.PURPOSE == 3"> Конроль ПУ</span>-->
+<!--                </ng-template>-->
+<!--            </kendo-grid-column>-->
+            <kendo-grid-column field="PRIM" title="Примечания" width="100" [class]="{'codeColumn': true}">
+            </kendo-grid-column>
+            <kendo-grid-column field="STATUS_NAME" title="Статус" width="100" [class]="{'codeColumn': true}">
+            </kendo-grid-column>
+        </kendo-grid>
+    </form>
+</div>
+

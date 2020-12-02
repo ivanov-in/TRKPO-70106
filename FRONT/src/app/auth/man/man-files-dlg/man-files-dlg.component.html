@@ -1,0 +1,162 @@
+<div class="example-wrapper" style="object-position: center">
+    <div class="k-overlay"></div>
+    <kendo-window [title]="'Файлы по заданию'"
+                  [width]="850"
+                  [height]="600"
+                  [resizable]="false"
+                  [draggable]="true"
+                  [keepContent]="true"
+                  [accessKey]=""
+                  state="">
+        <kendo-window-titlebar>
+            <div class='k-window-title'>Файлы по заданию</div>
+            <button kendoWindowCloseAction (click)="closeFiles('yes')"></button>
+        </kendo-window-titlebar>
+        <kendo-card [width]="'815px'">
+            <div class="section">
+                <div style="padding: 0.5rem">
+                                <input style="display: none" type="file" (change)="uploadFile($event.target.files)"
+                                       #hiddenfileinput>
+
+                    <button style="color: #D9534F" (click)="hiddenfileinput.click()"
+                            class="waves-effect waves-light btn">
+                        <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-camera-fill" fill="currentColor"
+                             xmlns="http://www.w3.org/2000/svg">
+                            <path d="M10.5 8.5a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                            <path fill-rule="evenodd"
+                                  d="M2 4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2h-1.172a2 2 0 0 1-1.414-.586l-.828-.828A2 2 0 0 0 9.172 2H6.828a2 2 0 0 0-1.414.586l-.828.828A2 2 0 0 1 3.172 4H2zm.5 2a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zm9 2.5a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0z"/>
+                        </svg>
+                        <i class="material-icons left"></i> Прикрепить файл (PDF/JPG/PNG)
+                    </button>
+
+
+                    <button style="color: #D9534F; float: right" (click)="signedActDlg()"
+                            class="waves-effect waves-light btn">
+                        <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-file-earmark-text"
+                             fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M4 0h5.5v1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h1V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z"/>
+                            <path d="M9.5 3V0L14 4.5h-3A1.5 1.5 0 0 1 9.5 3z"/>
+                            <path fill-rule="evenodd"
+                                  d="M5 11.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+                        </svg>
+                        <i class="material-icons left"></i> Прикрепить бумажный акт (PDF/JPG/PNG)
+                    </button>
+                    <br/>
+                </div>
+            </div>
+        </kendo-card>
+        <br/>
+        <kendo-grid [data]="listfIles"
+                    style="height: 400px;padding-left: 0px; padding-right: 0px; border-style: dashed; column-rule-style: dashed ">
+            <ng-template kendoGridNoRecordsTemplate>
+                Нет загруженных файлов.
+            </ng-template>
+
+            <kendo-grid-column title="Загруженные файлы" width="350">
+                <ng-template kendoGridCellTemplate let-dataItem>
+                    <button style="width: 590px; background-color: white" kendoButton (click)="getFile(dataItem.id)">
+                        <!--                         <svg width="1.5em" height="1.5em" viewBox="0 0 16 16"-->
+                        <!--                              class="bi bi-paperclip" fill="currentColor"-->
+                        <!--                              xmlns="http://www.w3.org/2000/svg">-->
+                        <!--                             <path fill-rule="evenodd"-->
+                        <!--                                   d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z"/>-->
+                        <!--                         </svg>-->
+                        {{dataItem.name}}
+                    </button>
+                </ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column title=" ✎" width="30">
+                <ng-template kendoGridCellTemplate let-dataItem>
+                    <input type="checkbox" kendoCheckBox [(ngModel)]="dataItem.signed" disabled/>
+                </ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column title=" 📄" width="30">
+                <ng-template kendoGridCellTemplate let-dataItem>
+                    <input type="checkbox" kendoCheckBox [(ngModel)]="dataItem.paper" disabled/>
+                </ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column width="40">
+                <ng-template kendoGridCellTemplate let-dataItem>
+                    <button kendoButton (click)="deleteFile(dataItem.id)" style="float: right">
+                        <svg color="#D9534F" width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-trash"
+                             fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                            <path fill-rule="evenodd"
+                                  d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                        </svg>
+                    </button>
+                </ng-template>
+            </kendo-grid-column>
+        </kendo-grid>
+    </kendo-window>
+<!--    <kendo-window *ngIf="signedFile"-->
+<!--                  [title]="'Файл'"-->
+<!--                  [width]="850"-->
+<!--                  [height]="300"-->
+<!--                  [resizable]="false"-->
+<!--                  [draggable]="false"-->
+<!--                  [keepContent]="true"-->
+<!--                  [accessKey]=""-->
+<!--                  state="">-->
+<!--        <kendo-window-titlebar>-->
+<!--            <div class='k-window-title'>Прикрепить файл</div>-->
+<!--            <button kendoWindowCloseAction (click)="closeSignedDlg('file')"></button>-->
+<!--        </kendo-window-titlebar>-->
+<!--        <span>SSSSSSSSSSSSSSSSSSSS</span>-->
+<!--        <br/>-->
+<!--                            <div class="example-wrapper" style="padding-left: 15px">-->
+<!--                                <input type="checkbox" id="cb-block" kendoCheckBox/>-->
+<!--                                <label style="color: #D9534F" class="k-checkbox-label" for="cb-block">Подписанный акт</label>-->
+<!--                            </div>-->
+<!--        <br/>-->
+<!--        <br/>-->
+<!--        <kendo-dialog-actions>-->
+<!--            <input style="display: none" type="file" (change)="uploadFile($event.target.files)"-->
+<!--                   #hiddenfileinput>-->
+<!--            <button kendoButton (click)="hiddenfileinput.click()">Прикрепить файл</button>-->
+<!--        </kendo-dialog-actions>-->
+<!--    </kendo-window>-->
+    <kendo-window *ngIf="signedAct"
+                  [title]="'Акт'"
+                  [width]="850"
+                  [height]="250"
+                  [resizable]="false"
+                  [draggable]="false"
+                  [keepContent]="true"
+                  [accessKey]=""
+                  state="">
+        <kendo-window-titlebar>
+            <div class='k-window-title'>Прикрепить бумажный акт</div>
+            <button kendoWindowCloseAction (click)="closeSignedDlg('photo')"></button>
+        </kendo-window-titlebar>
+        <br/>
+        <br/>
+        <input style="display: none" type="file" (change)="uploadPaper($event.target.files)"
+               #hiddenphotoinput>
+        <button style="color: #818A91; float: right" (click)="hiddenphotoinput.click()"
+                class="waves-effect waves-light btn">
+            <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-file-earmark-text"
+                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 0h5.5v1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h1V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z"/>
+                <path d="M9.5 3V0L14 4.5h-3A1.5 1.5 0 0 1 9.5 3z"/>
+                <path fill-rule="evenodd"
+                      d="M5 11.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+            </svg>
+            <i class="material-icons left"></i> Прикрепить НЕподписанный акт (PDF/JPG/PNG)
+        </button>
+        <input style="display: none" type="file" (change)="uploadPaperSigned($event.target.files)"
+               #hiddenphotoinput2>
+        <button style="color: #D9534F; float: right" (click)="hiddenphotoinput2.click()"
+                class="waves-effect waves-light btn">
+            <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-file-earmark-text"
+                 fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                <path d="M4 0h5.5v1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h1V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z"/>
+                <path d="M9.5 3V0L14 4.5h-3A1.5 1.5 0 0 1 9.5 3z"/>
+                <path fill-rule="evenodd"
+                      d="M5 11.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 0 1h-2a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5zm0-2a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5z"/>
+            </svg>
+            <i class="material-icons left"></i> Прикрепить подписанный акт (PDF/JPG/PNG)
+        </button>
+    </kendo-window>
+</div>
+

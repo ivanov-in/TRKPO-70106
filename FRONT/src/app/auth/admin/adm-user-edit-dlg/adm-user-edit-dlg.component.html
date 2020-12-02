@@ -1,0 +1,79 @@
+<div class="k-overlay"></div>
+<kendo-window
+              [width]="650"
+              [height]="470"
+              [resizable]="false"
+              [draggable]="true"
+              [keepContent]="true"
+              [accessKey]=""
+              state="">
+    <kendo-window-titlebar>
+        <div class='k-window-title'>Редактировать</div>
+        <button kendoWindowCloseAction (click)="close.emit('no')"></button>
+    </kendo-window-titlebar>
+    <div>
+        <div style="padding: 0.5rem">
+            <kendo-label text="Ф.И.О:">
+                <br>
+                <kendo-label class="lb-fio">{{modelIn.FIO}}</kendo-label>
+            </kendo-label>
+        </div>
+        <div style="padding: 0.5rem 0.5rem 0.5rem 0.5rem;">
+            <kendo-label text="Редактировать телефон">
+                <kendo-maskedtextbox  style="width: 100%" [(ngModel)]="modelOut.TEL" (valueChange)="onEdit($event)"></kendo-maskedtextbox>
+            </kendo-label>
+        </div>
+        <div class="container d-flex justify-content-between" style="padding: 0.5rem">
+            <kendo-card>
+                <kendo-card-header class="k-hbox">
+                    <h1 kendoCardTitle>Редактирование роли</h1>
+                </kendo-card-header>
+                <div class="section">
+                    <div style="padding: 0.5rem">
+                        <input type="checkbox" id="cb-ins" kendoCheckBox [(ngModel)]="modelOut.INS" (change)="onEdit($event)"/>
+                        <label class="k-checkbox-label" for="cb-ins">Курьер</label>
+                    </div>
+                </div>
+                <div class="section">
+                    <div style="padding: 0.5rem">
+                        <input type="checkbox" id="cb-adm" kendoCheckBox [(ngModel)]="modelOut.ADM" (change)="onEdit($event)"/>
+                        <label class="k-checkbox-label" for="cb-adm">Администратор</label>
+                    </div>
+                </div>
+                <div class="section">
+                    <div style="padding: 0.5rem">
+                        <input type="checkbox" id="cb-man" kendoCheckBox [(ngModel)]="modelOut.MAN" (change)="onEdit($event)"/>
+                        <label class="k-checkbox-label" for="cb-man">Руководитель</label>
+                    </div>
+                </div>
+            </kendo-card>
+            <kendo-card>
+                <div class="section">
+                    <div style="padding: 0.5rem">
+                        <span><br/></span>
+                        <span><br/></span>
+                        <span><br/></span>
+                        <input type="checkbox" id="cb-clear-pass" kendoCheckBox [(ngModel)]="clear_pass" (change)="onEdit($event)" />
+                        <label class="k-checkbox-label" for="cb-clear-pass">Сбросить пароль</label>
+
+                    </div>
+                </div>
+                <div class="section">
+                    <div style="padding: 0.5rem">
+                        <input type="checkbox" id="cb-block" kendoCheckBox [(ngModel)]="modelOut.USER_LOCK" (change)="onEdit($event)"/>
+                        <label class="k-checkbox-label" for="cb-block">Заблокирован</label>
+                    </div>
+                </div>
+            </kendo-card>
+        </div>
+    </div>
+    <div style="padding: 0.5rem">
+        <kendo-dialog-actions>
+            <button style="margin: 0.5rem" kendoButton (click)="close.emit('no')" [look]="'outline'">Отмена</button>
+            <button style="margin: 0.5rem" kendoButton [toggleable]="false" [look]="'outline'" [disabled]=!canSave
+                    (click)="onSaveClick()"
+                    primary="true">Сохранить
+            </button>
+        </kendo-dialog-actions>
+    </div>
+</kendo-window>

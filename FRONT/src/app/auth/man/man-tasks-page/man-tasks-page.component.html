@@ -1,0 +1,410 @@
+<meta http-equiv="x-ua-compatible" content="IE=Edge">
+
+<div class="d-flex justify-content-center" style="background-color: #ECEEEF;">
+    <app-man-task-page-dlg *ngIf="openedChange"
+                           [EditItem]="openedChangeDataItem"
+                           (close)="closeChange($event)"
+    ></app-man-task-page-dlg>
+    <app-errormsg-component *ngIf="errOpen"
+                            [EditItem]="errMsg"
+                            (close)="closeErrDialog($event)"
+    ></app-errormsg-component>
+
+    <div class="d-flex align-items-start " style="height: 80vh; padding-top: 5px;">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-4">
+                    <form class="k-form" [formGroup]="registerForm">
+                        <kendo-grid [data]="viewListofTask | async"
+                                    style="height: 78.6vh; padding-left: 0px; padding-right: 0px; border-style: none"
+                                    (cellClick)="indexClickHandler($event)"
+                                    (cellClose)="indexCloseHandler($event)"
+                                    [rowClass]="rowCallback">
+                            <ng-template kendoGridNoRecordsTemplate>
+                                Нет заданий на текущую дату или курьера.
+                                Попробуйте поменять дату или выбрать другого курьера.
+                            </ng-template>
+
+                            <ng-template kendoGridToolbarTemplate>
+                                <div style="max-width: 300px; float:left;">
+                                    <kendo-datepicker (valueChange)="onDatePicker($event)"
+                                                      formControlName="date" format="dd.MM.yyyy"
+                                                      style="height: 3vh; width: 200px; border-style: none"
+                                                      title="Календарь"
+                                                      [formatPlaceholder]="{ day: 'день', month: 'месяц', year: 'год'}"
+
+                                                      [placeholder]="'Введите дату...'"
+                                                      [(ngModel)]="mainDatePic"
+                                                      [min]='min'
+                                                      [max]='max'>
+                                        <kendo-datetimepicker-messages
+                                                today="Сегодня"
+                                        >
+                                        </kendo-datetimepicker-messages>
+
+                                    </kendo-datepicker>
+                                </div>
+                                <div class="example-wrapper">
+                                    <button kendoButton style="float: right" *ngIf="!opened" (click)="open($event)"
+                                            id="btmNewTask" title="Добавить задание" (mousedown)="getInsp($event,null)">
+                                        <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-plus-circle"
+                                             fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd"
+                                                  d="M8 3.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5H4a.5.5 0 0 1 0-1h3.5V4a.5.5 0 0 1 .5-.5z"/>
+                                            <path fill-rule="evenodd"
+                                                  d="M7.5 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0V8z"/>
+                                            <path fill-rule="evenodd"
+                                                  d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                        </svg>
+                                    </button>
+                                    <button kendoButton style="float: right" title="Отправить все"
+                                            (click)="sendTask($event,viewListofTask)" [disabled]="inspector">
+                                        <svg width="1.5em" height="1.5em" viewBox="0 0 16 16"
+                                             class="bi bi-arrow-up-circle"
+                                             fill="currentColor"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd"
+                                                  d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                            <path fill-rule="evenodd"
+                                                  d="M4.646 8.354a.5.5 0 0 0 .708 0L8 5.707l2.646 2.647a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 0 0 0 .708z"/>
+                                            <path fill-rule="evenodd"
+                                                  d="M8 11.5a.5.5 0 0 0 .5-.5V6a.5.5 0 0 0-1 0v5a.5.5 0 0 0 .5.5z"/>
+                                        </svg>
+                                    </button>
+                                    <div class="k-overlay" *ngIf="opened"></div>
+                                    <kendo-window title="Добавить задание" *ngIf="opened" (close)="close('cancel')"
+                                                  [width]="650"
+                                                  [height]="590" [(top)]="windowTop" [(left)]="windowLeft"
+                                                  [resizable]="false"
+                                                  [draggable]="true"
+                                                  [keepContent]="true"
+                                                  [accessKey]=""
+                                                  state="">
+                                        <kendo-window-titlebar>
+                                            <div class='k-window-title'>Добавить задание</div>
+                                            <button kendoWindowCloseAction (close)="close('cancel')"></button>
+                                        </kendo-window-titlebar>
+
+                                        <div class="example-wrapper">
+                                            <!--                                        <div *ngFor="let arr of inspRoutesArrArr">-->
+                                            <!--                                            <p>{{arr.inspRoutesArr[0].addr[arr.inspRoutesArr[0].addr.length - 1]}}</p>-->
+
+                                            <!--
+                                                                           </div>-->
+
+                                            <kendo-label text="Адрес:">
+                                            </kendo-label>
+                                            <kendo-combobox formControlName="comboAdr"
+                                                            (ngModelChange)="comboClear()"
+                                                            [(ngModel)]="selectedItem"
+                                                            (keyup)="onkeydown($event)"
+                                                            (valueChange)="comboChange()"
+                                                            [textField]="'address'" [valueField]="'coord'"
+                                                            [placeholder]="'Введите адрес...'"
+                                                            [data]="listItems">
+                                            </kendo-combobox>
+                                            <span *ngIf="ndFalse == true"
+                                                  style="color: #D9534F"> Введите номер дома</span>
+                                            <br/>
+                                            <kendo-label text="Сумма заказа:">
+                                            </kendo-label>
+                                            <input (ngModelChange)="comboClear()" kendoTextBox
+                                                   formControlName="comboPurpose"
+                                                   [placeholder]="'Добавьте сумму заказа...'"/>
+                                            <br/>
+                                            <kendo-label text="Статус оплаты:">
+                                            </kendo-label>
+                                            <kendo-combobox (ngModelChange)="comboClear()"
+                                                            formControlName="comboPurpose"
+                                                            (valueChange)="comboChange()"
+                                                            [placeholder]="'Добавьте статус оплаты...'"
+                                                            [(ngModel)]="selectedStatus"
+                                                            [data]="listStatus">
+                                            </kendo-combobox>
+                                            <br/>
+                                            <kendo-label text="Курьер:">
+                                            </kendo-label>
+                                            <kendo-combobox (ngModelChange)="comboClear()" formControlName="comboInsp"
+                                                            (valueChange)="comboChange()"
+                                                            [placeholder]="'Выбирете курьера...'"
+                                                            [textField]="'FIO'" [valueField]="'ID'"
+                                                            [(ngModel)]="selectedInsp"
+                                                            [data]="listInsp">
+                                            </kendo-combobox>
+                                            <br/>
+                                            <kendo-label text="Дата:">
+                                            </kendo-label>
+                                            <kendo-datepicker
+                                                    formControlName="date" format="dd.MM.yyyy"
+                                                    style="height: 3vh; border-style: none"
+                                                    (ngModelChange)="comboClear()"
+                                                    (valueChange)="comboChange()"
+                                                    [formatPlaceholder]="{ day: 'день', month: 'месяц', year: 'год'}"
+                                                    [placeholder]="'Введите дату...'"
+                                                    [(ngModel)]="datePic"
+                                                    [min]='min'
+                                                    [max]='max'>
+
+                                                <kendo-datetimepicker-messages
+                                                        today="Сегодня"
+                                                >
+                                                </kendo-datetimepicker-messages>
+                                            </kendo-datepicker>
+                                            <br/>
+                                            <kendo-label text="Время:">
+                                            </kendo-label>
+                                            <kendo-timepicker
+                                                    formControlName="time"
+                                                    format="HH:mm"
+                                                    [formatPlaceholder]="{ hour: 'часы', minute: 'минуты'}"
+                                                    [placeholder]="'Введите время...'"
+                                                    [(ngModel)]="timePic"
+                                                    (ngModelChange)="comboClear()"
+                                                    (valueChange)="comboChange()">
+
+                                                <kendo-datetimepicker-messages
+                                                        now="Сейчас"
+                                                >
+                                                </kendo-datetimepicker-messages>
+                                            </kendo-timepicker>
+                                            <span><br/></span>
+                                            <span><br/></span>
+                                        </div>
+
+                                        <kendo-dialog-actions>
+                                            <button kendoButton (click)="close('no')">Отмена</button>
+                                            <button kendoButton [toggleable]="true"
+                                                    [disabled]="disabled" (mousedown)="onNewTask($event)"
+                                                    (click)="close('yes')"
+                                                    primary="true">Сохранить
+                                            </button>
+                                        </kendo-dialog-actions>
+                                    </kendo-window>
+                                    <kendo-dialog title="Удаление задания" *ngIf="delete"
+                                                  (close)="closeDelete('cancel')"
+                                                  [width]="668"
+                                                  [height]="445">
+                                        <form translate="no" class="d-flex align-items-center"
+                                              style="padding-top: 50px">
+                                            <div class="d-flex align-items-center">
+                                                <fieldset class="k-form-fieldset"
+                                                          style="width: 648px; align-content: center">
+                                                    <kendo-avatar style=" margin-left: 294px; font-size: 24px"
+                                                                  class="k-avatar"
+                                                                  width="60px" height="60px"
+                                                                  [shape]="'circle'">
+                                                        <svg width="2em" height="2em" viewBox="0 0 16 16"
+                                                             class="bi bi-trash" fill="currentColor"
+                                                             xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                                            <path fill-rule="evenodd"
+                                                                  d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                                        </svg>
+                                                    </kendo-avatar>
+                                                    <div style=" text-align: center;">
+                                                        <kendo-label style="font: 20px sans-serif;padding-left: 120px"
+                                                                     text="Вы уверены, что хотите удалить задание?"></kendo-label>
+                                                    </div>
+                                                    <div style=" text-align: center;">
+                                                        <kendo-label style="font: 15px sans-serif;padding-left: 190px"
+                                                                     text="Эту операцию невозможно отменить">
+                                                        </kendo-label>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                        </form>
+                                        <kendo-dialog-actions>
+                                            <button kendoButton (click)="closeDelete('no')"> Нет</button>
+                                            <button kendoButton primary="true" [togglable]="true" (click)="close('yes')"
+                                                    (mousedown)="deleteTask($event)"> Да
+                                            </button>
+                                        </kendo-dialog-actions>
+                                    </kendo-dialog>
+                                    <kendo-dialog title="Вы уверенны, что хотите отправить задания?"
+                                                  *ngIf="openErrorSend == true"
+                                                  (close)="closeErrorSend('cancel')"
+                                                  [width]="668"
+                                                  [height]="465">
+                                        <form translate="no" class="d-flex align-items-center"
+                                              style="padding-top: 50px">
+                                            <div class="d-flex align-items-center">
+                                                <fieldset class="k-form-fieldset"
+                                                          style="width: 648px; align-content: center">
+                                                    <kendo-avatar
+                                                            style=" margin-left: 294px; font-size: 24px;color: #D9534F"
+                                                            class="k-avatar"
+                                                            width="60px" height="60px"
+                                                            [shape]="'circle'">
+                                                        <svg width="3em" height="3em" viewBox="0 0 16 16"
+                                                             class="bi bi-exclamation-circle" fill="currentColor"
+                                                             xmlns="http://www.w3.org/2000/svg">
+                                                            <path fill-rule="evenodd"
+                                                                  d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                                            <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+                                                        </svg>
+                                                    </kendo-avatar>
+                                                    <br/>
+                                                    <div style="text-align: center">
+                                                        <kendo-label
+                                                                style="font: 15px sans-serif; color: #D9534F">{{textErrSend}}
+                                                        </kendo-label>
+                                                    </div>
+                                                    <br/>
+                                                    <br/>
+                                                    <div style="text-align: center; padding-left: 185px">
+                                                        <kendo-label
+                                                                style="font: 15px sans-serif"
+                                                                text="Заполните недостающую информацию">
+                                                        </kendo-label>
+                                                    </div>
+                                                    <div style="text-align: center; padding-left: 240px">
+                                                        <kendo-label
+                                                                style="font: 15px sans-serif"
+                                                                text="или добавьте задание">
+                                                        </kendo-label>
+                                                    </div>
+                                                    <br/>
+                                                    <span *ngIf="countSendTask === 1"
+                                                          style="text-align: center;padding-left: 220px">Отправленно {{countSendTask}}
+                                                        задание</span>
+                                                    <span *ngIf="countSendTask > 1 || countSendTask === 0"
+                                                          style="text-align: center;padding-left: 215px">Отправленно {{countSendTask}}
+                                                        заданий/задания</span>
+                                                    <br/>
+                                                    <br/>
+                                                    <br/>
+                                                </fieldset>
+                                            </div>
+                                        </form>
+                                        <kendo-dialog-actions>
+                                            <button kendoButton (click)="closeErrorSend('no')">Ок</button>
+                                        </kendo-dialog-actions>
+                                    </kendo-dialog>
+                                    <kendo-dialog title="Задания отправленны"
+                                                  *ngIf="sendTaskSuccessful == true"
+                                                  (close)="closeSendSuc('cancel')"
+                                                  [width]="468"
+                                                  [height]="245">
+                                        <span *ngIf="countSendTask === 1"
+                                              style="text-align: center;padding-left: 120px">Отправленно {{countSendTask}}
+                                            задание</span>
+                                        <span *ngIf="countSendTask > 1" style="text-align: center;padding-left: 115px">Отправленно {{countSendTask}}
+                                            заданий/задания</span>
+                                        <kendo-dialog-actions>
+                                            <button kendoButton (click)="closeSendSuc('yes')">Ок</button>
+                                        </kendo-dialog-actions>
+                                    </kendo-dialog>
+                                </div>
+                            </ng-template>
+                            <div>
+                                <kendo-grid-column title="Время" width="13" [class]="{'codeColumn': true}"
+                                                   editor="numeric">
+                                    <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                                        <!--   <small>
+                                               <span> {{dataItem.TTIME | date: 'dd.MM.yyy'}}</span>
+                                           </small>-->
+
+                                        <span style="padding-left: 9px"> {{dataItem.TTIME | date: 'HH:mm'}}</span>
+
+                                    </ng-template>
+                                </kendo-grid-column>
+                                <kendo-grid-column field="FIO" title="Задания" width="96"
+                                                   [class]="{'codeColumn': true}">
+                                    <ng-template kendoGridCellTemplate let-dataItem>
+                                        <span style="font-weight: bold">Адрес: </span>
+                                        <span>Россия, Республика Татарстан, Казань, улица Пушкина, 5/43</span>
+                                        <br/>
+                                        <!--                                        <span *ngIf="dataItem.LAT !== null && dataItem.LAN !== null"> {{dataItem.ADR_YA}}</span>-->
+                                        <!--                                        <span *ngIf="dataItem.LAT === null && dataItem.LAN === null"> Создано на мобильном устройстве</span><br/>-->
+                                        <span style="font-weight: bold">Сумма заказа: </span><span>290p</span><br/>
+                                        <span style="font-weight: bold">Статус оплаты: </span><span>не оплачен</span><br/>
+                                        <span style="font-weight: bold">Курьер: </span><span>Клементьев А Ю</span>
+                                        <!--                                        <span>{{dataItem.FIO}}</span>-->
+                                        <br/>
+                                        <span style="font-weight: bold">Примечания: </span>
+                                        <!--                                        <span>{{dataItem.PRIM}}</span>-->
+                                        <div class="example-wrapper">
+                                            <button kendoButton title="Изменить"
+                                                    (click)="openChange(dataItem)"
+                                                    (mousedown)="getInsp($event,dataItem)">
+                                                <svg width="1.5em" height="1.5em" viewBox="0 0 16 16"
+                                                     class="bi bi-pencil"
+                                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd"
+                                                          d="M11.293 1.293a1 1 0 0 1 1.414 0l2 2a1 1 0 0 1 0 1.414l-9 9a1 1 0 0 1-.39.242l-3 1a1 1 0 0 1-1.266-1.265l1-3a1 1 0 0 1 .242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z"/>
+                                                    <path fill-rule="evenodd"
+                                                          d="M12.146 6.354l-2.5-2.5.708-.708 2.5 2.5-.707.708zM3 10v.5a.5.5 0 0 0 .5.5H4v.5a.5.5 0 0 0 .5.5H5v.5a.5.5 0 0 0 .5.5H6v-1.5a.5.5 0 0 0-.5-.5H5v-.5a.5.5 0 0 0-.5-.5H3z"/>
+                                                </svg>
+                                            </button>
+                                            <button kendoButton title="Удалить" style="color: #D9534F"
+                                                    (click)="deletConfirm(dataItem,$event)">
+                                                <svg width="1.5em" height="1.5em" viewBox="0 0 16 16"
+                                                     class="bi bi-trash" fill="currentColor"
+                                                     xmlns="http://www.w3.org/2000/svg">
+                                                    <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                                    <path fill-rule="evenodd"
+                                                          d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                                </svg>
+                                            </button>
+
+                                            <!--                                            <button kendoButton *ngIf="(dataItem.STATUS===12)" look="flat"-->
+                                            <!--                                                    [disabled]="true">-->
+                                            <!--                                                <svg width="1.5em" height="1.5em" viewBox="0 0 16 16"-->
+                                            <!--                                                     class="bi bi-pencil"-->
+                                            <!--                                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">-->
+                                            <!--                                                    <path fill-rule="evenodd"-->
+                                            <!--                                                          d="M11.293 1.293a1 1 0 0 1 1.414 0l2 2a1 1 0 0 1 0 1.414l-9 9a1 1 0 0 1-.39.242l-3 1a1 1 0 0 1-1.266-1.265l1-3a1 1 0 0 1 .242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z"/>-->
+                                            <!--                                                    <path fill-rule="evenodd"-->
+                                            <!--                                                          d="M12.146 6.354l-2.5-2.5.708-.708 2.5 2.5-.707.708zM3 10v.5a.5.5 0 0 0 .5.5H4v.5a.5.5 0 0 0 .5.5H5v.5a.5.5 0 0 0 .5.5H6v-1.5a.5.5 0 0 0-.5-.5H5v-.5a.5.5 0 0 0-.5-.5H3z"/>-->
+                                            <!--                                                </svg>-->
+                                            <!--                                            </button>-->
+
+                                            <button kendoButton *ngIf="(emptyTask == true)" look="flat"
+                                                    style="color: #D9534F"
+                                                    [disabled]="true">
+                                                <svg width="1.5em" height="1.5em" viewBox="0 0 16 16"
+                                                     class="bi bi-exclamation-circle-fill" fill="currentColor"
+                                                     xmlns="http://www.w3.org/2000/svg">
+                                                    <path fill-rule="evenodd"
+                                                          d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                                                </svg>
+                                            </button>
+                                            <span style="padding-left: 7px">Задание </span>
+                                            <span style="font-weight: bold"> 1 </span>
+                                            <span style="padding-left: 20px">Создано:  </span>
+                                            <span style="font-weight: bold"> {{dataItem.PUSER}}</span>
+                                        </div>
+                                    </ng-template>
+                                </kendo-grid-column>
+                            </div>
+                        </kendo-grid>
+                    </form>
+                </div>
+                <div class="col-6">
+                    <div id="map" #dy_aiv style=" height: 78.6vh">
+                    </div>
+                </div>
+                <div class="col-2">
+                    <form class="k-form" [formGroup]="registerForm">
+                        <kendo-grid [data]="view | async" [selectable]="selectableSettings"
+                                    [rowClass]="rowDisable"
+                                    kendoGridSelectBy="ID_USER" [selectedKeys]="selectUsers"
+                                    style="height: 78.6vh; padding-left: 0px; width: 290px; padding-right: 0px; border-style: none"
+                                    (selectionChange)="setSelectableSettings($event)"
+                                    (cellClick)="selectUsersClick($event)">
+                            <ng-template kendoGridNoRecordsTemplate>
+                                Нет курьеров.
+                            </ng-template>
+                            <kendo-grid-column field="FIO" title="Курьер ФИО" width="130"
+                                               [class]="{'codeColumns': true}">
+                                <ng-template kendoGridCellTemplate let-dataItem>
+                                    <span>{{dataItem.FIO}}</span>
+                                </ng-template>
+                            </kendo-grid-column>
+                        </kendo-grid>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,53 @@
+<div class="d-flex justify-content-center  " style="background-color: chocolate;">
+  <div class="d-flex align-items-start " style="height: 75vh; padding-top: 1px;">
+    <kendo-grid [data]="view | async" [rowClass]="rowCallback" [formGroup]="registerForm"
+                style="height: 74.8vh; padding-left: 30px; padding-right: 25px; border-style: none">
+      <ng-template kendoGridNoRecordsTemplate>
+        Нет дейсвий на текущую дату.
+        Попробуйте поменять условия поиска.
+      </ng-template>
+      <ng-template kendoGridToolbarTemplate>
+        <div style="max-width: 300px; float:left;">
+          <kendo-datepicker (valueChange)="onDatePicker($event)"
+                            formControlName="date" format="dd.MM.yyyy"
+                            [(ngModel)]="datePic"
+                            style="height: 3vh; width: 200px; border-style: none" title="Календарь"
+                            [min]='min'
+                            [max]='max'>
+
+            <kendo-datetimepicker-messages
+                    today="Сегодня"
+            >
+            </kendo-datetimepicker-messages>
+          </kendo-datepicker>
+        </div>
+        <div style="max-width: 400px; float:left;">
+          <input placeholder="Поиск" kendoTextBox style="max-width: 400px; float:left;"
+                 (input)="onFilter($event)"/>
+        </div>
+        <!--        <button kendoGridAddCommand>+ Добавить пользователя</button>-->
+        <!--        <button kendoButton [primary]="true">+ Добавить пользователя</button>-->
+      </ng-template>
+      <kendo-grid-column field="ACTION" title="Действие в системе"  [class]="{'codeColumn': true}">
+      </kendo-grid-column>
+      <kendo-grid-column title="Дата" width="150"[class]="{'codeColumn': true}">
+        <ng-template kendoGridCellTemplate let-dataItem>
+          <span>{{dataItem.DTC | date: 'dd.MM.yyy  HH:mm:ss'}}</span>
+        </ng-template>
+      </kendo-grid-column>
+      <kendo-grid-column field="PUSER" title="Логин cотрудника" width="150"  [class]="{'codeColumn': true}">
+      </kendo-grid-column>
+      <kendo-grid-column field="FIO" title="Ф.И.О сотрудника" width="360" [class]="{'codeColumn': true}">
+      </kendo-grid-column>
+<!--      <kendo-grid-column field="SUCCESS" title="Результат" width="100" [class]="{'codeColumn': true}">-->
+<!--      </kendo-grid-column>-->
+<!--      <kendo-grid-column field="ERRORSS" title="Ошибки" width="170" [class]="{'codeColumn': true}">-->
+<!--      </kendo-grid-column>-->
+<!--      <kendo-grid-command-column title="" width="115">-->
+<!--        <ng-template kendoGridCellTemplate>-->
+<!--          <button kendoGridEditCommand [primary]="false">Подробно</button>-->
+<!--        </ng-template>-->
+<!--      </kendo-grid-command-column>-->
+    </kendo-grid>
+  </div>
+</div>

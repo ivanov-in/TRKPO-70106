@@ -1,0 +1,212 @@
+<div class="example-wrapper" style="object-position: center" [formGroup]="registerForm">
+    <app-man-files-dlg *ngIf="openFilesDialog"
+                       [EditItem]="uploadFiles"
+                       (close)="closeFilesDialog($event)"
+    ></app-man-files-dlg>
+    <app-errormsg-component *ngIf="errOpen"
+                            [EditItem]="errMsg"
+                            (close)="closeErrDialog($event)"
+    ></app-errormsg-component>
+    <div class="k-overlay"></div>
+    <kendo-window [title]="'Изменить задание'"
+                  [width]="750"
+                  [height]="640"
+                  [resizable]="false"
+                  [draggable]="true"
+                  [keepContent]="true"
+                  [accessKey]=""
+                  state="">
+        <kendo-window-titlebar>
+            <div class='k-window-title'>Изменить задание</div>
+            <button kendoWindowCloseAction (click)="onChangeTask('click cancel')"></button>
+        </kendo-window-titlebar>
+        <div class="example-wrapper">
+            <span *ngIf="readyTask === true" style="color: #D9534F">Вы не можете вносить изменения (кроме прикрепления новых файлов), так как это задание имеет статус "Выполнено"</span>
+            <span *ngIf="adrYANULL === true && readyTask === false" style="color: #D9534F">Вы не можете вносить изменения адреса, так как это задание созданно инспектором на мобильном устройстве</span>
+            <kendo-combobox formControlName="comboEdit"
+                            (ngModelChange)="comboSaveClear()"
+                            [(ngModel)]="selectedItem"
+                            (keyup)="onkeydown($event)"
+                            [disabled]="adrYANULL"
+                            (valueChange)="comboSaveChange($event)"
+                            [textField]="'address'" [valueField]="'coord'"
+                            [data]="listItems" style="width: 715px">
+            </kendo-combobox>
+<!--            <span *ngIf="selectedItem.address === null" style="color: #D9534F"> Введите адрес</span>-->
+            <input kendoTextBox style="width: 715px"
+                   formControlName="comboPurpose"
+                   [placeholder]="'Добавьте сумму заказа...'"/>
+            <kendo-combobox formControlName="comboAim"
+                            [disabled]="readyTask"
+                            (ngModelChange)="comboSaveClear()"
+                            (valueChange)="comboSaveChange($event)"
+                            [(ngModel)]="selectedStatus"
+                            [data]="listStatus" style="width: 715px">
+            </kendo-combobox>
+            <kendo-combobox formControlName="comboChangeInsp"
+                            [disabled]="readyTask"
+                            [disabled]="statusTask"
+                            (ngModelChange)="comboSaveClear()"
+                            (valueChange)="comboSaveChange($event)"
+                            [(ngModel)]="selectedName"
+                            [textField]="'FIO'" [valueField]="'ID'"
+                            [data]="listInsp" style="width: 715px">
+            </kendo-combobox>
+            <span><br/></span>
+            <kendo-datepicker
+                    [disabled]="readyTask"
+                    formControlName="date" format="dd.MM.yyyy"
+                    style="height: 3vh; border-style: none"
+                    [formatPlaceholder]="{ day: 'день', month: 'месяц', year: 'год'}"
+                    [placeholder]="'Введите дату...'"
+                    (ngModelChange)="comboSaveClear()"
+                    (valueChange)="comboSaveChange($event)"
+                    [(ngModel)]="datePic"
+                    [min]='min'
+                    [max]='max' style="width: 715px">
+
+                <kendo-datetimepicker-messages
+                        today="Сегодня"
+                >
+                </kendo-datetimepicker-messages>
+            </kendo-datepicker>
+            <div class="example-wrapper">
+                <kendo-timepicker
+                        [disabled]="readyTask"
+                        formControlName="time"
+                        format="HH:mm"
+                        [formatPlaceholder]="{ hour: 'часы', minute: 'минуты'}"
+                        [placeholder]="'Введите время...'"
+                        [(ngModel)]="timePic"
+                        (ngModelChange)="comboSaveClear()"
+                        (valueChange)="comboSaveChange($event)" style="width: 715px">
+
+                    <kendo-datetimepicker-messages
+                            now="Сейчас"
+                    >
+                    </kendo-datetimepicker-messages>
+                </kendo-timepicker>
+
+                <!--                <input formControlName="emptyDOG"-->
+                <!--                       *ngIf="openedChangeDataItem.PURPOSE == 2" type="checkbox"-->
+                <!--                       kendoCheckBox [(ngModel)]="emptyDOG"/>-->
+                <!--                <span *ngIf="openedChangeDataItem.PURPOSE == 2"> Отсутствует договор, ввести в ручную</span>-->
+                <!--                <button kendoButton style="float: right">Получить данные по задаче-->
+                <!--                </button>-->
+            </div>
+            <span><br/></span>
+            <div style="float: right">
+<!--                <button kendoButton (click)="getNameFiles($event)" title="Посмотреть файлы">-->
+<!--                    <svg width="1.5em" height="1.5em" viewBox="0 0 16 16"-->
+<!--                         class="bi bi-paperclip" fill="currentColor"-->
+<!--                         xmlns="http://www.w3.org/2000/svg">-->
+<!--                        <path fill-rule="evenodd"-->
+<!--                              d="M4.5 3a2.5 2.5 0 0 1 5 0v9a1.5 1.5 0 0 1-3 0V5a.5.5 0 0 1 1 0v7a.5.5 0 0 0 1 0V3a1.5 1.5 0 1 0-3 0v9a2.5 2.5 0 0 0 5 0V5a.5.5 0 0 1 1 0v7a3.5 3.5 0 1 1-7 0V3z"/>-->
+<!--                    </svg>-->
+<!--                </button>-->
+                <!--      -->
+            </div>
+            <div style="float: right; padding-right: 18px">
+<!--                <span>Прикрепленные файлы ({{countFiles}}): </span>-->
+                <!--                <div *ngIf="nullFiles === true">-->
+                <!--                    <span style="color: #D9534F">Файлы не найдены</span>-->
+                <!--                </div>-->
+
+            </div>
+            <span><br/></span>
+
+            <kendo-label text="Примечания:">
+            </kendo-label>
+            <input *ngIf="readyTask === true" kendoTextBox formControlName="prim"
+                   disabled="readyTask"
+                   (ngModelChange)="comboSaveClear()"
+                   [(ngModel)]="prim"
+                   [placeholder]="'Примечания'" style="width: 715px"/>
+            <input *ngIf="readyTask === false" kendoTextBox formControlName="prim"
+                   (ngModelChange)="comboSaveClear()"
+                   [(ngModel)]="prim"
+                   [placeholder]="'Примечания'" style="width: 715px"/>
+            <br/>
+
+            <br/>
+            <p>Информация о контактах:</p>
+            <kendo-label text="Ф.И.О.:">
+            </kendo-label>
+            <input *ngIf="readyTask === true" kendoTextBox formControlName="contactFio"
+                   disabled="readyTask"
+                   (ngModelChange)="comboSaveClear()"
+                   [(ngModel)]="contactFio"
+                   [placeholder]="'Фамилия Имя Очество контактного лица'" style="width: 715px"/>
+            <input *ngIf="readyTask === false" kendoTextBox formControlName="contactFio"
+                   (ngModelChange)="comboSaveClear()"
+                   [(ngModel)]="contactFio"
+                   [placeholder]="'Фамилия Имя Очество контактного лица'" style="width: 715px"/>
+            <br/>
+            <br/>
+
+            <kendo-label text="Телефон:">
+            </kendo-label>
+            <label>
+                <input *ngIf="readyTask === true" kendoTextBox formControlName="contactTel"
+                       disabled="readyTask"
+                       (ngModelChange)="comboSaveClear()"
+                       [(ngModel)]="contactTel"
+                       [placeholder]="'Телефон контактного лица'" style="width: 715px"/>
+                <input *ngIf="readyTask === false" kendoTextBox formControlName="contactTel"
+                       (ngModelChange)="comboSaveClear()"
+                       [(ngModel)]="contactTel"
+                       [placeholder]="'Телефон контактного лица'" style="width: 715px"/>
+            </label>
+            <br/>
+            <br/>
+        </div>
+        <br/>
+        <kendo-dialog-actions>
+            <button kendoButton (click)="onChangeTask('click reject')">Отмена</button>
+            <button kendoButton [toggleable]="true"
+                    [disabled]="disabledSaveChange"
+
+                    (click)="onChangeTask('click save')"
+                    primary="true">Сохранить
+            </button>
+        </kendo-dialog-actions>
+
+    </kendo-window>
+    <div class="k-overlay" *ngIf="openQuestionSaveChange"></div>
+    <kendo-window title="Хотите сохранить изменения?" *ngIf="openQuestionSaveChange"
+                  [width]="650"
+                  [height]="285" (close)="closeQuesChange('cancel question')"
+                  [resizable]="false"
+                  [draggable]="true"
+                  [keepContent]="true"
+                  [accessKey]=""
+                  state="">
+        <kendo-window-titlebar>
+            <div class='k-window-title'>Хотите сохранить изменения?</div>
+            <button kendoWindowCloseAction
+                    (close)="closeQuesChange('cancel question')"></button>
+        </kendo-window-titlebar>
+        <div style="padding-left: 140px">
+            <br/>
+            <br/>
+            <svg width="2em" height="2em" viewBox="0 0 16 16"
+                 class="bi bi-pencil-square" fill="currentColor"
+                 xmlns="http://www.w3.org/2000/svg">
+                <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
+                <path fill-rule="evenodd"
+                      d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
+            </svg>
+
+            <span>   Вы внесли изменения в задание, сохранить?</span>
+        </div>
+        <br/>
+        <br/>
+        <br/>
+        <kendo-dialog-actions>
+            <button kendoButton (click)="closeQuesChange('cancel question')">Отмена</button>
+            <button kendoButton [toggleable]="true"
+                    primary="true" (click)="onChangeTask('save question')">Сохранить
+            </button>
+        </kendo-dialog-actions>
+    </kendo-window>
+</div>

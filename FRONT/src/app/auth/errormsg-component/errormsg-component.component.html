@@ -1,0 +1,41 @@
+<div class="example-wrapper" style="object-position: center; align-items: center">
+    <div class="k-overlay"></div>
+    <kendo-window [title]="'Ошибка!'"
+                  [width]="750"
+                  [height]="430"
+                  [resizable]="false"
+                  [draggable]="true"
+                  [keepContent]="true"
+                  [accessKey]=""
+                  state="">
+        <kendo-window-titlebar>
+            <div class='k-window-title'>Ошибка!</div>
+            <button kendoWindowCloseAction (click)="closeErr('yes')"></button>
+        </kendo-window-titlebar>
+        <form translate="no" class="d-flex align-items-center"
+              style="padding-top: 50px">
+            <div class="d-flex align-items-center">
+                <fieldset class="k-form-fieldset"
+                          style="width: 648px; align-content: center">
+                    <kendo-avatar style=" margin-left: 325px; font-size: 24px"
+                                  class="k-avatar"
+                                  width="60px" height="60px"
+                                  [shape]="'circle'">
+                        <svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-exclamation-circle"
+                             fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd"
+                                  d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                            <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+                        </svg>
+                    </kendo-avatar>
+                    <br/>
+                    <div style=" text-align: center;">
+                        <kendo-label style="font: 20px sans-serif;padding-left: 120px"><span>{{message}}</span>
+                        </kendo-label>
+                    </div>
+
+                </fieldset>
+            </div>
+        </form>
+    </kendo-window>
+</div>

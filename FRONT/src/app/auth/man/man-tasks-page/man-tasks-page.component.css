@@ -1,0 +1,43 @@
+/*@media (min-width: 301px ) and (max-width: 700px) and (min-height: 60px) and (max-height: 75px) {*/
+
+.container {
+
+    width: 274.8vh;
+    /*height: 500px;*/
+    height: 78.6vh;
+    padding-left: 30px;
+    padding-right: 25px;
+    border-style: none
+}
+
+/*}*/
+/*.gold .codeColumns {color: #a09097; background-color: lightgrey}*/
+/*.green .codeColumns {}*/
+
+
+.svgState0 {
+    fill: none;
+}
+
+.svgState1 {
+    fill: #0772A1;
+}
+
+.svgState2 {
+    fill-rule: evenodd;
+    clip-rule: evenodd;
+    fill: #008000;
+}
+.svgState3 {
+    fill: #FF7400;
+}
+
+.svgState4 {
+    fill: #dddddd;
+}
+
+.svgState5 {
+    fill: #818A91;
+}
+
+

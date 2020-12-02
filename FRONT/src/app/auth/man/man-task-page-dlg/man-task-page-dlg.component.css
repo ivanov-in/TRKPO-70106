@@ -1,0 +1,11 @@
+.app-man-task-page-dlg {
+    padding: 0rem;
+    margin-top: 3rem;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%, 0);
+}
+
+.lb-fio{
+    font-size: large;
+}

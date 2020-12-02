@@ -1,0 +1,17 @@
+  <div class="container d-flex justify-content-lg-start" style="margin-left: 30px; padding-left: 0px;">
+    <kendo-buttongroup [selection]="'single'">
+      <button kendoButton routerLink="/admin/adm_users" routerLinkActive="k-state-active">
+        Пользователи
+      </button>
+<!--      <button kendoButton routerLink="/admin/adm_devices" routerLinkActive="k-state-active" >-->
+<!--        Устройства-->
+<!--      </button>-->
+      <button kendoButton routerLink="/admin/adm_events_list" routerLinkActive="k-state-active" >
+       Журнал событий
+      </button>
+    </kendo-buttongroup>
+  </div>
+  <div style="padding-top: 14px;">
+    <router-outlet (activate)="onOutletChenge($event)"></router-outlet>
+  </div>
+
