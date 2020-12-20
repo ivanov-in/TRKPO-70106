@@ -1,9 +1,6 @@
-const pool = require('../../data/db_pool');
-//const UUID = require('uuid/v4');
 const {v4: UUID} = require('uuid');
 const tadm_token_dao = require('../../data/get_token_data');
 const tadm_ticktoken_dao = require('../../data/tadm_ticktoken_dao');
-const tadm_users_dao = require('../../data/tadm_users_dao');
 const encript = require('./encript');
 const tadm_keys_dao = require('../../data/tadm_keys_dao');
 

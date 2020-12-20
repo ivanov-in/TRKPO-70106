@@ -1,11 +1,31 @@
 const express = require('express');
 const router = express.Router();
-const admUsers = require('../../controllers/admusers');
-const routAdmUsersController = require('../httpControllers/routAdmUsersController');
+const adm_controller = require('../../controllers/adm_controller')
 
+
+router.post('/admuser_user_lock', function (req, res, next) {
+    let token = req.header("token");
+    let lock;
+    let id_insp;
+    try {
+        lock = req.header("lock_user");
+        id_insp = req.header("id_insp");
+        lock = lock = parseInt(lock);
+        id_insp = parseInt(id_insp);
+    } catch (e) {
+        res.status(500).json({error: err});
+        return;
+    }
+    //  token, lock, id_insp
+    adm_controller.execute(adm_controller.admuserUserLock, {token, lock, id_insp}).then(function (json) {
+        res.status(200).json(json);
+    }).catch(function (error) {
+        res.status(500).json({error: error})
+    });
+});
 
 router.post('/admuserslist', function (req, res, next) {
-    routAdmUsersController.admuserslist().then(function (json) {
+    adm_controller.execute(adm_controller.admuserslist, null).then(function (json) {
         res.status(200).json(json);
     }).catch(function (err) {
         res.status(500).json({"error": "server Error"});
@@ -20,8 +40,11 @@ router.post('/admuser_set_tel', function (req, res, next) {
         id_user = req.header("id_user");
         tel = req.header("tel_user");
         id_user = parseInt(id_user);
-        routAdmUsersController.admuserSetTel(id_user, tel, token).then(function (result) {
+        // id_user, tel, token
+        adm_controller.execute(adm_controller.admuserSetTel, {id_user, tel, token}).then(function (result) {
             res.status(200).json(result);
+        }).catch(err => {
+            res.status(500).json({"error": "server Error"});
         })
     } catch (e) {
         res.status(500).json({"error": "server Error"});
@@ -40,7 +63,8 @@ router.post('/admuser_roles_add', function (req, res, next) {
         res.status(500).json({"error": "server Error"});
         return;
     }
-    routAdmUsersController.admuserRolesAdd(id_user, roles, token).then(function (result) {
+    // id_user, roles, token
+    adm_controller.execute(adm_controller.admuserRolesAdd, {id_user, roles, token}).then(function (result) {
         res.status(200).json(result);
     }).catch(function (error) {
         res.status(500).json({"error": "server Error"});
@@ -49,7 +73,8 @@ router.post('/admuser_roles_add', function (req, res, next) {
 
 router.post('/admuser_roleslist', function (req, res, next) {
     const token = req.header("token");
-    admUsers.getUrerRoles(token).then(function (json) {
+    // p_adm_token
+    adm_controller.execute(adm_controller.getUserRoles, {p_adm_token: token}).then(function (json) {
         res.status(200).json(json);
     }).catch(function (err) {
         res.status(500).json({error: err})
@@ -66,59 +91,23 @@ router.post('/admuser_pass_set', function (req, res, next) {
         res.status(500).json({error: err});
         return;
     }
-    routAdmUsersController.admuserPasSetDef(token, id_user).then(function (json) {
+    adm_controller.execute(adm_controller.admuserPasSetDef, {token, id_user}).then(function (json) {
         res.status(200).json(json);
     }).catch(function (error) {
         res.status(500).json({error: error})
     });
-});
-
-router.post('/user_delete', function (req, res, next) {
-    let token = req.header("token");
-    let id_user;
-    try {
-        id_user = req.header("id_user");
-        id_user = parseInt(id_user);
-    } catch (e) {
-        res.status(500).json({error: err});
-        return;
-    }
-    routAdmUsersController.userDelete(token, id_user).then(function (json) {
-        res.status(200).json(json);
-    }).catch(function (error) {
-        res.status(500).json({error: error})
-    })
 });
 
 router.post('/user_chenge_password', function (req, res, next) {
     let old_pass = req.header("old_password");
     let new_pass = req.header("new_password");
     let token = req.header("token");
-    routAdmUsersController.userChengePassword(token, old_pass, new_pass).then(function (json) {
+    // token, old_pass, new_pass
+    adm_controller.execute(adm_controller.userChengePassword, {token, old_pass, new_pass}).then(function (json) {
         res.status(200).json(json);
     }).catch(function (error) {
         res.status(500).json({error: error})
     })
-});
-
-router.post('/admuser_user_lock', function (req, res, next) {
-    let token = req.header("token");
-    let lock;
-    let id_insp;
-    try{
-        lock = req.header("lock_user");
-        id_insp = req.header("id_insp");
-        lock = lock = parseInt(lock);
-        id_insp = parseInt(id_insp);
-    } catch (e) {
-        res.status(500).json({error: err});
-        return;
-    }
-    routAdmUsersController.admuserUserLock(token, lock, id_insp).then(function (json) {
-        res.status(200).json(json);
-    }).catch(function (error) {
-        res.status(500).json({error: error})
-    });
 });
 
 router.post('/admuser_new_user', function (req, res, next) {
@@ -130,8 +119,9 @@ router.post('/admuser_new_user', function (req, res, next) {
     req.on('data', chunk => {
         fio += chunk.toString();
     });
+    // token, fio, tel, rolesArr
     req.on('end', (path, callback) => {
-        routAdmUsersController.admuserCreateUser(token, fio, tel, rolesArr).then(function (json) {
+        adm_controller.execute(adm_controller.admuserCreateUser, {token, fio, tel, rolesArr}).then(function (json) {
             res.status(200).json(json);
         }).catch(function (error) {
             res.status(500).json({error: error})
@@ -139,25 +129,10 @@ router.post('/admuser_new_user', function (req, res, next) {
     });
 });
 
-router.post('/events_list', function (req, res, next) {
-routAdmUsersController.evenList().then(function (json) {
-    res.status(200).json(json);
-}).catch(function (error) {
-    res.status(500).json({error: error})
-});
-});
-
-router.post('/devises_list', function (req, res, next) {
-    routAdmUsersController.devicesList().then(function (json) {
-        res.status(200).json(json);
-    }).catch(function (error) {
-        res.status(500).json({error: error})
-    });
-});
-
 router.post('/select_events_list', function (req, res, next) {
     let date = req.header("nowDate");
-    routAdmUsersController.selectevenList(date).then(function (json) {
+    // date
+    adm_controller.execute(adm_controller.selectevenList, {date}).then(function (json) {
         res.status(200).json(json);
     }).catch(function (error) {
         res.status(500).json({error: error})
@@ -166,6 +141,43 @@ router.post('/select_events_list', function (req, res, next) {
 
 
 
+
+
+
+// router.post('/user_delete', function (req, res, next) {
+//     let token = req.header("token");
+//     let id_user;
+//     try {
+//         id_user = req.header("id_user");
+//         id_user = parseInt(id_user);
+//     } catch (e) {
+//         res.status(500).json({error: err});
+//         return;
+//     }
+//     routAdmUsersController.userDelete(token, id_user).then(function (json) {
+//         res.status(200).json(json);
+//     }).catch(function (error) {
+//         res.status(500).json({error: error})
+//     })
+// });
+
+
+
+// router.post('/events_list', function (req, res, next) {
+//     routAdmUsersController.evenList().then(function (json) {
+//         res.status(200).json(json);
+//     }).catch(function (error) {
+//         res.status(500).json({error: error})
+//     });
+// });
+
+// router.post('/devises_list', function (req, res, next) {
+//     routAdmUsersController.devicesList().then(function (json) {
+//         res.status(200).json(json);
+//     }).catch(function (error) {
+//         res.status(500).json({error: error})
+//     });
+// });
 
 
 

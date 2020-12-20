@@ -1,6 +1,5 @@
-const {v4: UUID} = require('uuid');
-const {poolOra: poolOra} = require("./db_pool");
 let oracledb = require('oracledb');
+logUtil = require('../util/logUtil');
 
 let deleteLost = (connection, id_user) => {
     return new Promise(function (resolve, reject) {

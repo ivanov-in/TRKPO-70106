@@ -1,5 +1,3 @@
-const {v4: UUID} = require('uuid');
-const {poolOra: poolOra} = require("./db_pool");
 let oracledb = require('oracledb');
 
 async function get_token_data(connection, p_token) {
@@ -50,4 +48,5 @@ let insert_token = (connection, p_token, p_tiketfortoken, p_id_user, p_ip, p_uui
         });
     });
 };
+
 module.exports = {get_token_data, insert_token};

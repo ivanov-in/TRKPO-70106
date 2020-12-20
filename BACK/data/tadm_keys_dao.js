@@ -1,5 +1,4 @@
 const {v4: UUID} = require('uuid');
-const {poolOra: poolOra} = require("./db_pool");
 let oracledb = require('oracledb');
 
 let insert_keys = (connection, p_front_pub_key, p_front_pri_key, p_client_pub_key) => {

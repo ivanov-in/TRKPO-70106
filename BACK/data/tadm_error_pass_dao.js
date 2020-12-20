@@ -1,5 +1,3 @@
-const {v4: UUID} = require('uuid');
-const {poolOra: poolOra} = require("./db_pool");
 let oracledb = require('oracledb');
 
 let select_error_pass = (connection, p_adm_users) => {

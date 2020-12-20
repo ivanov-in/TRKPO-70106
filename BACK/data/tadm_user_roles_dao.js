@@ -1,5 +1,3 @@
-const {v4: UUID} = require('uuid');
-const {poolOra: poolOra} = require("./db_pool");
 let oracledb = require('oracledb');
 
 let get_users_role = (connection, p_id_users) => {

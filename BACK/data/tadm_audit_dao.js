@@ -1,6 +1,4 @@
-const poolOra = require("./db_pool");
 let oracledb = require('oracledb');
-const {v4: UUID} = require('uuid');
 
 
 async function get_events(connection) {

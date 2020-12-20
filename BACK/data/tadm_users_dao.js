@@ -1,9 +1,9 @@
-const {poolOra: poolOra} = require("./db_pool");
 let oracledb = require('oracledb');
-const {v4: UUID} = require('uuid');
+const logUtil = require('../util/logUtil');
 
 let getUserData = (connection, login) => {
     return new Promise(function (resolve, reject) {
+        logUtil.wi('tadm_users_dao start getUserData(connection, login)')
         connection.execute(`BEGIN MIS_ADMIN.web_auth.login_exist(:login,:po_id,:po_user_lock,:po_time_lock); END;`,
             {
                 login: {type: oracledb.DB_TYPE_VARCHAR, dir: oracledb.BIND_IN, val: login},
@@ -14,7 +14,11 @@ let getUserData = (connection, login) => {
             {
                 resultSet: true
             }).then(function (result) {
+            logUtil.wi(`tadm_users_dao success getUserData(connection, login) result: ${JSON.stringify(result)}`)
             resolve(result);
+        }).catch(err => {
+            logUtil.we(`tadm_users_dao error getUserData(connection, login) err: ${err}`)
+            reject(err);
         })
     });
 };
@@ -42,6 +46,7 @@ async function getUsersListDao(connection) {
     let jsonInsp = [];
     try {
         while ((row = await resultSet.getRow())) {
+            row.LOGIN = row.LOGIN.toUpperCase();
             jsonInsp.push(row);
         }
     } catch (e) {
@@ -84,7 +89,7 @@ let update_timelock = (connection, p_adm_users) => {
             {
                 resultSet: true
             }).then(function (result) {
-            connection.commit().then(_=>{
+            connection.commit().then(_ => {
                 resolve(result);
             });
         }).catch(function (err) {
@@ -198,7 +203,7 @@ let insert_inspector = (connection, fio, tel, id_adm) => {
     });
 };
 
-async function insert_devices (connection) {
+async function insert_devices(connection) {
     oracledb.outFormat = oracledb.OBJECT;
     let result;
     try {
@@ -230,7 +235,6 @@ async function insert_devices (connection) {
     }
     return jsonInsp;
 };
-
 
 
 module.exports = {

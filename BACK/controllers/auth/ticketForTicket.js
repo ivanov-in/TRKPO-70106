@@ -1,10 +1,10 @@
-const pool = require('../../data/db_pool');
 const {v4: UUID} = require('uuid');
 const tadm_users_dao = require('../../data/tadm_users_dao');
 const tadm_tickticket_dao = require('../../data/tadm_tickticket_dao');
 const tadm_keys_dao = require('../../data/tadm_keys_dao');
 const forge = require('node-forge');
 const encript = require('./encript');
+const logUtil = require('../../util/logUtil');
 
 let getNewTicketForTicket = (connection, login, client_key_b64, ip) => {
     //1. Создаем билет на билет
@@ -26,10 +26,12 @@ let getNewTicketForTicket = (connection, login, client_key_b64, ip) => {
     //      2.2.1 Ничего не делаем
     //3. Возвращаем созданный билет
     return new Promise(function (resolve, reject) {
+        logUtil.wi(`Controller ticketForTicket start getNewTicketForTicket()`)
         //1. Создаем билет на билет и шифруем его
         const ticket_for_ticket = UUID().toString();
         const client_key_str = forge.util.decode64(client_key_b64);
         encript.encriptValue(ticket_for_ticket, client_key_str).then(function (ticketForTicketF) {
+            logUtil.wi(`Controller ticketForTicket getNewTicketForTicket() encriptValue ticketForTicketF success`)
             //2. Проверяем существование в базе email:
             if (login !== undefined && client_key_b64 !== undefined) {
                 tadm_users_dao.getUserData(connection, login).then(function (result) {

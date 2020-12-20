@@ -1,5 +1,3 @@
-const pool = require('../../data/db_pool');
-//const UUID = require('uuid/v4');
 const {v4: UUID} = require('uuid');
 const encript = require('./encript');
 const decript = require('./decript');
@@ -56,6 +54,7 @@ let getNewTicketForToken = (connection, ticketforticket, ip, pass_hash_en_b64) =
             if (ticketforticket === undefined) {
                 //      Если результат проверки отрицательный:
                 //          Возвращаем незарегистрированный, поддельный билет на токен
+
                 resolve(
                     {
                         ticket_for_token: ticketForTokenF
