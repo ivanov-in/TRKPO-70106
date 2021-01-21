@@ -1,0 +1,22 @@
+### Сохранение значения сиквенса
+POST http://localhost:7000/mobback/set/update_min_task_id?p_id_inspector=142&p_min_task_id=-1422
+### Запись запроса на автоматическое создание задания
+POST http://localhost:7000/mobback/set/create_task?p_id_task=-15&p_id_inspector=142&p_kod_dog=2257&p_purpose=1&p_kod_obj=290863&p_kod_numobj=331203&p_ttime=12.11.2020 20:04
+### Создание задания на сервере, созданного вручную  на планшете
+POST http://localhost:7000/mobback/set/add_task?p_id_task=-20&p_adr=420108 Российская Федерация, Республика Татарстан, Казань г, Магистральная ул, д.35&p_city=Казань&p_street=Магистральная&p_house=35&p_nd=null&p_purpose=2&p_prim=Создано на планшете&p_ttime=29.10.2020 20:40&p_id_inspector=142&p_kod_dog=2257&p_kodp=4422&p_kod_obj=290863&p_kod_numobj=331203
+### Обновление полей задания
+POST http://localhost:7000/mobback/set/update_task?p_id_task=-20&p_purpose=1&p_prim=eeeАкт подписан&p_status=12&p_kod_emp_podp=1&p_kod_dog=5198&p_kodp=13079&p_kod_obj=19809&p_kod_numobj=47787
+### Мобильное приняло задание
+POST http://localhost:7000/mobback/set/accept_task?p_id_task=5101
+### Мобильное отклонило задание
+POST http://localhost:7000/mobback/set/refuse_task?p_id_task=5101
+### Запись данных по актам
+POST http://localhost:7000/mobback/set/insert_acts_fields?p_id_task=8341&p_id_act=26&p_npp=1&p_purpose_text=Плановое обслеодвание&p_fact_text=Обследованием установлено, что оборудование готово к отопительному сезону
+### Удаление доп информации по актам перед записью
+POST http://localhost:7000/mobback/set/delete_acts?p_id_task=8341
+### Добавление доп информации по актам
+POST http://localhost:7000/mobback/set/insert_dop_act_fields?p_id_task=8341&p_id_act=22&p_npp=1&p_num_obj=1&p_name_obj=Объект1&p_address_obj=Адрес объекта 1&p_god_zd=1&p_nazn_name=Жилое&p_tvr=20&p_pr_oto=1&p_pr_sw=1&p_volume=1000
+### Добавление файлов
+POST http://localhost:7000/mobback/set/add_file?p_id_task=8291&p_filename='Универсальный Акт обследования ред. 2019.pdf'&p_is_signed=1&p_paper=0
+
+module.exports = router;

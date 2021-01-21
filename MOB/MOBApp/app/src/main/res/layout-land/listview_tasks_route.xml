@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- **********************************************************  -->
+<!--   Список ListView "Маршрутный лист" (список всех заданий)   -->
+<!-- **********************************************************  -->
+
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        tools:context=".ListTasksActivity"
+        android:orientation="vertical"
+>
+
+    <include
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/progressBarLvTasks"
+            layout="@layout/progress_bar_data_load"/>
+    <TextView
+            android:id="@+id/tvRouteMessage"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center_horizontal"
+            style="@style/TvDataTheme"/>
+
+    <ListView
+            android:id="@+id/listViewRouteTasks"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="20dp"
+            android:scrollingCache="false"
+            android:divider="@drawable/separator"
+            android:showDividers="middle"
+            android:dividerPadding="15dp"/>
+
+</LinearLayout>

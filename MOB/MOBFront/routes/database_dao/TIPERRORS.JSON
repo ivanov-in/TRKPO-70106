@@ -1,0 +1,84 @@
+{
+  "otype": "table",
+  "name": "TIPERRORS",
+  "columns": [
+    {
+      "otype": "column",
+      "name": "UUID",
+      "type": "uuid",
+      "not_null": "true"
+    },
+    {
+      "otype": "column",
+      "name": "DTC",
+      "type": "timestamp without time zone",
+      "not_null": "true"
+    },
+    {
+      "otype": "column",
+      "name": "IP",
+      "type": "character varying",
+      "not_null": "true"
+    },
+    {
+      "otype": "column",
+      "name": "ERROR",
+      "type": "character varying",
+      "not_null": "true"
+    }
+  ],
+  "pkey": {
+    "name": "TIPERRORS_PK",
+    "columns": [
+      {
+        "name": "UUID"
+      }
+    ]
+  },
+  "indexes": [
+    {
+      "name": "TIPERRORS_IDX1",
+      "columns": [
+        {
+          "name": "IP"
+        }
+      ]
+    }
+  ],
+  "dao_config": {
+    "functions": [
+      {
+        "name": "selectCount",
+        "type": "SelectRow",
+        "params": [
+          {
+            "name": "ip",
+            "type": "character varying"
+          },
+          {
+            "name": "dt",
+            "type": "timestamp without time zone"
+          }
+        ],
+        "where": "\"ip\"=@ip AND \"dtc\">@dt"
+      },
+      {
+        "name": "insertError",
+        "type": "Insert",
+        "generate_key": true,
+        "generate_dtc": true
+      },
+      {
+        "name": "deleteByDTC",
+        "type": "deleteby",
+        "params": [
+          {
+            "name": "dtc",
+            "type": "timestamp without time zone"
+          }
+        ],
+        "where": "DTC < @dtc"
+      }
+    ]
+  }
+}

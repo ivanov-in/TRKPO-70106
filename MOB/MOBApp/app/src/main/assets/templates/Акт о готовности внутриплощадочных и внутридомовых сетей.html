@@ -1,0 +1,159 @@
+<head>
+<style>
+            body { margin-top: 0;  margin-left: 0; font-family: Times New Roman; font-size: 17px; }
+            table { width: 100%; border-collapse: collapse; margin-bottom: 8pt;}
+</style>
+</head>
+<body>
+<p style="text-align: center;"><span style="font-size: 16pt;"><strong>АКТ о готовности внутриплощадочных и внутридомовых сетей и оборудования подключаемого объекта к подаче тепловой
+энергии и теплоносителя</strong></span></p>
+<p style="text-align: left;"><strong> %CITY </strong></p>
+<table style="margin-bottom: 20pt;">
+<tr valign="bottom">
+<td style="text-align: left;"><strong> № %NUM_ACT </strong></td>
+<td>&nbsp;</td>
+<td style="text-align: right; text-decoration: underline;"><strong>%DAT_ACT</strong></td>
+</tr>
+</table>
+<p>
+  АО «Татэнерго», именуемое в дальнейшем Исполнитель, в лице директора филиала <strong> %FILIAL_ESO %DIRECTOR_TATENERGO</strong>, действующего на основании
+  доверенности <strong> № %DIRECTOR_T_DOVER_NUM</strong>, с одной стороны, и <strong>%ZAYAVITEL_FIO</strong>, именуемое в дальнейшем Заявитель, в лице <strong>%FIO_PODP</strong>, действующего на основании <strong>%ZAYAVITEL_DOVER</strong>, с другой стороны,
+  именуемые в дальнейшем сторонами, составили настоящий акт о нижеследующем:
+</p>
+<p>
+  <ol>
+    <li>Подключаемый объект: 
+       <div > <strong>%NAME_OBJ</strong></div>
+    
+      <div>
+          <div>расположенный <strong>%ADR_OBJ</strong></div>
+     </div><br/>
+   
+    </li><!--1. -->
+    <li>
+      В соответствии с  заключенным сторонами договором о подключении к системе теплоснабжения  № <strong> %NDOG </strong>  от <strong> %DAT_DOG </strong>. Заявителем осуществлены  следующие  мероприятия  по  подготовке  объекта к подключению (технологическому присоединению) к системе теплоснабжения:<br/>
+      <div >
+       <b>%PODGOTOVKA_TXT</b>
+      </div>
+      <div>
+        <div>Работы выполнены по проекту: <b>N %PODGOTOVKA_PROJ_NUM</b></div>
+        <div>разработанному: <b>%PODGOTOVKA_PROJ_ISPOLN</b></div>
+        <div >и утвержденному: <b>%PODGOTOVKA_PROJ_UTVERGDEN.</b></div>
+      </div><br/>
+      
+     
+    </li><!--2. -->
+    <li>
+      Характеристика внутриплощадочных сетей:<br/>
+      <div>
+        <div>теплоноситель: <b>%NET_INNER_TEPLONOSITEL</b>;</div>
+        <div>диаметр труб: подающей <b>%NET_INNER_DP мм</b>, обратной <b>%NET_INNER_DO мм;</b></div>
+        <div >тип канала: <b>%NET_INNER_TIP_KANAL;</b></div>
+        <div>материалы и толщина изоляции труб: подающей <b>%NET_INNER_TUBE_TYPE_P;</b> обратной <b>%NET_INNER_TUBE_TYPE_O;</b></div>
+        <div>протяженность трассы: <b>%NET_INNER_LM м</b>, в том числе подземной <b>%NET_INNER_L_UNDEGROUND м</b>;</div>
+        <div>теплопровод выполнен со следующими отступлениями от рабочих чертежей: <b>%NET_INNER_OTSTUPLENIE;</b></div>
+        <div>класс энергетической эффективности подключаемого объекта: <b>%ENERGO_EFFECT_OBJECT</b></div>
+        <div>наличие резервных источников тепловой энергии: <b>%NAL_REZERV_ISTOCHNIK;</b></div>
+        <div>наличие диспетчерской связи с теплоснабжающей организацией: <b>%NAL_SVYAZI.</b></div>
+      </div><br/><br/>
+
+    </li><!--3. -->
+    <li>
+      Характеристика    оборудования    теплового   пункта   и   систем теплопотребления:
+     <div>
+	<div>вид присоединения системы подключения: <b>%VID_CONNECT_SYSTEM</b>;</div>
+        <div>элеватор N <b>%ELEVATOR_NUM</b>, диаметр <b>%ELEVATOR_DIAM</b>;</div>
+        <div>подогреватель отопления: N <b>%PODOGREV_OTOP_NUM</b>, количество секций <b>%PODOGREV_OTOP_KOLVO_SEKC</b>; длина секций <b>%PODOGREV_OTOP_L_SEKC</b>, назначение <b>%PODOGREV_OTOP_NAZN</b>; тип (марка)
+        <b>%PODOGREV_OTOP_MARKA</b>;</div>
+        <div>диаметр напорного патрубка: <b>%D_NAPOR_PATRUBOK</b>;</div>
+        <div>мощность электродвигателя: <b>%POWER_ELECTRO_ENGINE</b>, частота вращения <b>%CHASTOTA_VR_ENGINE</b>;</div>
+        <div>дроссельные (ограничительные) диафрагмы: диаметр <b>%DROSSEL_DIAFRAGMA_D</b>; место установки <b>%DROSSEL_DIAFRAGMA_MESTO</b>;</div>
+        <div>тип отопительной системы: <b>%DROSSEL_DIAFRAGMA_TIP_OTOP</b>; количество стояков <b>%DROSSEL_DIAFRAGMA_CNT_STOYAK</b>; тип и поверхность нагрева отопительных приборов
+           <b>%TYPE_OTO_PRIB</b>;</div>
+        <div>схема включения системы горячего водоснабжения: <b>%SCHEMA_VKL_GVS</b>;</div>
+        <div>схема включения подогревателя горячего водоснабжения: <b>%SCHEMA_VKL_PODOGREV</b>;</div>
+        <div>количество секций I ступени: штук <b>%KOLVO_SEKC_1_CNT</b>, длина <b>%KOLVO_SEKC_1_L</b>;</div>
+        <div>количество секций II ступени: штук <b>%KOLVO_SEKC_2_CNT</b>, длина <b>%KOLVO_SEKC_2_L</b>;</div>
+        <div>количество калориферов: штук <b>%KOLVO_KALORIFER</b>, поверхность нагрева (общая) <b>%POVERHNOST_NAGREVA</b>.</div>
+     </div><br/>
+
+    </li><!-- 4 -->
+    <li>
+      Контрольно-измерительные приборы и автоматика
+     <div>
+      <table border="1px" style="border-color: black; width: 100%;" cellspacing="0">
+        <tr>
+         <td width="5%" align="center">N п/п</td>
+         <td width="25%" align="center">Наименование</td>
+         <td width="35%" align="center">Место установки</td>
+         <td width="10%" align="center">Тип</td>
+         <td width="10%" align="center">Диаметр</td>
+         <td width="10%" align="center">Количество</td> 
+        </tr>
+      </table>
+      %TABLE1
+      </div>
+      <div>
+        <div >Место установки пломб: <b>%MESTO_KARTA</b></div>
+      </div>
+    </li><!-- 5 -->
+    <li>
+      Проектные данные присоединяемых установок<br/>
+      <table border="1px" style="border-color: black; width: 100%;" cellspacing="0">
+        <tr>
+         <td width="7%" align="center" rowspan="2">Номер здания</td>
+         <td width="7%" align="center" rowspan="2">Кубатура здания, куб. м</td>
+         <td align="center" colspan="5">Расчетные тепловые нагрузки, Гкал/час</td> 
+        </tr>
+        <tr>
+         <td width="" align="center">отопление</td>
+         <td width="" align="center">вентиляция</td>
+         <td width="" align="center">горячее водоснабжение</td> 
+         <td width="" align="center">технологические нужды</td>
+         <td width="" align="center">всего</td>
+        </tr>
+        <tr>
+         <td height="30px">%NUM_OBJ</td> <td>%VOLUME_OBJ</td> <td>%SO_Q</td> <td>%SW_Q</td> <td>%GW_Q</td> <td>%ST_Q</td> <td>%Q_SUM</td> 
+        </tr>
+      </table><br/>
+    </li><!-- 6 -->
+    <li>
+      <div>
+	<div>Наличие документации: <b>%NAL_DOCUMENT</b></div>
+      </div>
+    </li><!-- 7 -->
+    <li>
+      <div>
+        <div>Прочие сведения: <b>%DOP_INFO</b></div>
+      </div>
+    </li><!-- 8 -->
+    <li>
+     Настоящий акт составлен в 2 экземплярах (по одному экземпляру для каждой из сторон), имеющих одинаковую юридическую силу.
+    </li>
+    
+  </ol>
+</p>
+
+<p>%REMARK_DOG</p>
+
+<table>
+<tr>
+<td valign="bottom" style="width: 40%; text-align: left;"><strong>Исполнитель:</strong></td>
+<td valign="bottom" style="width: 60%; text-align: left;"><strong>Директор филиала %FILIAL_ESO %DIRECTOR_TATENERGO</strong></td>
+</tr>
+<tr>
+<td width="40%">&nbsp;</td>
+<td valign="top" style="width: 60%; text-align: center;">(подпись)&nbsp;&nbsp;&nbsp;(Ф. И. О.)</td>
+</tr>
+</table>
+<table>
+<tr>
+<td valign="bottom" style="width: 40%; text-align: left;"><strong>Заявитель:</strong></td>
+<td valign="bottom" style="width: 60%; text-align: left;"><strong> %FIO_PODP</strong></td>
+</tr>
+<tr>
+<td width="40%">&nbsp;</td>
+<td valign="top" style="width: 60%; text-align: center;">(подпись)&nbsp;&nbsp;&nbsp;(Ф. И. О.)</td>
+</tr>
+</table>
+</body>

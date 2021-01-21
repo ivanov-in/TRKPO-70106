@@ -1,0 +1,22 @@
+/* You can add global styles to this file, and also import other style files */
+
+/*.kkk{*/
+/*  color: white;*/
+/*}*/
+
+/*.k-link{*/
+/*  color: white;*/
+/*}*/
+
+.invalidinsp .codeColumn {
+    color: #373A3C;
+    background-color: linen;
+}
+
+.validinsp .codeColumn{
+    color: #373A3C;
+    background-color: white;
+}
+
+.gold .codeColumns {color: #a09097; background-color: lightgrey}
+.green .codeColumns {}

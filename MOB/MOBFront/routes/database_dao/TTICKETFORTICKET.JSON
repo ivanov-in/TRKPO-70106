@@ -1,0 +1,91 @@
+{
+  "otype": "table",
+  "name": "TTICKETFORTICKET",
+  "columns": [
+    {
+      "otype": "column",
+      "name": "TIKETFORTIKET",
+      "type": "uuid",
+      "not_null": "true"
+    },
+    {
+      "otype": "column",
+      "name": "DTC",
+      "type": "timestamp without time zone",
+      "not_null": "true"
+    },
+    {
+      "otype": "column",
+      "name": "IP",
+      "type": "character varying",
+      "not_null": "true"
+    },
+    {
+      "otype": "column",
+      "name": "UUID_KEYS",
+      "type": "uuid",
+      "not_null": "true"
+    }
+  ],
+  "pkey": {
+    "name": "TTICKETFORTICKET_PK",
+    "columns": [
+      {
+        "name": "TIKETFORTIKET"
+      }
+    ]
+  },
+  "indexes": [
+    {
+      "name": "TTICKETFORTICKET_IDX1",
+      "columns": [
+        {
+          "name": "UUID_KEYS"
+        }
+      ]
+    }
+  ],
+  "fkeys": [
+    {
+      "name": "TTICKETFORTICKET_FK1",
+      "column": "UUID_KEYS",
+      "table": "TKEYS",
+      "tcolumn": "UUID"
+    }
+  ],
+  "dao_config": {
+    "functions": [
+      {
+        "name": "insert",
+        "type": "Insert",
+        "generate_dtc": true
+      },
+      {
+        "name": "selectByUUID",
+        "type": "select",
+        "params": [
+          {
+            "name": "tiketfortiket",
+            "type": "UUID"
+          }
+        ],
+        "where": "TIKETFORTIKET = @tiketfortiket"
+      },
+      {
+        "name": "deleteByKey",
+        "type": "deletebykey"
+      },
+      {
+        "name": "deleteByDTC",
+        "type": "deleteby",
+        "params": [
+          {
+            "name": "dtc",
+            "type": "timestamp without time zone"
+          }
+        ],
+        "where": "DTC < @dtc"
+      }
+    ]
+  }
+}

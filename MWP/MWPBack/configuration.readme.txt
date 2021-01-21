@@ -1,0 +1,6 @@
+Node.js
+
+work dir: C:\GitLab\Mobia\MobiaApp\Admin\Back
+js file: bin\www
+App param: dbreinit daoreinit
+DEBUG=back:*

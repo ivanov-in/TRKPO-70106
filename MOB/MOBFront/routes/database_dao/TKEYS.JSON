@@ -1,0 +1,66 @@
+{
+  "otype": "table",
+  "name": "TKEYS",
+  "columns": [
+    {
+      "otype": "column",
+      "name": "UUID",
+      "type": "uuid",
+      "not_null": "true"
+    },
+    {
+      "otype": "column",
+      "name": "DTC",
+      "type": "timestamp without time zone",
+      "not_null": "true"
+    },
+    {
+      "otype": "column",
+      "name": "FRONT_PUB_KEY",
+      "type": "character varying",
+      "not_null": "true"
+    },
+    {
+      "otype": "column",
+      "name": "FRONT_PRI_KEY",
+      "type": "character varying",
+      "not_null": "true"
+    },
+    {
+      "otype": "column",
+      "name": "MOB_PUB_KEY",
+      "type": "character varying",
+      "not_null": "true"
+    }
+  ],
+  "pkey": {
+    "name": "TKEYS_PK",
+    "columns": [
+      {
+        "name": "UUID"
+      }
+    ]
+  },
+  "dao_config": {
+    "functions": [
+      {
+        "name": "insert",
+        "type": "Insert",
+        "generate_key": true,
+        "generate_dtc": true
+      },
+      {
+        "name": "selectByKey",
+        "type": "selectrow",
+        "params": [
+          {
+            "name": "UUID",
+            "type": "uuid"
+          }
+        ],
+        "where": "UUID = @uuid"
+      }
+    ]
+  }
+
+}

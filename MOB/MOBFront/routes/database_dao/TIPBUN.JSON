@@ -1,0 +1,47 @@
+{
+  "otype": "table",
+  "name": "TIPBUN",
+  "columns": [
+    {
+      "otype": "column",
+      "name": "IP",
+      "type": "character varying",
+      "not_null": "true"
+    },
+    {
+      "otype": "column",
+      "name": "DTC",
+      "type": "timestamp without time zone",
+      "not_null": "true"
+    }
+  ],
+  "pkey": {
+    "name": "TIPBUN_PK",
+    "columns": [
+      {
+        "name": "IP"
+      }
+    ]
+  },
+  "dao_config": {
+    "functions": [
+      {
+        "name": "selectCount",
+        "type": "SelectRow",
+        "params": [
+          {
+            "name": "ip",
+            "type": "character varying"
+          }
+        ],
+        "where": "\"ip\"=@ip"
+      },
+      {
+        "name": "insert",
+        "type": "Insert",
+        "generate_key": false,
+        "generate_dtc": true
+      }
+    ]
+  }
+}

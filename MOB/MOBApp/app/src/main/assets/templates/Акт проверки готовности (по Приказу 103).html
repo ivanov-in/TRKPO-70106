@@ -1,0 +1,59 @@
+<head>
+<style>
+            body { margin-top: 0;  margin-left: 0; font-family: Times New Roman; font-size: 17px; }
+            table { width: 100%; border-collapse: collapse; margin-bottom: 8pt;}
+</style>
+</head>
+<body>
+<p style="text-align: center;"><strong>Акт<br />проверки готовности к отопительному периоду %OTOP_PERIOD</strong></p>
+<p style="text-align: left;"><strong> %CITY </strong></p>
+<table style="margin-bottom: 20pt;">
+<tr valign="bottom">
+<td style="text-align: left;"><strong> № %NUM_ACT </strong></td>
+<td>&nbsp;</td>
+<td style="text-align: right; text-decoration: underline;"><strong>%DAT_ACT</strong></td>
+</tr>
+</table>
+<p style="text-align: justify;">Комиссия по проверке готовности к отопительному периоду %OTOP_PERIOD теплоснабжающих, теплосетевых организаций, потребителей тепловой энергии, муниуипального образования %CITY (далее - комиссия)
+в соответствии с Федеральным законом от 27.07.2010 №190-ФЗ "О теплоснабжении" провела проверку готовности  к отопительному периоду: </p>
+<p style="text-align: center;">
+<span style="text-align: center; text-decoration: underline;"> <strong>%PAYER_NAME</strong></span><br/>
+<span style="text-align: center;">(полное наименование муниципального образования, теплосетевой или теплоснабжающей организации, потребителя тепловой энергии, в отношении которых провождилась проверка)<br/></span>
+</p>
+<p>Проверка готовности к отопительному периоду проводилась в отношении следующих объектов:<br/>
+%LIST_OBJ
+</p>
+<p style="text-align: justify;">В ходе проведения проверки готовности к отопительному периоду комиссия установила: <b>%DOP_INFO</b></p>
+<p>Вывод комиссии по итогам проведения проверки готовности к отопительному периоду: <b>%COMISS_POST_GOTOV</b></p>
+<p>%REMARK_DOG</p>
+<table>
+<tr>
+<td style="width: 70%; height: 35px; text-align: left;">Председатель комиссии:</td>
+<td style="width: 30%; height: 35px; text-align: right;">%PRED_COMISS</td>
+</tr>
+<tr>
+<td style="width: 70%; height: 35px; text-align: left;">Заместители председателя комиссии:</td>
+<td style="width: 30%; height: 35px; text-align: right;"></td>
+</tr>
+<tr>
+<td style="width: 70%; height: 35px; text-align: left;">1. Заместитель председателя комиссии ЖКХ:</td>
+<td style="width: 30%; height: 35px; text-align: right;">%ZAM_PRED_GKH</td>
+</tr>
+<tr>
+<td style="width: 70%; height: 35px; text-align: left;">2. Начальник %FILIAL_ESO:</td>
+<td style="width: 30%; height: 35px; text-align: right;">%DIRECTOR_TATENERGO</td>
+</tr>
+</table>
+<p>Члены комиссии (по территориальной принадлежности):</p><br/>
+<p style="width: 100%; text-align: justify;">%PODPISI</p>
+<table>
+<tr>
+<td valign="bottom" style="width: 70%; text-align: left;"><strong>С актом проверки готовности ознакомлен, один экземпляр акта получил:</strong></td>
+<td valign="bottom" style="width: 30%; text-align: left;"><strong> %FIO_PODP</strong></td>
+</tr>
+<tr>
+<td width="40%">&nbsp;</td>
+<td valign="top" style="width: 30%; text-align: center;">(подпись)&nbsp;&nbsp;&nbsp;(Ф. И. О.)</td>
+</tr>
+</table>
+</body>

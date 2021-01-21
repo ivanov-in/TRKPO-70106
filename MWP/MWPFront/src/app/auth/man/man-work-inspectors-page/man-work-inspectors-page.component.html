@@ -1,0 +1,68 @@
+<div class="d-flex justify-content-center  " style="background-color: chocolate;">
+
+  <form class="k-form" [formGroup]="registerForm">
+    <kendo-grid [data]="view" [rowClass]="rowCallback" (dataStateChange)="dataStateChange($event)"
+                [pageSize]="gridState.take" [filterable]="true" [pageable]="true" [sortable]="true"
+                [sort]="gridState.sort" [skip]="gridState.skip" [filter]="gridState.filter"
+                style="height: 74.8vh; padding-left: 30px; padding-right: 25px; border-style: none">
+
+      <ng-template kendoGridToolbarTemplate>
+        <button kendoButton style="float:left;" (click)="onMinDateClick($event)">
+          <svg class="bi bi-arrow-left-square" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor"
+               xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd"
+                  d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+            <path fill-rule="evenodd"
+                  d="M8.354 11.354a.5.5 0 0 0 0-.708L5.707 8l2.647-2.646a.5.5 0 1 0-.708-.708l-3 3a.5.5 0 0 0 0 .708l3 3a.5.5 0 0 0 .708 0z"/>
+            <path fill-rule="evenodd" d="M11.5 8a.5.5 0 0 0-.5-.5H6a.5.5 0 0 0 0 1h5a.5.5 0 0 0 .5-.5z"/>
+          </svg>
+        </button>
+        <div style="max-width: 150px; float:left;" (click)="onDatePicker($event.target.value)">
+          <kendo-datepicker
+            formControlName="date" format="dd/MM/yyyy"
+            [value]='dataValue'
+            [min]='min'
+            [max]='max'>
+          </kendo-datepicker>
+        </div>
+        <button kendoButton style="float:left;" (click)="onMaxDateClick($event)">
+          <svg class="bi bi-arrow-right-square" width="1.5em" height="1.5em" viewBox="0 0 16 16" fill="currentColor"
+               xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd"
+                  d="M14 1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1zM2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z"/>
+            <path fill-rule="evenodd"
+                  d="M7.646 11.354a.5.5 0 0 1 0-.708L10.293 8 7.646 5.354a.5.5 0 1 1 .708-.708l3 3a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0z"/>
+            <path fill-rule="evenodd" d="M4.5 8a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1H5a.5.5 0 0 1-.5-.5z"/>
+          </svg>
+        </button>
+        <input placeholder="Поиск" kendoTextBox style="max-width: 230px; float:left;"
+               (input)="onFilter($event.target.value)"/>
+      </ng-template>
+      <kendo-grid-column field="data" title="Дата" width="100" [class]="{'codeColumn': true}">
+      </kendo-grid-column>
+      <kendo-grid-column field="wnum" title="Задание №" width="100" [class]="{'codeColumn': true}">
+      </kendo-grid-column>
+      <kendo-grid-column field="man_full_name" title="Мастер Ф.И.О" width="170" [class]="{'codeColumn': true}">
+      </kendo-grid-column>
+      <kendo-grid-column field="phone" title="Телефон мастера" width="130" [class]="{'codeColumn': true}">
+      </kendo-grid-column>
+      <kendo-grid-column field="address" title="Адрес" width="300" [class]="{'codeColumn': true}">
+      </kendo-grid-column>
+      <kendo-grid-column field="status_ru" title="Статус" width="100" [class]="{'codeColumn': true}">
+      </kendo-grid-column>
+      <kendo-grid-column field="trusted_phone" title="Телефон доверенного лица" width="130"
+                         [class]="{'codeColumn': true}">
+      </kendo-grid-column>
+      <kendo-grid-column field="dt_end" title="Дата выполнения" width="180" [class]="{'codeColumn': true}">
+      </kendo-grid-column>
+      <kendo-grid-column field="result_rut" title="Результат" width="100" [class]="{'codeColumn': true}">
+      </kendo-grid-column>
+      <kendo-grid-command-column title="" width="121">
+        <ng-template kendoGridCellTemplate>
+          <button kendoGridEditCommand [primary]="false">Подробнее</button>
+        </ng-template>
+      </kendo-grid-command-column>
+    </kendo-grid>
+  </form>
+</div>
+

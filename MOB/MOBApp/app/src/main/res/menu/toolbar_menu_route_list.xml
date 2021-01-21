@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        tools:context=".ListTasksActivity"
+
+>
+
+
+    <item
+            android:id="@+id/menu_upload_data"
+            android:tooltipText="Отправить все данные в центральную базу"
+            android:icon="@drawable/ic_upload"
+            android:theme="@style/ToolbarTheme"
+            android:title="Отправить все данные в центральную базу"
+            app:showAsAction="ifRoom"/>
+
+    <item
+            android:id="@+id/menu_update_task_list_count"
+            android:tooltipText="Загрузить задания с центральной базы"
+            android:icon="@drawable/ic_refresh"
+            android:theme="@style/ToolbarTheme"
+            android:title="Загрузить задания с центральной базы"
+            app:showAsAction="ifRoom"/>
+    <item
+            android:id="@+id/menu_map_task_list"
+            android:tooltipText="Яндекс-Карты"
+            android:icon="@drawable/ic_map"
+            android:visible="false"
+            android:title="Яндекс-Карты"
+            app:showAsAction="ifRoom"/>
+    <item
+            android:id="@+id/menu_today"
+            android:checkable="true"
+            android:tooltipText="Только задачи на сегодня"
+            android:icon="@drawable/ic_today"
+            android:theme="@style/ToolbarTheme"
+            android:title="Только задачи на сегодня"
+            app:showAsAction="ifRoom"/>
+    <item
+            android:id="@+id/menu_calendar_task_list"
+            android:tooltipText="Календарь"
+            android:icon="@drawable/ic_calendar"
+            android:title="Календарь "
+            app:showAsAction="ifRoom"/>
+    <item
+            android:id="@+id/menu_info_abon"
+            android:icon="@drawable/lb_ic_in_app_search"
+            android:title="Поиск информации по абоненту"
+            android:tooltipText="Поиск информации по абоненту"
+            app:showAsAction="ifRoom"/>
+    <item
+            android:id="@+id/menu_new_task_list"
+            android:icon="@drawable/ic_plus_circle"
+            android:title="Новое задание"
+            android:tooltipText="Новое задание"
+            app:showAsAction="ifRoom"/>
+</menu>

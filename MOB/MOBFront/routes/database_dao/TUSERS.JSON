@@ -1,0 +1,127 @@
+{
+  "otype": "table",
+  "name": "TUSERS",
+  "columns": [
+    {
+      "otype": "column",
+      "name": "UUID",
+      "type": "uuid",
+      "not_null": "true"
+    },
+    {
+      "otype": "column",
+      "name": "DTC",
+      "type": "timestamp without time zone",
+      "not_null": "true"
+    },
+    {
+      "otype": "column",
+      "name": "LOGIN",
+      "type": "character varying",
+      "not_null": "true"
+    },
+    {
+      "otype": "column",
+      "name": "PASS_HASH",
+      "type": "character varying",
+      "not_null": "true"
+    }
+  ],
+  "pkey": {
+    "name": "TUSERS_PK",
+    "columns": [
+      {
+        "name": "UUID"
+      }
+    ]
+  },
+  "indexes": [
+    {
+      "name": "LOGIN_IDX1",
+      "columns": [
+        {
+          "name": "LOGIN"
+        }
+      ]
+    }
+  ],
+  "dao_config": {
+    "functions": [
+      {
+        "name": "selectCount",
+        "type": "SelectRow",
+        "params": [
+          {
+            "name": "login",
+            "type": "character varying"
+          },
+          {
+            "name": "pass_hash",
+            "type": "character varying"
+          }
+        ],
+        "where": "\"pass_hash\"=@pass_hash AND \"login\"=@login"
+      },
+      {
+        "name": "updateChangePassByLogin",
+        "type": "UpdateBy",
+        "params": [
+          {
+            "name": "PASS_HASH",
+            "type": "character varying"
+          },
+          {
+            "name": "LOGIN",
+            "type": "character varying"
+          }
+        ],
+        "SET": "\"PASS_HASH\" = @PASS_HASH",
+        "where": "\"LOGIN\"=@LOGIN"
+      },
+      {
+        "name": "updateChangePassByKey",
+        "type": "UpdateByKey",
+        "columns": [
+          "PASS_HASH"
+        ],
+        "key": "TUSERS_PK",
+        "generate_dtc": true
+      },
+      {
+        "name": "deleteByKey",
+        "type": "DeleteByKey"
+      },
+      {
+        "name": "insertUser",
+        "type": "Insert",
+        "generate_key": true,
+        "generate_dtc": true
+      },
+      {
+        "name": "selectList",
+        "type": "Select",
+        "columns": [
+          "UUID",
+          "DTC",
+          "LOGIN",
+          "PASS_HASH"
+        ],
+        "params": [
+          {
+            "name": "DTC",
+            "type": "timestamp without time zone"
+          }
+        ],
+        "where": "\"DTC\"<@DTC",
+        "order_by": {
+          "columns": [
+            {
+              "name": "DTC",
+              "type": "DESC"
+            }
+          ]
+        }
+      }
+    ]
+  }
+}

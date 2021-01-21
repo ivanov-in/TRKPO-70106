@@ -1,0 +1,144 @@
+<head>
+<style>
+            body { margin-top: 0;  margin-left: 0; font-family: Times New Roman; font-size: 17px; }
+            table { width: 100%; border-collapse: collapse; margin-bottom: 8pt;}
+	    tr {height: 30px; }
+</style>
+</head>
+<body>
+<table style="margin-bottom: 20pt;">
+<tr valign="bottom">
+<td width="60%">&nbsp;</td>
+<td style="width: 40%; text-align: left;"><strong>«Утверждаю»</strong></td>
+</tr>
+<tr valign="bottom">
+<td width="60%">&nbsp;</td>
+<td style="width: 40%; text-align: left;">Представитель АО «Татэнерго»</td>
+</tr>
+<tr valign="bottom">
+<td width="60%">&nbsp;</td>
+<td style="width: 40%; text-align: left;">%FIO_ESO</td>
+</tr>
+<tr valign="bottom">
+<td width="60%">&nbsp;</td>
+<td style="width: 40%; text-align: left;">%DAT_ACT</td>
+</tr>
+</table>
+<p><span style="font-size: 16pt;"><strong>Акт допуска в эксплуатацию узла учёта тепловой энергии у потребителя</strong></span></p>
+<table style="margin-bottom: 20pt;">
+<tr valign="bottom">
+<td style="text-align: left;"><strong> № %NUM_ACT </strong></td>
+<td>&nbsp;</td>
+<td style="text-align: right; text-decoration: underline;"><strong>%DAT_ACT</strong></td>
+</tr>
+</table>
+<table>
+<tr>
+<td>Произведён технический осмотр приборов узла учёта тепловой энергии потребителя: %PAYER_NAME</td>
+</tr>
+<tr>
+<td valign="top" style="text-align: center;">(наименование организации потребителя)</td>
+</tr>
+<tr>
+<td>договор №: %NDOG </td>
+</tr>
+<tr>
+<td valign="top" style="text-align: center;">(номер договора)</td>
+</tr>
+<tr>
+<td> %NAME_OBJ</td>
+</tr>
+<tr>
+<td valign="top" style="text-align: center;">(наименование объекта договора)</td>
+</tr>
+<tr>
+<td>по адресу: %ADR_OBJ</td>
+</tr>
+<tr>
+<td>Вид системы теплопотребления:  %NAL_SO %NAL_SW %NAL_ST %NAL_GW</td>
+</tr>
+<tr>
+<td>Проверена комплектность необходимой технической документации, в результате чего установлено: %ITOG_TEXT</td>
+</tr>
+<tr>
+<td valign="top" style="text-align: center;">(указать соответствие или несоответствие «Правилам учёта тепловой энергии и теплоносителя»)</td>
+</tr>
+<tr>
+<td>На основании изложенного, узел учёта тепловой энергии: %PU_DATA</td>
+</tr>
+<tr>
+<td>в эксплуатацию с %DOPUSK_S до %DOPUSK_PO </td>
+</tr>
+<tr>
+<td>в следующем составе оборудования и пломбируется:</td>
+</tr>
+</table>
+<table border-style= "solid";  border="1" frame="box" rules="all">
+<tr style="text-align: center;">
+<td width="20%" align="center">Тип прибора</td>
+<td width="20%" align="center">Заводской номер</td>
+<td width="20%" align="center">Сроки Гос. поверки</td>
+<td width="20%" align="center">Номер, кол-во пломб</td>
+<td width="20%" align="center">Показания приборов на момент допуска</td>
+</tr>
+</table>
+%TABLE1
+
+<table>
+<tr>
+<td>Показания приборов учёта необходимо предоставлять 1, 2 числа каждого месяца, следующего за отчётным. В случае, когда расчётный период (1, 2 число) попадает на выходные или праздничные дни, показания приборов учёта необходимо предоставлять в течение двух предшествующих дней.</td>
+</tr>
+<tr>
+<td>Показания приборов необходимо предоставлять по адресу: %FILIAL_ADDRESS</td>
+</tr>
+<tr>
+<td>Телефон для справок: %TEL_SPRAVKI;	группа технического аудита %DOP_INFO; диспетчерская %TEL_DISPETCH;</td>
+</tr>
+<tr>
+<td>В случае несвоевременного предоставления показаний приборов учёта расчёт потреблённой тепловой энергии будет произведён согласно условий «Договора на теплоснабжение».</td>
+</tr>
+</table>
+<p>%REMARK_DOG</p>
+<table>
+<tr>
+<td valign="bottom" style="width: 40%; text-align: left;"><strong>Представитель КТС:</strong></td>
+<td valign="bottom" style="width: 60%; text-align: left;"><strong> %FIO_ESO</strong></td>
+</tr>
+<tr>
+<td width="40%">&nbsp;</td>
+<td valign="top" style="width: 60%; text-align: left;">(подпись)&nbsp;&nbsp;&nbsp;(Ф. И. О.)</td>
+</tr>
+<tr>
+<td valign="bottom" style="width: 40%; text-align: left;"><strong>Ответственный представитель абонента:</strong></td>
+<td valign="bottom" style="width: 60%; text-align: left;"><strong> %NAME_DOLZHN_PODP , %FIO_PODP (т. %TEL_PODP )</strong></td>
+</tr>
+<tr>
+<td width="40%">&nbsp;</td>
+<td valign="top" style="width: 60%; text-align: left;">(должность, подпись, Ф.И.О., номер телефона)(Ф. И. О.)</td>
+</tr>
+<tr>
+<td valign="bottom" style="width: 40%; text-align: left;"><strong>Со сроками и формой предоставления показаний ознакомлен:</strong></td>
+<td valign="bottom" style="width: 60%; text-align: left;"><strong>  %FIO_PODP %DAT_ACT</strong></td>
+</tr>
+<tr>
+<td width="40%">&nbsp;</td>
+<td valign="top" style="width: 60%; text-align: left;">(поддпись, ФИО, дата)</td>
+</tr>
+<tr>
+<td valign="bottom" style="width: 40%; text-align: left;"><strong>Организация, установившая узел учёта:</strong></td>
+<td valign="bottom" style="width: 60%; text-align: left;"><strong> %ORG_USTANOV_PU</strong></td>
+</tr>
+<tr>
+<td width="40%">&nbsp;</td>
+<td valign="top" style="width: 60%; text-align: left;">(наименовние организации)</td>
+</tr>
+</table>
+<table>
+<tr>
+<td valign="bottom" style="text-align: center;"><strong> %NAME_DOLZHN_PODP , %FIO_PODP (т. %TEL_PODP )</strong></td>
+</tr>
+<tr>
+<td valign="top" style="text-align: center;">(должность, подпись, Ф.И.О., номер телефона)</td>
+</tr>
+</table>
+</body>

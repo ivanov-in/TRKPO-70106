@@ -1,0 +1,61 @@
+###данные по инспектору
+POST http://localhost:7000/mobback/get/get_inspector_data?p_puser=ABLAKOVAII&p_password=WNhZDNjMjlhM2E2MjkyODBlNjg2Y2YwYzNmNWQ1YTg2YWZmM2NhMTIwMjBjOTIzYWRjNmM5Mg==
+###Поиск объектов при  добавлении нового задания
+###Возвращает список объектов,
+###найденных по переданной строке в адресе объекта или наименовании абонента
+POST http://localhost:7000/mobback/get/get_objects?psearch_string=Багаева
+###Список задач инспектора на дату
+POST http://localhost:7000/mobback/get/get_tasks?pdate=03.12.2020&pid_inspector=142
+###Получение файлов к заданиям
+POST http://localhost:7000/mobback/get/get_tasks_files?pdate=01.10.2020&pid_inspector=142&pi_task_status=5
+###Получение файлов к истории заданиям
+POST http://localhost:7000/mobback/get/get_tasks_files_hist?pdate=27.10.2020&pid_inspector=142
+###Список доступных к заданиям актов
+POST http://localhost:7000/mobback/get/get_purpose_acts
+###Акты к заданию со всеми полями
+POST http://localhost:7000/mobback/get/get_act_fields?pdate=02.12.2020&pid_inspector=561
+###Поля для заполнения акта (дополнительная информация для некоторых актов)
+POST http://localhost:7000/mobback/get/get_act_fields_dop?pdate=01.10.2020&pid_inspector=142&pi_task_status=5
+### контакты выбранного абонента (при создании нового задания)
+POST http://localhost:7000/mobback/get/get_contacts?pkodp=52278617;
+###справочник целей посещения
+POST http://192.168.179.19:80/mobback/get/get_purpose
+###Поиск абонента, договора по введённой строке в окне истории посещений
+###Возвращает список договоров,
+###найденных по переданной строке в номере договора или наименовании абонента
+POST http://localhost:7000/mobback/get/get_dog_payers?psearch_string=708 Т
+###история посещений
+POST http://localhost:7000/mobback/get/get_history?pdate=01.10.2020&pid_inspector=142
+### данные для окна информация по договору
+POST http://localhost:7000/mobback/get/get_dog_data?pdate=07.12.2020&pid_inspector=142&pi_task_status=-1
+### данные для окна информация по договору (точкм учёта)
+POST http://localhost:7000/mobback/get/get_dog_tu_data?pdate=01.10.2020&pid_inspector=142
+### данные для окна информация по договору (узлы учёта)
+POST http://localhost:7000/mobback/get/get_dog_uu_data?pdate=01.10.2020&pid_inspector=142
+### данные для окна информация по договору (узлы учёта - СИ)
+POST http://localhost:7000/mobback/get/get_dog_uu_si_data?pdate=11.01.2021&pid_inspector=142
+### файл blob
+POST http://localhost:7000/mobback/get/get_file?pid_file=280
+###Сервис для получения таблицы подписантов будет
+POST http://localhost:7000/mobback/get/get_podpisant?pdate=03.12.2020&pid_inspector=142
+### просто тест сервера без запроса к БД
+POST http://localhost:7000/mobback/get/say_ok
+#### тест их сервера
+POST http://localhost:7000/mobback/get/say_ok
+### Кол-во обновлённых задач
+POST http://localhost:7000/mobback/get/get_count_updates?pdate=02.12.2020&pid_inspector=561
+
+### данные для окна информация по договору
+POST http://localhost:7000/mobback/get/get_dog_data_online?pi_kod_dog=8522
+### данные для окна информация по договору
+POST http://localhost:7000/mobback/get/get_dog_obj_data_online?pi_kod_dog=8522
+### данные для окна информация по договору (точкм учёта)
+POST http://localhost:7000/mobback/get/get_dog_tu_data_online?pi_kod_dog=8522
+### данные для окна информация по договору (узлы учёта)
+POST http://localhost:7000/mobback/get/get_dog_uu_data_online?pi_kod_dog=8522
+### данные для окна информация по договору (узлы учёта - СИ)
+POST http://localhost:7000/mobback/get/get_dog_uu_si_data_online?pi_kod_dog=8522
+
+
+module.exports = router;
+

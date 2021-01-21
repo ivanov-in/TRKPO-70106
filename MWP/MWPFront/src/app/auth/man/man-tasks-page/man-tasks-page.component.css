@@ -1,0 +1,12 @@
+
+
+.container {
+    width: 274.8vh;
+    /*height: 500px;*/
+    height: 73.8vh;
+    padding-left: 30px;
+    padding-right: 25px;
+    border-style: none
+}
+.gold .codeColumns {color: #a09097; background-color: lightgrey}
+.green .codeColumns {}

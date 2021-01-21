@@ -1,0 +1,129 @@
+{
+  "otype": "table",
+  "name": "TTOKEN",
+  "columns": [
+    {
+      "otype": "column",
+      "name": "TOKEN",
+      "type": "uuid",
+      "not_null": "true"
+    },
+    {
+      "otype": "column",
+      "name": "TIKETFORTOKEN",
+      "type": "uuid",
+      "not_null": "false"
+    },
+    {
+      "otype": "column",
+      "name": "DTC",
+      "type": "timestamp without time zone",
+      "not_null": "true"
+    },
+    {
+      "otype": "column",
+      "name": "IMEI",
+      "type": "character varying",
+      "not_null": "true"
+    },
+    {
+      "otype": "column",
+      "name": "IP",
+      "type": "character varying",
+      "not_null": "true"
+    },
+    {
+      "otype": "column",
+      "name": "UUID_KEYS",
+      "type": "uuid",
+      "not_null": "true"
+    },
+    {
+      "otype": "column",
+      "name": "USE_COUNT",
+      "type": "integer",
+      "not_null": "true"
+    },
+    {
+      "otype": "column",
+      "name": "USE_KEY",
+      "type": "integer",
+      "not_null": "true"
+    }
+  ],
+  "pkey": {
+    "name": "TTOKEN_PK",
+    "columns": [
+      {
+        "name": "TOKEN"
+      }
+    ]
+  },
+  "indexes": [
+    {
+      "name": "TTOKEN_IDX1",
+      "columns": [
+        {
+          "name": "UUID_KEYS"
+        }
+      ]
+    }
+  ],
+  "fkeys": [
+    {
+      "name": "TTOKEN_FK1",
+      "column": "UUID_KEYS",
+      "table": "TKEYS",
+      "tcolumn": "UUID"
+    }
+  ],
+  "dao_config": {
+    "functions": [
+      {
+        "name": "insert",
+        "type": "Insert",
+        "generate_dtc": true
+      },
+      {
+        "name": "deleteBy",
+        "type": "DeleteBy",
+        "params": [
+          {
+            "name": "imei",
+            "type": "character varying"
+          },
+          {
+            "name": "ip",
+            "type": "character varying"
+          }
+        ],
+        "where": "IMEI = @imei AND IP = @ip"
+      },
+      {
+        "name": "selectBy",
+        "type": "SelectRow",
+        "params": [
+          {
+            "name": "imei",
+            "type": "character varying"
+          },
+          {
+            "name": "ip",
+            "type": "character varying"
+          }
+        ],
+        "where": "IMEI = @imei AND IP = @ip"
+      },
+      {
+        "name": "updateByKey",
+        "type": "UpdateByKey",
+        "columns": [
+          "USE_KEY",
+          "USE_COUNT"
+        ],
+        "key": "TTOKEN_PK",
+        "generate_dtc": false
+      }
+    ]
+  }
+}

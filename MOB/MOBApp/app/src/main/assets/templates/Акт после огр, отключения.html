@@ -1,0 +1,52 @@
+<head>
+<style>
+            body { margin-top: 0;  margin-left: 0; font-family: Times New Roman; font-size: 17px; }
+            table { width: 100%; border-collapse: collapse; margin-bottom: 8pt;}
+</style>
+</head>
+<body>
+<p style="text-align: center;"><strong>%FILIAL_ESO </strong></p>
+<p style="text-align: center;"><span style="font-size: 16pt;"><strong>АКТ об ограничении (отключении) подачи тепловой энергии, теплоносителя</strong></span></p>
+<table style="margin-bottom: 20pt;">
+<tr valign="bottom">
+<td style="text-align: left;"><strong> № %NUM_ACT </strong></td>
+<td>&nbsp;</td>
+<td style="text-align: right; text-decoration: underline;"><strong>%DAT_ACT</strong></td>
+</tr>
+</table>
+<p>Наименование абонента: <b>%PAYER_NAME</b></p>
+<p style="text-align: center; line-height: 0; font-size: 9.0pt;">(наименование абонента)</p>
+<p>Наименование объекта:<b> %NAME_OBJ</b></p>
+<p style="text-align: center; line-height: 0; font-size: 9.0pt;">(наименование объекта)</p>
+<p>Договор: <b>№ %NDOG от %DAT_DOG</b></p>
+<p>Задолженность на <b>%DAT_ACT составляет %SUM_DOLG</b></p>
+<p style="text-align: center; line-height: 0; font-size: 9.0pt;">(сумма задолженности в рублях)</p>
+<p>Предупреждение о погашении задолженности: № <b> %PRED_POGASH_DOLG_NUM  от %PRED_POGASH_DOLG_DATE</b> </p>
+<p>Уведомление об ограничении (отключении): № <b> %UVEDOML_OTKL_NUM от %UVEDOML_OTKL_DATE</b></p>
+<p>Акт составлен представителем АО &laquo;Татэнерго&raquo;: <b>%FIO_ESO, %NAME_DOLZHN_ESO (т. %TEL_ESO)</b></p>
+<p style="text-align: center; line-height: 0; font-size: 9.0pt;">(должность, ФИО, телефон)</p>
+<p>в присутствии <b>%FIO_PODP, %NAME_DOLZHN_PODP (т. %TEL_PODP)</b></p>
+<p style="text-align: center; line-height: 0; font-size: 9.0pt;">(должность, ФИО, телефон абонента)</p>
+<p>Ограничение (отключение) произведено: <b>%OTKL_PROIZV</b></p>
+<p style="text-align: center; line-height: 0; font-size: 9.0pt;">(указать способ ограничения (отключения), места установки пломб и т.д.)</p>
+<p>Показания приборов учета до ограничения (отключения): <b>%OTKL_PU_POKAZ_DO</b></p>
+<p>Показания приборов учета после ограничения (отключения): <b>%OTKL_PU_POKAZ_POSLE</b></p>
+<p><strong>На основании составленного акта от <b>%DAT_ACT</b> Вам необходимо обеспечить выполнение следующих мероприятий: </strong></p>
+<ol>
+<li><u>Обеспечить сохранность оборудования и материальных ценностей, безопасность персонала.</u></li>
+<li><u>Принять меры для предотвращения размораживания систем теплоснабжения.</u></li>
+<li><u>Обеспечить сохранность пломб. Ответственность за сохранность пломб несёт потребитель.</u></li>
+<li><u>Оплатить задолженность.</u></li>
+<li><u>%DOP_INFO</u></li>
+</ol>
+<p><u>При невыполнении мероприятий, указанных в пунктах 1 - 3, вся ответственность за последствия возлагается на руководителей Вашего предприятия. </u></p>
+<p>%REMARK_DOG</p>
+<p style="font-size: 10.0pt;">Об устранении нарушений сообщить в письменном виде в филиал АО &laquo;Татэнерго&raquo; - %FILIAL_ESO по адресу: %FILIAL_ADDRESS, тел. %FILIAL_TEL.</p>
+<p>&nbsp;</p>
+<p style="text-align: justify;">Представитель АО &laquo;Татэнерго&raquo;:<b>%FIO_ESO, %NAME_DOLZHN_ESO (т. %TEL_ESO)</b></p>
+<p style="text-align: center; line-height: 0; font-size: 9.0pt;">(должность, ФИО, телефон)</p>
+<p style="text-align: justify;">Представитель абонента: <b>%FIO_PODP, %NAME_DOLZHN_PODP (т. %TEL_PODP)</b></p>
+<p style="text-align: center; line-height: 0; font-size: 9.0pt;">(должность, ФИО, телефон)</p>
+<p>Экземпляр акта получил: <b>%ACT_POLUCHIL</b> </p>
+<p style="line-height: 0; font-size: 9pt; text-align: left; padding-left: 350px;">(должность, ФИО, телефон)</p>
+</body>

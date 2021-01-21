@@ -1,0 +1,184 @@
+<div class="d-flex justify-content-center  " style="background-color: chocolate;">
+    <div class="d-flex align-items-start " style="height: 75vh; padding-top: 1px;">
+        <kendo-grid [data]="view | async" [rowClass]="rowCallback"
+                    style="height: 74.8vh; padding-left: 30px; padding-right: 25px; border-style: none">
+            <ng-template kendoGridToolbarTemplate>
+                <!--        <button kendoGridAddCommand>+ Добавить пользователя</button>-->
+                <button kendoButton [primary]="true" *ngIf="!opened" (click)="open($event)">+ Добавить пользователя
+                </button>
+                <kendo-dialog title="Добавить пользователя" *ngIf="opened" (close)="close('cancel')"
+                              [width]="650"
+                              [height]="400">
+                    <div class="example-wrapper">
+                        <input kendoTextBox style="width: 620px" [(ngModel)]="personFIO"
+                               [placeholder]="'Иванов Иван Иванович'"
+                               (ngModelChange)="disabledCange()"/>
+                        <p>Введите ФИО пользователя</p>
+<!--                        <input kendoTextBox style="width: 620px" [(ngModel)]="personTEL"-->
+<!--                               [placeholder]="'+7 (000) 000-00-00'"/>-->
+                        <kendo-maskedtextbox  style="width: 620px" [mask]="'+7 (000) 000-0000'" [(ngModel)]="personTEL" ></kendo-maskedtextbox>
+                        <p>Введите телефон</p>
+                        <div class="section">
+                            <div class="wrap">
+                                <input type="checkbox" kendoCheckBox [(ngModel)]="ins"/>
+                                <span> Инспектор</span>
+                            </div>
+                        </div>
+                        <div class="section">
+                            <div class="wrap">
+                                <span><br/></span>
+                                <input type="checkbox" kendoCheckBox [(ngModel)]="adm"/>
+                                <span> Администратор</span>
+                            </div>
+                        </div>
+                        <div class="section">
+                            <div class="wrap">
+                                <span><br/></span>
+                                <input type="checkbox" kendoCheckBox [(ngModel)]="man"/>
+                                <span> Руководитель</span>
+                            </div>
+                        </div>
+                    </div>
+                    <kendo-dialog-actions>
+                        <button kendoButton (click)="close('no')">Отмена</button>
+                        <button kendoButton [toggleable]="true"
+                                (click)="close('yes')" (mousedown)="onNewPersone($event)"
+                                [disabled]="disabled"
+                                primary="true">Сохранить
+                        </button>
+                    </kendo-dialog-actions>
+                </kendo-dialog>
+            </ng-template>
+            <kendo-grid-column field="LOGIN" title="Логин" width="200" [class]="{'codeColumn': true}">
+            </kendo-grid-column>
+            <kendo-grid-column field="FIO" title="Ф.И.О" width="350" [class]="{'codeColumn': true}">
+            </kendo-grid-column>
+            <kendo-grid-column field="TEL" title="Телефон"  [class]="{'codeColumn': true}">
+                <ng-template kendoGridCellTemplate let-dataItem>
+                    {{dataItem.TEL | phone}}
+                </ng-template>
+            </kendo-grid-column>
+            <kendo-grid-column field="ROLELIST_RU" title="Роли" width="350" [class]="{'codeColumn': true}">
+            </kendo-grid-column>
+            <kendo-grid-column field="USER_LOCK" title="Заблокирован" width="120" [class]="{'codeColumn': true}">
+                <ng-template kendoGridCellTemplate let-dataItem>
+                    <input type="checkbox" [checked]="dataItem.USER_LOCK" disabled/>
+                </ng-template>
+            </kendo-grid-column>
+            <kendo-grid-command-column title="" width="143">
+                <ng-template kendoGridCellTemplate let-dataItem>
+                    <button kendoGridEditCommand [primary]="true" *ngIf="!openChange"
+                            (click)="openedChange($event, dataItem)">
+                        Редактировать
+                    </button>
+                    <kendo-dialog title="Редактировать" *ngIf="openChange" (close)="close('cancel')"
+                                  [width]="668"
+                                  [height]="445">
+                        <kendo-dialog-actions>
+                            <button kendoButton (click)="close('no')">Отмена</button>
+                            <button kendoButton [toggleable]="true"
+                                    (click)="close('yes')" (mousedown)="onChange($event)"
+                                    primary="true">Сохранить
+                            </button>
+                        </kendo-dialog-actions>
+                        <div class="example-wrapper">
+                            <legend class="k-form-legend">{{fio}}</legend>
+                            <span><br/></span>
+                            <p><kendo-maskedtextbox  style="width: 620px" [mask]="'+7 (000) 000-0000'" [(ngModel)]="phone"></kendo-maskedtextbox></p>
+                            <p>Редактировать телефон</p>
+                            <div class="container d-flex justify-content-between">
+                                <kendo-card style="padding: 10px">
+                                    <kendo-card-header class="k-hbox">
+                                        <h1 kendoCardTitle>Редактирование роли</h1>
+                                    </kendo-card-header>
+                                    <div class="section">
+                                        <div class="wrap">
+                                            <input type="checkbox" kendoCheckBox [(ngModel)]="ins"/>
+                                            <span> Инспектор</span>
+                                        </div>
+                                    </div>
+                                    <div class="section">
+                                        <div class="wrap">
+                                            <span><br/></span>
+                                            <input type="checkbox" kendoCheckBox [(ngModel)]="adm"/>
+                                            <span> Администратор</span>
+                                        </div>
+                                    </div>
+                                    <div class="section">
+                                        <div class="wrap">
+                                            <span><br/></span>
+                                            <input type="checkbox" kendoCheckBox [(ngModel)]="man"/>
+                                            <span> Руководитель</span>
+                                        </div>
+                                    </div>
+                                </kendo-card>
+                                <kendo-card style="padding: 10px">
+                                    <div class="section">
+                                        <div class="wrap">
+                                            <span><br/></span>
+                                            <input type="checkbox" kendoCheckBox [(ngModel)]="password"/>
+                                            <span> Сбросить пароль</span>
+                                        </div>
+                                    </div>
+                                    <div class="section">
+                                        <div class="wrap">
+                                            <span><br/></span>
+                                            <input type="checkbox" kendoCheckBox [(ngModel)]="onblock"/>
+                                            <span> Заблокирован</span>
+                                        </div>
+                                    </div>
+                                    <div class="section">
+                                        <div class="wrap">
+                                            <span><br/></span>
+                                            <input type="checkbox" kendoCheckBox [(ngModel)]="ondelete"/>
+                                            <span style="color: #D9534F"> Удалить</span>
+                                        </div>
+                                    </div>
+                                    <kendo-dialog title="Удаление пользователя" *ngIf="delete" (close)="close('cancel')"
+                                                  [width]="668"
+                                                  [height]="445">
+                                        <form translate="no" class="d-flex align-items-center"
+                                              style="padding-top: 50px">
+                                            <div class="d-flex align-items-center">
+                                                <fieldset class="k-form-fieldset"
+                                                          style="width: 648px; align-content: center">
+                                                    <kendo-avatar style=" margin-left: 294px; font-size: 24px;"
+                                                                  class="k-avatar"
+                                                                  width="60px" height="60px"
+                                                                  [shape]="'circle'">
+                                                        <svg width="2em" height="2em" viewBox="0 0 16 16"
+                                                             class="bi bi-trash" fill="currentColor"
+                                                             xmlns="http://www.w3.org/2000/svg">
+                                                            <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/>
+                                                            <path fill-rule="evenodd"
+                                                                  d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/>
+                                                        </svg>
+                                                    </kendo-avatar>
+                                                    <div style=" text-align: center;">
+                                                        <kendo-label style="font: 20px sans-serif"
+                                                                     text="Вы уверены, что хотите удалить пользователя?"></kendo-label>
+                                                    </div>
+                                                    <div style=" text-align: center;">
+                                                        <kendo-label style="font: 15px sans-serif"
+                                                                     text="Эту операцию невозможно отменить">
+                                                        </kendo-label>
+                                                    </div>
+                                                </fieldset>
+                                            </div>
+                                        </form>
+                                        <kendo-dialog-actions>
+                                            <button kendoButton (click)="close('no')"> Нет</button>
+                                            <button kendoButton primary="true" [togglable]="true" (click)="close('yes')"
+                                                    (mousedown)="deleteUser($event)"> Да
+                                            </button>
+                                        </kendo-dialog-actions>
+                                    </kendo-dialog>
+                                </kendo-card>
+                            </div>
+                        </div>
+                    </kendo-dialog>
+                </ng-template>
+            </kendo-grid-command-column>
+        </kendo-grid>
+    </div>
+</div>

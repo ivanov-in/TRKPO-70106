@@ -1,0 +1,245 @@
+{
+  "otype": "table",
+  "name": "TSCRIPTSTOMOB",
+  "columns": [
+    {
+      "otype": "column",
+      "name": "UUID",
+      "type": "uuid",
+      "not_null": "true"
+    },
+    {
+      "otype": "column",
+      "name": "DTC",
+      "type": "timestamp without time zone",
+      "not_null": "true"
+    },
+    {
+      "otype": "column",
+      "name": "DTD",
+      "type": "timestamp without time zone",
+      "not_null": "false"
+    },
+    {
+      "otype": "column",
+      "name": "LOGIN",
+      "type": "character varying",
+      "not_null": "true"
+    },
+    {
+      "otype": "column",
+      "name": "SCRIPT",
+      "type": "character varying",
+      "not_null": "true"
+    },
+    {
+      "otype": "column",
+      "name": "TYPE_SCRIPT",
+      "type": "character varying",
+      "not_null": "true"
+    },
+    {
+      "otype": "column",
+      "name": "DB_NAME",
+      "type": "character varying",
+      "not_null": "true"
+    },
+    {
+      "otype": "column",
+      "name": "DT_SEND",
+      "type": "timestamp without time zone",
+      "not_null": "false"
+    },
+    {
+      "otype": "column",
+      "name": "RESULT_SEND",
+      "type": "character varying",
+      "not_null": "false"
+    },
+    {
+      "otype": "column",
+      "name": "RESULT_INTERIM",
+      "type": "character varying",
+      "not_null": "false"
+    },
+    {
+      "otype": "column",
+      "name": "ANSWER",
+      "type": "character varying",
+      "not_null": "false"
+    }
+  ],
+  "pkey": {
+    "name": "TSCRIPTSTOMOB_PK",
+    "columns": [
+      {
+        "name": "UUID"
+      }
+    ]
+  },
+  "dao_config": {
+    "functions": [
+      {
+        "name": "selectCountNewScriptByKey",
+        "type": "SelectRow",
+        "params": [
+          {
+            "name": "UUID",
+            "type": "uuid"
+          }
+        ],
+        "where": "\"UUID\"=@UUID and \"dt_send\" is null and \"dtd\" is null"
+      },
+      {
+        "name": "selectCountSendScriptByKey",
+        "type": "SelectRow",
+        "params": [
+          {
+            "name": "UUID",
+            "type": "uuid"
+          }
+        ],
+        "where": "\"UUID\"=@UUID and \"dt_send\" is not null and \"dtd\" is null"
+      },
+      {
+        "name": "getScriptToMobNew",
+        "type": "Select",
+        "columns": [
+          "UUID",
+          "DTC",
+          "LOGIN",
+          "SCRIPT",
+          "TYPE_SCRIPT",
+          "DB_NAME"
+        ],
+        "params": [
+          {
+            "name": "LOGIN",
+            "type": "character varying"
+          }
+        ],
+        "where": "\"LOGIN\"=@LOGIN and \"dtd\" is null and \"dt_send\" is null",
+        "order_by": {
+          "columns": [
+            {
+              "name": "DTC",
+              "type": "ASC"
+            }
+          ]
+        },
+        "limit": "1"
+      },
+      {
+        "name": "getScriptToMobByKey",
+        "type": "Select",
+        "columns": [
+          "UUID",
+          "DTC",
+          "LOGIN",
+          "SCRIPT",
+          "TYPE_SCRIPT",
+          "DB_NAME",
+          "DT_SEND",
+"RESULT_SEND",
+          "RESULT_INTERIM",
+          "ANSWER"
+        ],
+        "params": [
+          {
+            "name": "UUID",
+            "type": "uuid"
+          }
+        ],
+        "where": "\"UUID\"=@UUID and \"dtd\" is null and \"dt_send\" is null"
+      },
+      {
+        "name": "updDtSendByKey",
+        "type": "UpdateBy",
+        "params": [
+          {
+            "name": "DT_SEND",
+            "type": "timestamp without time zone"
+          },
+          {
+            "name": "UUID",
+            "type": "uuid"
+          }
+        ],
+        "SET": "\"DT_SEND\" = @DT_SEND",
+        "where": "\"UUID\"=@UUID and \"dt_send\" is null and \"dtd\" is null"
+      },
+      {
+        "name": "updAnswerByKey",
+        "type": "UpdateBy",
+        "params": [
+          {
+            "name": "ANSWER",
+            "type": "character varying"
+          },
+          {
+            "name": "UUID",
+            "type": "uuid"
+          }
+        ],
+        "SET": "\"ANSWER\" = @ANSWER",
+        "where": "\"UUID\"=@UUID and \"dt_send\" is not null and \"dtd\" is null and \"answer\" is null"
+      },
+      {
+        "name": "updResultSendByKey",
+        "type": "UpdateBy",
+        "params": [
+          {
+            "name": "RESULT_SEND",
+            "type": "character varying"
+          },
+          {
+            "name": "UUID",
+            "type": "uuid"
+          }
+        ],
+        "SET": "\"RESULT_SEND\" = @RESULT_SEND",
+        "where": "\"UUID\"=@UUID and \"dt_send\" is not null and \"dtd\" is null and \"result_send\" is null"
+      },
+      {
+        "name": "updResultInterimByKey",
+        "type": "UpdateBy",
+        "params": [
+          {
+            "name": "RESULT_INTERIM",
+            "type": "character varying"
+          },
+          {
+            "name": "UUID",
+            "type": "uuid"
+          }
+        ],
+        "SET": "\"RESULT_INTERIM\" = @RESULT_INTERIM",
+        "where": "\"UUID\"=@UUID and \"dt_send\" is not null and \"dtd\" is null"
+      },
+      {
+        "name": "insScriptToMob",
+        "type": "Insert",
+        "params": [
+          {
+            "name": "LOGIN",
+            "type": "character varying"
+          },
+          {
+            "name": "SCRIPT",
+            "type": "character varying"
+          },
+          {
+            "name": "TYPE_SCRIPT",
+            "type": "character varying"
+          },
+          {
+            "name": "DB_NAME",
+            "type": "character varying"
+          }
+        ],
+        "generate_key": true,
+        "generate_dtc": true
+      }
+    ]
+  }
+}

@@ -1,0 +1,92 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:actionMenuTextColor">@color/colorWhite</item>
+    </style>
+
+    <style name="ToolbarTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textColor">@color/colorWhite</item>
+        <item name="android:textColorSecondary">@color/colorWhite</item>
+        <item name="android:actionOverflowButtonStyle">@color/colorWhite</item>
+    </style>
+
+    <style name="TvCaptionTheme">
+        <item name="android:textColor">@color/colorDarkGray</item>
+        <item name="android:textSize">19sp</item>
+        <item name="android:padding">2dp</item>
+        <item name="android:paddingStart">6dp</item>
+
+    </style>
+
+    <style name="GvHeaderTheme">
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:padding">2dp</item>
+        <item name="android:paddingStart">6dp</item>
+        <item name="android:background">@drawable/frame_grid_caption</item>
+    </style>
+
+    <style name="GvHeaderThemeActs">
+        <item name="android:textColor">@color/colorBlack</item>
+        <item name="android:textSize">17sp</item>
+        <item name="android:gravity">center_horizontal|center_vertical</item>
+        <item name="android:paddingStart">6dp</item>
+        <item name="android:background">@drawable/frame_grid_caption_acts</item>
+    </style>
+
+    <style name="GvItemsTheme">
+        <item name="android:textColor">@color/colorDarkGray</item>
+        <item name="android:textSize">19sp</item>
+        <item name="android:gravity">left</item>
+        <item name="android:padding">5dp</item>
+        <!--<item name="android:background">@drawable/frame_rectangle</item>-->
+    </style>
+
+    <style name="GvItemsThemeActs">
+        <item name="android:textColor">@color/colorDarkGray</item>
+        <item name="android:textSize">19sp</item>
+        <item name="android:padding">2dp</item>
+        <item name="android:gravity">left</item>
+        <item name="android:background">@drawable/frame_grid_item</item>
+    </style>
+
+
+    <style name="TvDataTheme">
+        <item name="android:textColor">@color/fontObject</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:padding">2dp</item>
+    </style>
+
+    <style name="EtDataTheme">
+        <item name="android:textColor">@color/fontObject</item>
+        <item name="android:textSize">19sp</item>
+        <item name="android:padding">10dp</item>
+        <item name="android:background">@drawable/frame_radius5</item>
+    </style>
+
+    <style name="EtDataThemeNoFrame">
+        <item name="android:textColor">@color/fontObject</item>
+        <item name="android:textSize">19sp</item>
+        <item name="android:padding">6dp</item>
+    </style>
+
+    <style name="SpDataTheme">
+        <item name="android:textColor">@color/fontObject</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:padding">6dp</item>
+    </style>
+
+    <style name="EtDataThemePadding4">
+        <item name="android:textColor">@color/fontObject</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:padding">4dp</item>
+    </style>
+
+</resources>

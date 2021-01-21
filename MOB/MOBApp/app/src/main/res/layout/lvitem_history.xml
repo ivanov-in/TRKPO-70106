@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="@color/colorLightLightGray"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:paddingVertical="10dp"
+            android:paddingHorizontal="5dp"
+            android:orientation="vertical">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+        >
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="Дата: "
+                    style="@style/TvCaptionTheme"/>
+            <TextView
+                    android:id="@+id/colHistoryDate"
+                    android:layout_width="200dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="4dp"
+                    android:text="Дата"
+                    style="@style/TvDataTheme"/>
+            <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="2dp"
+                    android:text="Цель визита: "
+                    style="@style/TvCaptionTheme"/>
+            <TextView
+                    android:id="@+id/colHistoryPurpose"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginHorizontal="2dp"
+                    android:text="Цель визита"
+                    style="@style/TvDataTheme"/>
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+            <TextView
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:text="Инспектор: "
+                    style="@style/TvCaptionTheme"/>
+            <TextView
+                    android:id="@+id/colHistoryInspector"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/TvCaptionTheme"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+            <TextView
+                    android:layout_width="140dp"
+                    android:layout_height="wrap_content"
+                    android:text="Примечание: "
+                    style="@style/TvCaptionTheme"/>
+            <TextView
+                    android:id="@+id/colHistoryNote"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/TvCaptionTheme"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Прикрепленные файлы  -->
+    <ImageView
+            android:id="@+id/colHistoryImageView"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_gravity="center_vertical"
+            android:padding="5dp"
+            android:contentDescription="Наличие фотографий"
+            android:focusable="false"
+            android:focusableInTouchMode="false"/>
+
+</LinearLayout>

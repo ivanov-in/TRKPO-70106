@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".LoginActivity">
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+    >
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+        >
+            <TextView
+                    android:id="@+id/tv_heading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Авторизация"
+                    style="@style/TvCaptionTheme"
+                    android:layout_marginBottom="30dp"
+            />
+
+            <EditText
+                    android:id="@+id/etLogin"
+                    android:layout_width="400dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Логин"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal"
+                    android:layout_marginVertical="20dp"
+                    android:padding="10dp"
+                    style="@style/EtDataThemeNoFrame"
+                    android:inputType="text"
+            />
+
+            <EditText
+                    android:id="@+id/etPassword"
+                    android:layout_width="400dp"
+                    android:layout_height="wrap_content"
+                    android:hint="Пароль"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal"
+                    android:layout_marginVertical="20dp"
+                    android:padding="10dp"
+                    style="@style/EtDataThemeNoFrame"
+                    android:inputType="textPassword"
+            />
+
+            <Button
+                    android:id="@+id/btnLogin"
+                    android:layout_width="400dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Войти"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="20sp"
+                    android:padding="20dp"
+                    android:background="@color/colorPrimary"
+                    android:layout_marginVertical="20dp"
+            />
+
+
+            <LinearLayout
+                    android:id="@+id/progressBarLogin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_vertical"
+                    android:visibility="gone"
+                    android:layout_marginTop="20dp"
+            >
+                <ProgressBar
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"/>
+                <TextView
+                        android:layout_margin="10dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        style="@style/TvCaptionTheme"
+                        android:text="Подождите, идёт проверка "
+                />
+            </LinearLayout>
+
+            <TextView
+                    android:id="@+id/loginMsg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal"
+                    style="@style/TvCaptionTheme"
+                    android:visibility="gone"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:layout_marginTop="20dp"
+            />
+            <TextView
+                    android:id="@+id/linkVers"
+                    android:layout_width="400dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal"
+                    android:visibility="gone"
+                    android:textStyle="bold"
+                    android:textSize="20sp"
+                    android:textColorLink="@color/colorWhite"
+                    android:textColor="@color/colorWhite"
+                    android:padding="20dp"
+                    android:text="Скачать новую версию MIS"
+                    android:background="@drawable/frame_gradient_blue"
+                    android:linksClickable="true"
+            />
+
+            <Button
+                    android:id="@+id/btnLoginSkip"
+                    android:layout_width="400dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:text="Войти без обновления версии"
+                    android:visibility="gone"
+                    android:textColor="@color/colorWhite"
+                    android:textSize="20sp"
+                    android:padding="10dp"
+                    android:background="@color/colorLightGrayB0"
+                    android:layout_marginVertical="20dp"
+            />
+
+
+        </LinearLayout>
+    </ScrollView>
+
+    <TextView
+            android:id="@+id/loginVersion"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="bottom|center_horizontal"
+            android:text="vers. "
+            style="@style/TvCaptionTheme"/>
+</RelativeLayout>

@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/colorWhite"
+        tools:context=".NewTaskActivity">
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/lvNewTaskButtons"
+    >
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                tools:context=".MainActivity">
+
+            <include
+                    android:id="@+id/progressBarLvTasks"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:visibility="gone"
+                    layout="@layout/progress_bar_create_task"/>
+
+            <LinearLayout
+                    android:id="@+id/layoutCreateTask"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+            >
+                <SearchView
+                        android:id="@+id/searchViewObject"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:paddingVertical="5dp"
+                        android:iconifiedByDefault="false"
+                        android:queryHint="Введите адрес объекта..."/>
+
+                <LinearLayout
+                        android:id="@+id/lv3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/colorLightGrayDD"
+                        android:orientation="vertical">
+
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingHorizontal="15dp"
+                    >
+                        <TextView
+                                android:id="@+id/tvNewTaskPurpose"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10dp"
+                                android:textColor="@color/colorBlack"
+                                android:text="Цель посещения: "
+                                android:theme="@style/TvCaptionTheme"
+                        />
+                        <Spinner
+                                android:id="@+id/spNewTaskPurpose"
+                                android:layout_width="wrap_content"
+                                android:layout_height="30dp"
+                                android:layout_marginTop="10dp"
+                                android:theme="@style/TvDataTheme"
+                                android:textColor="@color/colorPrimaryDark"
+                        />
+                    </LinearLayout>
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:minHeight="150dp"
+                            android:layout_marginTop="5dp"
+                    >
+                    <TextView
+                            android:id="@+id/tv16"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:text="   Объект:"
+                            android:paddingHorizontal="15dp"
+                            android:textColor="@color/colorBlack"
+                            android:theme="@style/TvCaptionTheme"/>
+                    <TextView
+                            android:id="@+id/tvNewTaskObject"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textStyle="bold"
+                            android:text="Не выбран"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:theme="@style/TvDataTheme"/>
+                </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                        android:id="@+id/headerNewTask"
+                        android:layout_width="match_parent"
+                        android:layout_height="40dp"
+                >
+                    <TextView android:layout_width="0dp"
+                              android:layout_weight="3"
+                              android:layout_height="match_parent"
+                              android:text="  № договора, абонент"
+                              android:textColor="@color/colorWhite"
+                              android:background="@color/colorPrimaryDark"
+                              android:padding="5dp"
+                              style="@style/GvHeaderTheme"
+                    />
+                    <TextView android:layout_width="0dp"
+                              android:layout_weight="4"
+                              android:layout_height="match_parent"
+                              android:text="  Наименование объекта, адрес "
+                              android:padding="5dp"
+                              android:textColor="@color/colorWhite"
+                              android:background="@color/colorPrimaryDark"
+                              style="@style/GvHeaderTheme"
+                    />
+
+                </LinearLayout>
+
+                <ListView
+                        android:id="@+id/listViewSearchObject"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:nestedScrollingEnabled="true"
+                        android:focusable="true"
+                        android:clickable="true"
+                />
+                <View
+                        android:id="@+id/view1"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="@color/colorGray60"
+                        android:layout_marginBottom="20dp"
+                />
+
+                <include
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="gone"
+                        android:id="@+id/progressBarNewTask"
+                        layout="@layout/progress_bar_data_load"/>
+
+
+
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+            android:id="@+id/lvNewTaskButtons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="14dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="5dp"
+            android:gravity="bottom|right"
+            android:orientation="horizontal">
+        <Button
+                android:id="@+id/btnNewAbonNewTask"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:minWidth="180dp"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="10dp"
+                android:enabled="false"
+                android:text=" Новый \n абонент  "
+                android:textSize="22sp"
+                android:tint="@color/colorPrimaryDark"/>
+        <Button
+                android:id="@+id/btnCreateNewTask"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:minWidth="180dp"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="10dp"
+                android:enabled="false"
+                android:text=" Создать \n задание  "
+                android:textSize="22sp"
+                android:tint="@color/colorPrimaryDark"/>
+        <Button
+                android:id="@+id/btnAddNewTask"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:paddingHorizontal="20dp"
+                android:paddingVertical="10dp"
+                android:text=" Создать задание \nвручную "
+                android:textSize="22sp"
+                android:visibility="gone"
+                android:tint="@color/colorPrimaryDark"/>
+    </LinearLayout>
+
+</RelativeLayout>

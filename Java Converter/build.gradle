@@ -1,0 +1,24 @@
+plugins {
+    id 'java'
+}
+
+group 'org.example'
+version '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+sourceSets {
+    main {
+        java {
+            srcDirs = ['src']
+        }
+    }
+}
+dependencies {
+    compile 'junit:junit:4.12'
+    implementation 'com.itextpdf:itext7-core:7.1.12'
+    implementation 'com.itextpdf:itextg:5.5.10'
+    implementation 'com.itextpdf.tool:xmlworker:5.5.9'
+}

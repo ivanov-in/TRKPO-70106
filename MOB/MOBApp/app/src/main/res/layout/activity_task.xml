@@ -1,0 +1,446 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".TaskActivity"
+        android:background="@color/colorWhite">
+
+    <ru.infoenergo.mis.TouchImageView
+            android:id="@+id/tchImgFullPhoto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/scrollView2"
+            android:visibility="gone"
+    />
+
+    <LinearLayout
+            android:id="@+id/lvTaskButtons"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_alignParentBottom="true"
+            android:gravity="bottom|end"
+            android:paddingVertical="5dp"
+            android:orientation="horizontal">
+        <Button
+                android:id="@+id/btnTaskDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="200dp"
+                android:paddingVertical="18dp"
+                android:layout_marginHorizontal="20dp"
+                android:textSize="20sp"
+                android:drawableEnd="@drawable/ic_delete"
+                android:text="Удалить"
+                android:visibility="gone"
+                android:tint="@color/colorPrimaryDark"
+        />
+        <Button
+                android:id="@+id/btnTaskDone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="200dp"
+                android:paddingVertical="18dp"
+                android:textSize="20sp"
+                android:drawableEnd="@drawable/ic_done"
+                android:text="Выполнено"
+                android:tint="@color/colorPrimaryDark"
+        />
+        <Button
+                android:id="@+id/btnSaveTask"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minWidth="200dp"
+                android:layout_marginHorizontal="20dp"
+                android:paddingVertical="18dp"
+                android:textSize="20sp"
+                android:text="Сохранить"
+                android:drawableEnd="@drawable/ic_save"
+                android:tint="@color/colorPrimaryDark"
+        />
+    </LinearLayout>
+
+    <androidx.core.widget.NestedScrollView
+            android:id="@+id/scrollView2"
+            android:layout_above="@id/lvTaskButtons"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_above="@id/lvTaskButtons"
+                android:nestedScrollingEnabled="true">
+            <LinearLayout
+                    android:id="@+id/lvTask"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorWhite">
+                <include
+                        android:id="@+id/include"
+                        layout="@layout/lvitem_task"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+                <!-- ТОЛЬКО для новой задачи -->
+                <LinearLayout
+                        android:id="@+id/newTaskAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:visibility="visible"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginHorizontal="8dp">
+                    <TextView
+                            android:id="@+id/tv13"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Город:"
+                            android:theme="@style/TvCaptionTheme"/>
+
+                    <EditText
+                            android:id="@+id/etNewTaskCity"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:hint="Город"
+                            android:maxLength="100"
+                            android:maxLines="1"
+                            style="@style/EtDataTheme"
+                    />
+                    <TextView
+                            android:id="@+id/tv14"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:text="Улица:"
+                            android:theme="@style/TvCaptionTheme"/>
+                    <EditText
+                            android:id="@+id/etNewTaskStreet"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:hint="Улица"
+                            android:maxLength="300"
+                            android:maxLines="1"
+                            style="@style/EtDataTheme"/>
+
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="4dp"
+                            android:orientation="horizontal">
+                        <TextView
+                                android:id="@+id/tv15"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:text="Номер дома:"
+                                android:theme="@style/TvCaptionTheme"/>
+                        <TextView
+                                android:id="@+id/tv41"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:text="Корпус:"
+                                android:labelFor="@+id/etTaskPrim"
+                                android:theme="@style/TvCaptionTheme"/>
+                    </LinearLayout>
+
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+                        <EditText
+                                android:id="@+id/etNewTaskHouse"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:inputType="number"
+                                android:maxLength="20"
+                                android:maxLines="1"
+                                android:hint="Номер дома"
+                                style="@style/EtDataTheme"/>
+
+                        <EditText
+                                android:id="@+id/etNewTaskNd"
+                                android:layout_width="0dp"
+                                android:layout_weight="1"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="5dp"
+                                android:maxLength="50"
+                                android:maxLines="1"
+                                android:hint="Корпус"
+                                style="@style/EtDataTheme"/>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                        android:id="@+id/newTaskSearchAsuse"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginHorizontal="8dp"
+                        android:visibility="gone">
+
+                    <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Поиск объекта в АСУСЭ:"
+                            style="@style/TvCaptionTheme"/>
+                    <SearchView
+                            android:id="@+id/searchViewTaskObject"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingVertical="5dp"
+                            android:iconifiedByDefault="false"
+                            style="@style/EtDataTheme"/>
+
+                </LinearLayout>
+
+                <!-- ПРИМЕЧАНИЕ -->
+                <LinearLayout
+                        android:id="@+id/lvCl"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginHorizontal="10dp"
+                >
+                    <TextView
+                            android:id="@+id/tv4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="10dp"
+                            android:text="Примечания:"
+                            android:labelFor="@+id/etTaskPrim"
+                            android:theme="@style/TvCaptionTheme"/>
+                    <EditText
+                            android:id="@+id/etTaskPrim"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:padding="10dp"
+                            android:maxLength="500"
+                            android:maxLines="5"
+                            android:background="@drawable/frame_radius5"
+                            android:text="примечание"
+                            android:hint="Дополнительные данные"
+                            android:textColor="@color/fontObject"
+                    />
+
+                    <!-- КОНТАКТНЫЕ ДАННЫЕ
+                     ответственного лица со стороны потребителя или заявителя -->
+
+                    <TextView
+                            android:id="@+id/tv5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:paddingTop="10dp"
+                            android:text="Дополнительное контактное лицо:"
+                            android:theme="@style/TvCaptionTheme"/>
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/frame_radius5"
+                    >
+                        <EditText
+                                android:id="@+id/etTaskFioContact"
+                                android:layout_width="0dp"
+                                android:layout_weight="5"
+                                android:layout_height="wrap_content"
+                                android:maxLength="4000"
+                                android:maxLines="2"
+                                android:hint="Фамилия имя отчество"
+                                android:padding="10dp"
+                                style="@style/EtDataThemeNoFrame"/>
+
+                        <EditText
+                                android:id="@+id/etTaskTelContact"
+                                android:layout_width="0dp"
+                                android:layout_weight="2"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="3dp"
+                                android:minWidth="100dp"
+                                android:inputType="phone"
+                                android:maxLength="200"
+                                android:maxLines="1"
+                                android:hint="@string/tel_fake"
+                                android:padding="10dp"
+                                style="@style/EtDataThemeNoFrame"/>
+
+                        <ImageButton
+                                android:id="@+id/btnPhone"
+                                android:width="36dp"
+                                android:height="36dp"
+                                android:layout_width="70dp"
+                                android:layout_height="50dp"
+                                android:contentDescription="Позвонить"
+                                android:src="@drawable/ic_phone"
+                                android:tint="@color/colorPrimaryDark"
+                                android:text=""/>
+                    </LinearLayout>
+
+                    <TextView
+                            android:id="@+id/tvTaskPodp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="Подписант МИС: "
+                            android:theme="@style/TvCaptionTheme"/>
+
+                    <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/frame_radius5"
+                    >
+                        <Spinner
+                                android:id="@+id/spTaskFioPodp"
+                                android:layout_width="0dp"
+                                android:layout_weight="5"
+                                android:layout_height="wrap_content"
+                                android:minHeight="50dp"
+                                android:layout_marginStart="10dp"
+                                android:gravity="top"
+                                android:layout_gravity="top"
+                                android:theme="@style/TvDataTheme"/>
+                        <LinearLayout
+                                android:layout_width="0dp"
+                                android:layout_weight="3"
+                                android:layout_marginHorizontal="3dp"
+                                android:layout_height="wrap_content"
+                                android:orientation="vertical"
+                                android:layout_gravity="center_vertical"
+                                android:gravity="center_vertical"
+                        >
+                            <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginHorizontal="3dp"
+                                    android:orientation="horizontal"
+                            >
+                                <TextView
+                                        android:id="@+id/tvTaskTelPodp"
+                                        android:layout_width="0dp"
+                                        android:layout_weight="1"
+                                        android:layout_height="50dp"
+                                        android:layout_gravity="center_vertical"
+                                        android:gravity="center_vertical"
+                                        style="@style/TvDataTheme"
+                                        android:hint="@string/tel_fake"/>
+                                <ImageButton
+                                        android:id="@+id/btnPhonePodp"
+                                        android:width="36dp"
+                                        android:height="36dp"
+                                        android:layout_width="70dp"
+                                        android:layout_height="50dp"
+                                        android:contentDescription="Позвонить"
+                                        android:src="@drawable/ic_phone"
+                                        android:tint="@color/colorPrimaryDark"
+                                        android:text=""/>
+                            </LinearLayout>
+
+
+                            <TextView
+                                    android:id="@+id/tvTaskEmailPodp"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:minHeight="50dp"
+                                    android:layout_marginHorizontal="3dp"
+                                    android:gravity="center_vertical"
+                                    android:hint="email@email.com"
+                                    style="@style/TvDataTheme"/>
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- Загрузка фотографий  -->
+                <LinearLayout
+                        android:id="@+id/lvUploadPhoto"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:padding="12dp"
+                >
+                    <Button
+                            android:id="@+id/btnUploadPhoto"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:minWidth="200dp"
+                            android:paddingVertical="18dp"
+                            android:textAlignment="viewStart"
+                            android:textSize="18sp"
+                            android:text=" Прикрепить\n фотографии"
+                            android:drawableStart="@drawable/ic_photo_library"
+                            android:layout_marginTop="12dp"
+                            android:layout_marginStart="16dp"/>
+
+                    <Button
+                            android:id="@+id/btnTakePhoto"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:minWidth="200dp"
+                            android:paddingVertical="18dp"
+                            android:textAlignment="viewStart"
+                            android:textSize="18sp"
+                            android:text="   Сделать\n   снимок"
+                            android:drawableStart="@drawable/ic_photo_camera"
+                            android:tint="@color/colorPrimaryDark"
+                            android:tooltipText="Открыть приложение камеры, сделать фотографии"/>
+                    <Button
+                            android:id="@+id/btnUploadImageAct"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="5dp"
+                            android:minWidth="200dp"
+                            android:paddingVertical="18dp"
+                            android:textAlignment="viewStart"
+                            android:textSize="18sp"
+                            android:text="Прикрепить \n бумажный акт"
+                            android:drawableStart="@drawable/ic_attach"
+                            android:tint="@color/colorPrimaryDark"
+                            android:tooltipText="Открыть приложение камеры, сделать фотографии"/>
+
+                </LinearLayout>
+
+                <!-- Галерея загруженных фотографий  -->
+                <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/recycleImageGallery"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:horizontalSpacing="5dp"
+                        android:orientation="horizontal"
+                        android:scrollbarStyle="insideInset"
+                        android:overScrollMode="always"
+                        android:visibility="visible"
+                        android:scrollbars="horizontal"
+                        android:layout_margin="10dp"/>
+               <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="top"
+                        android:gravity="top"
+                        android:visibility="visible"
+                        android:layout_margin="10dp"
+                        android:minHeight="140dp">
+                    <ListView
+                            android:id="@+id/listViewTaskActs"
+                            android:layout_width="match_parent"
+                            android:layout_height="260dp"
+                            android:scrollbarStyle="insideInset"
+                            android:nestedScrollingEnabled="true"
+                            android:fillViewport="true"
+                            android:overScrollMode="always"
+                            android:scrollbars="vertical"
+                            android:divider="@drawable/separator"/>
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+    </androidx.core.widget.NestedScrollView>
+</RelativeLayout>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".AttachmentsToObject">
+
+    <ru.infoenergo.mis.TouchImageView
+            android:id="@+id/tchAttachmentFullPhoto"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+    />
+
+    <LinearLayout
+            android:id="@+id/lvAttachments"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvAttachmentsPhotos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_margin="10dp"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:columnWidth="90dp"
+                android:horizontalSpacing="10dp"
+                android:numColumns="auto_fit"
+                android:scrollbars="vertical"/>
+
+        <ListView
+                android:id="@+id/lvAttachmentsActs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:focusable="true"
+                android:dividerPadding="10dp"
+                android:divider="@drawable/separator"/>
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,368 @@
+<div class="d-flex justify-content-center  " style="background-color: chocolate;">
+    <div class="d-flex align-items-start " style="height: 75vh; padding-top: 5px;">
+        <div style="max-width: 395px; float:left;">
+            <form class="k-form" [formGroup]="registerForm">
+                <kendo-grid [data]="viewListofTask | async"
+                            style="height: 73.8vh; padding-left: 1px; padding-right: 1px; border-style: none"
+                            (cellClick)="indexClickHandler($event)"
+                            (cellClose)="indexCloseHandler($event)"
+                            [rowClass]="rowCallback">
+                    <ng-template kendoGridToolbarTemplate>
+                        <div style="max-width: 300px; float:left;">
+                            <kendo-datepicker (valueChange)="onDatePicker($event)"
+                                              formControlName="date" format="dd.MM.yyyy"
+                                              style="height: 3vh; width: 200px; border-style: none" title="Календарь"
+                                              [min]='min'
+                                              [max]='max'>
+                            </kendo-datepicker>
+                        </div>
+                        <div class="example-wrapper">
+                            <button kendoButton style="float: right" *ngIf="!opened" (click)="open($event)"
+                                    title="Добавить задание" (mousedown)="getInsp($event,null)">
+                                <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-plus-circle"
+                                     fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                          d="M8 3.5a.5.5 0 0 1 .5.5v4a.5.5 0 0 1-.5.5H4a.5.5 0 0 1 0-1h3.5V4a.5.5 0 0 1 .5-.5z"/>
+                                    <path fill-rule="evenodd"
+                                          d="M7.5 8a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1H8.5V12a.5.5 0 0 1-1 0V8z"/>
+                                    <path fill-rule="evenodd"
+                                          d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                </svg>
+                            </button>
+                            <button kendoButton style="float: right" title="Отправить все"
+                                    (click)="changeButton($event,viewListofTask)">
+                                <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-arrow-up-circle"
+                                     fill="currentColor"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                          d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                    <path fill-rule="evenodd"
+                                          d="M4.646 8.354a.5.5 0 0 0 .708 0L8 5.707l2.646 2.647a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 0 0 0 .708z"/>
+                                    <path fill-rule="evenodd"
+                                          d="M8 11.5a.5.5 0 0 0 .5-.5V6a.5.5 0 0 0-1 0v5a.5.5 0 0 0 .5.5z"/>
+                                </svg>
+                            </button>
+                            <kendo-dialog title="Добавить задание" *ngIf="opened" (close)="close('cancel')"
+                                          [width]="650"
+                                          [height]="400">
+                                <div class="example-wrapper">
+                                    <div *ngFor="let arr of inspRoutesArrArr">
+                                        <p>{{arr.inspRoutesArr[0].addr[arr.inspRoutesArr[0].addr.length - 1]}}</p>
+
+                                    </div>
+                                    <kendo-combobox formControlName="comboAdr"
+                                                    (ngModelChange)="comboClear()"
+                                                    [(ngModel)]="selectedItem"
+                                                    (keyup)="onkeydown($event)" (valueChange)="comboChange()"
+                                                    [textField]="'address'" [valueField]="'coord'"
+                                                    [placeholder]="'Введите адрес...'"
+                                                    [data]="listItems"></kendo-combobox>
+                                    <span *ngIf="ndFalse == true" style="color: #D9534F"> Введите номер дома</span>
+                                    <kendo-combobox (ngModelChange)="comboClear()" formControlName="comboPurpose"
+                                                    [placeholder]="'Добавьте цель посещения...'"
+                                                    [(ngModel)]="selectedAim"
+                                                    [data]="listAim">
+                                    </kendo-combobox>
+                                    <kendo-combobox (ngModelChange)="comboClear()" formControlName="comboInsp"
+                                                    [placeholder]="'Выбирете инспектора...'"
+                                                    [textField]="'FIO'" [valueField]="'ID'"
+                                                    [(ngModel)]="selectedInsp"
+                                                    [data]="listInsp">
+                                    </kendo-combobox>
+                                    <br/>
+                                    <kendo-datepicker
+                                            formControlName="date" format="dd.MM.yyyy"
+                                            style="height: 3vh; border-style: none"
+                                            (ngModelChange)="comboClear()"
+                                            (valueChange)="comboChange()"
+                                            [(value)]="valueData"
+                                            [min]='min'
+                                            [max]='max'>
+                                    </kendo-datepicker>
+                                    <div class="example-wrapper" style="min-height: 400px">
+                                        <kendo-timepicker
+                                                format="HH:mm"
+                                                [(value)]="valueData"
+                                                (valueChange)="comboChange()">
+                                        </kendo-timepicker>
+                                        <span><br/></span>
+                                        <span><br/></span>
+                                        <button kendoButton style="float: right">Получить данные по задаче</button>
+                                    </div>
+                                </div>
+                                <kendo-dialog-actions>
+                                    <button kendoButton (click)="close('no')">Отмена</button>
+                                    <button kendoButton [toggleable]="true"
+                                            [disabled]="disabled" (mousedown)="onNewTask($event)" (click)="close('yes')"
+                                            primary="true">Сохранить
+                                    </button>
+                                </kendo-dialog-actions>
+                            </kendo-dialog>
+                        </div>
+                    </ng-template>
+                    <div>
+                        <kendo-grid-column title="Дата" width="32" [class]="{'codeColumn': true}"
+                                           editor="numeric">
+                            <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                                <small>
+                                    <span> {{dataItem.TTIME | date: 'dd.MM.yyy'}}</span>
+                                </small>
+                                <small>
+                                    <span> {{dataItem.TTIME | date: 'HH:mm'}}</span>
+                                </small>
+                            </ng-template>
+                        </kendo-grid-column>
+                        <kendo-grid-column field="FIO" title="Задания" width="96" [class]="{'codeColumn': true}" >
+                            <ng-template kendoGridCellTemplate let-dataItem let-rowIndex="rowIndex">
+                                <span style="font-weight: bold">Адрес: </span>
+                                <span> {{dataItem.ADR_YA}}</span><br/><span style="font-weight: bold">Цель: </span>
+                                <span *ngIf="dataItem.PURPOSE == 1"> Технический аудит</span>
+                                <span *ngIf="dataItem.PURPOSE == 2"> Присоединение</span>
+                                <span *ngIf="dataItem.PURPOSE == 3"> Конроль ПУ</span><br/>
+                                <span style="font-weight: bold">Инспектор: </span>
+                                <span>{{dataItem.FIO}}</span><br/>
+                                <span style="font-weight: bold">Наименование объекта: </span>
+                                <span *ngIf="dataItem.KOD_OBJ != null">{{dataItem.ADR}}</span><br/>
+                                <span style="font-weight: bold">Наименование абонента: </span>
+                                <span>{{dataItem.PAYER_NAME}}</span><br/>
+                                <span style="font-weight: bold">№ Договора: </span>
+                                <span>{{dataItem.NDOG}}</span><br/>
+                                <span style="font-weight: bold">Примечания: </span>
+                                <span>{{dataItem.PRIM}}</span>
+                                <div class="example-wrapper">
+                                    <button kendoButton title="Изменить"
+                                            *ngIf="(!openedChange && (dataItem.STATUS < 12))"
+                                            (click)="openChange(dataItem)" (mousedown)="getInsp($event,dataItem)">
+                                        <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-pencil"
+                                             fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd"
+                                                  d="M11.293 1.293a1 1 0 0 1 1.414 0l2 2a1 1 0 0 1 0 1.414l-9 9a1 1 0 0 1-.39.242l-3 1a1 1 0 0 1-1.266-1.265l1-3a1 1 0 0 1 .242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z"/>
+                                            <path fill-rule="evenodd"
+                                                  d="M12.146 6.354l-2.5-2.5.708-.708 2.5 2.5-.707.708zM3 10v.5a.5.5 0 0 0 .5.5H4v.5a.5.5 0 0 0 .5.5H5v.5a.5.5 0 0 0 .5.5H6v-1.5a.5.5 0 0 0-.5-.5H5v-.5a.5.5 0 0 0-.5-.5H3z"/>
+                                        </svg>
+                                    </button>
+                                    <button kendoButton *ngIf="(dataItem.STATUS===12)" look="flat"
+                                            [disabled]="true">
+                                        <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-pencil"
+                                             fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd"
+                                                  d="M11.293 1.293a1 1 0 0 1 1.414 0l2 2a1 1 0 0 1 0 1.414l-9 9a1 1 0 0 1-.39.242l-3 1a1 1 0 0 1-1.266-1.265l1-3a1 1 0 0 1 .242-.391l9-9zM12 2l2 2-9 9-3 1 1-3 9-9z"/>
+                                            <path fill-rule="evenodd"
+                                                  d="M12.146 6.354l-2.5-2.5.708-.708 2.5 2.5-.707.708zM3 10v.5a.5.5 0 0 0 .5.5H4v.5a.5.5 0 0 0 .5.5H5v.5a.5.5 0 0 0 .5.5H6v-1.5a.5.5 0 0 0-.5-.5H5v-.5a.5.5 0 0 0-.5-.5H3z"/>
+                                        </svg>
+                                    </button>
+
+                                    <button kendoButton *ngIf="(emptyTask == true)" look="flat" style="color: #D9534F"
+                                            [disabled]="true">
+                                        <svg width="1.5em" height="1.5em" viewBox="0 0 16 16"
+                                             class="bi bi-exclamation-circle-fill" fill="currentColor"
+                                             xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd"
+                                                  d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
+                                        </svg>
+                                    </button>
+                                    <kendo-dialog title="Изменить задание" *ngIf="openedChange"
+                                                  (close)="closeChange('cancel')"
+                                                  [width]="650"
+                                                  [height]="500">
+                                        <div class="example-wrapper">
+                                            <kendo-combobox formControlName="comboEdit"
+                                                            (ngModelChange)="comboSaveClear()"
+                                                            [(ngModel)]="selectedItem"
+                                                            (keyup)="onkeydown($event)"
+                                                            (valueChange)="comboSaveChange()"
+                                                            [textField]="'address'" [valueField]="'coord'"
+                                                            [data]="listItems">
+                                            </kendo-combobox>
+                                            <kendo-combobox formControlName="comboAim"
+                                                            (ngModelChange)="comboSaveClear()"
+                                                            (valueChange)="comboSaveChange()"
+                                                            [(ngModel)]="selectedAim"
+                                                            [data]="listAim">
+                                            </kendo-combobox>
+                                            <kendo-combobox formControlName="comboChangeInsp"
+                                                            (ngModelChange)="comboSaveClear()"
+                                                            (valueChange)="comboSaveChange()"
+                                                            [(ngModel)]="selectedName"
+                                                            [textField]="'FIO'" [valueField]="'ID'"
+                                                            [data]="listInsp">
+                                            </kendo-combobox>
+
+                                            <kendo-combobox formControlName="comboObj"
+                                                            [disabled]="emptyDOG"
+                                                            (ngModelChange)="comboSaveClear()"
+                                                            (valueChange)="comboSaveChange()"
+                                                            (keyup)="onSearchObjASUSE($event)"
+                                                            [(ngModel)]="selectedObjASUSE"
+                                                            [placeholder]="'Выбор объекта из АСУСЭ'"
+                                                            [data]="listObjASUSE">
+                                            </kendo-combobox>
+                                            <input kendoTextBox
+                                                   [placeholder]="'Адрес объекта в АСУСЭ'"
+                                                   [disabled]="true"/>
+                                            <kendo-combobox formControlName="comboAbon"
+                                                            [disabled]="emptyDOG"
+                                                            (ngModelChange)="comboSaveClear()"
+                                                            (valueChange)="comboSaveChange()"
+                                                            [placeholder]="'Наименование объекта'"
+                                                            [(ngModel)]="selectedObj"
+                                                            [textField]="'PAYER_NAME'" [valueField]="'NDOG'"
+                                                            [data]="listObj">
+                                            </kendo-combobox>
+                                            <kendo-combobox formControlName="comboDogovor"
+                                                            [disabled]="emptyDOG"
+                                                            (ngModelChange)="comboSaveClear()"
+                                                            (valueChange)="comboSaveChange()"
+                                                            [(ngModel)]="selectedDog"
+                                                            [placeholder]="'№ Договора'"
+                                                            [textField]="'NDOG'" [valueField]="'PAYER_NAME'"
+                                                            [data]="listObj">
+                                            </kendo-combobox>
+                                            <span><br/></span>
+                                            <kendo-datepicker
+                                                    formControlName="date" format="dd.MM.yyyy"
+                                                    style="height: 3vh; border-style: none"
+                                                    (ngModelChange)="comboSaveClear()"
+                                                    [(value)]="valueData"
+                                                    [min]='min'
+                                                    [max]='max'>
+                                            </kendo-datepicker>
+                                            <div class="example-wrapper" style="min-height: 400px">
+                                                <kendo-timepicker
+                                                        format="HH:mm"
+                                                        [(value)]="valueData"
+                                                        (valueChange)="comboSaveChange()">
+                                                </kendo-timepicker>
+                                                <span><br/></span>
+                                                <span><br/></span>
+                                                <input formControlName="emptyDOG"
+                                                       *ngIf="selectedInspToChange.PURPOSE == 2" type="checkbox"
+                                                       kendoCheckBox [(ngModel)]="emptyDOG"/>
+                                                <span *ngIf="selectedInspToChange.PURPOSE == 2"> Отсутствует договор, ввести в ручную</span>
+                                                <button kendoButton style="float: right">Получить данные по задаче
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <kendo-dialog-actions>
+                                            <button kendoButton (click)="closeChange('no')">Отмена</button>
+                                            <button kendoButton [toggleable]="true"
+                                                    [disabled]="disabledSaveChange" (mousedown)="onChangeTask($event)"
+                                                    (click)="closeChange('yes')"
+                                                    primary="true">Сохранить
+                                            </button>
+                                        </kendo-dialog-actions>
+                                    </kendo-dialog>
+                                </div>
+                            </ng-template>
+                        </kendo-grid-column>
+                    </div>
+                    <kendo-grid-column field="status" title="" width="27" [class]="{'codeColumn': true}">
+                        <ng-template kendoGridCellTemplate let-dataItem>
+
+                            <button kendoButton *ngIf="(dataItem.STATUS === 1)"
+                                    (click)="changeButton($event, dataItem)">
+                                <svg width="1.4em" height="1.4em" viewBox="0 0 16 16" class="bi bi-arrow-up-circle"
+                                     fill="currentColor"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                          d="M8 15A7 7 0 1 0 8 1a7 7 0 0 0 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                    <path fill-rule="evenodd"
+                                          d="M4.646 8.354a.5.5 0 0 0 .708 0L8 5.707l2.646 2.647a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 0 0 0 .708z"/>
+                                    <path fill-rule="evenodd"
+                                          d="M8 11.5a.5.5 0 0 0 .5-.5V6a.5.5 0 0 0-1 0v5a.5.5 0 0 0 .5.5z"/>
+                                </svg>
+                            </button>
+                            <button kendoButton *ngIf="(dataItem.STATUS=== 2 || dataItem.STATUS === 5)"
+                                    [disabled]="(dataItem.STATUS)"
+                                    look="flat">
+                                <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-check2"
+                                     fill="currentColor"
+                                     xmlns="http://www.w3.org/2000/svg" color="green">
+                                    <path fill-rule="evenodd"
+                                          d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                                </svg>
+                            </button>
+                            <button kendoButton *ngIf="(dataItem.STATUS===3 || dataItem.STATUS === 10)"
+                                    [disabled]="(dataItem.STATUS)"
+                                    look="flat">
+                                <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-check2-all"
+                                     fill="currentColor"
+                                     xmlns="http://www.w3.org/2000/svg" color="green">
+                                    <path fill-rule="evenodd"
+                                          d="M12.354 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                                    <path
+                                            d="M6.25 8.043l-.896-.897a.5.5 0 1 0-.708.708l.897.896.707-.707zm1 2.414l.896.897a.5.5 0 0 0 .708 0l7-7a.5.5 0 0 0-.708-.708L8.5 10.293l-.543-.543-.707.707z"
+                                    />
+                                </svg>
+                            </button>
+                            <button kendoButton *ngIf="(dataItem.STATUS==='done')"
+                                    [disabled]="(dataItem.STATUS==='done')"
+                                    look="flat">
+                                <svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-check2-all"
+                                     fill="currentColor"
+                                     xmlns="http://www.w3.org/2000/svg">
+                                    <path fill-rule="evenodd"
+                                          d="M12.354 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                                    <path
+                                            d="M6.25 8.043l-.896-.897a.5.5 0 1 0-.708.708l.897.896.707-.707zm1 2.414l.896.897a.5.5 0 0 0 .708 0l7-7a.5.5 0 0 0-.708-.708L8.5 10.293l-.543-.543-.707.707z"/>
+                                </svg>
+                            </button>
+                        </ng-template>
+                    </kendo-grid-column>
+                </kendo-grid>
+            </form>
+        </div>
+        <div class="container">
+            <angular-yandex-map [center]="[55.784390, 49.120760]" [zoom]="15" (load)="onLoad($event)"
+                                [clusterer]="clusterer">
+                <angular-yandex-placemark *ngFor="let point of points"
+                                          [geometry]="point.feature"
+                                          [options]="point.options"
+                ></angular-yandex-placemark>
+                <angular-yandex-multiroute *ngFor="let arr of inspRoutesArrArr"
+                                           (activeroutechange)="setDistance($event)"
+                                           [referencePoints]="arr.inspRoutesArr[0].coord"
+                                           [model]="{ params: { routingMode: 'pedestrian' } }"
+                                           [options]="{routeActiveStrokeColor: 'ff0000'}">
+                </angular-yandex-multiroute>
+            </angular-yandex-map>
+        </div>
+        <div style="max-width: 387px; float:right;">
+            <form class="k-form" [formGroup]="registerForm">
+                <kendo-grid [data]="view | async" [selectable]="selectableSettings"
+                            [rowClass]="rowDisable"
+                            kendoGridSelectBy="ID_USER" [selectedKeys]="selectUsers"
+                            style="height: 73.8vh; padding-left: 1px; padding-right: 1px; border-style: none"
+                            (selectionChange)="setSelectableSettings($event)" (cellClick)="selectUsersClick($event)">
+                    <ng-template kendoGridToolbarTemplate>
+                        <div style="max-width: 300px; float:left;">
+                            <input placeholder="Поиск" kendoTextBox style="max-width: 300px; float:left;"
+                                   (input)="onFilter($event.target.value)"/>
+                        </div>
+                    </ng-template>
+                    <kendo-grid-column field="ONLINE" title="" width="20" [class]="{'codeColumns': true}">
+                        <ng-template kendoGridCellTemplate let-dataItem>
+                            <img src="assets/online.png" width="10" style="pointer-events: none;"
+                                 *ngIf="dataItem.ONLINE"/>
+                            <img src="assets/ofline.png" width="10" style="pointer-events: none;"
+                                 *ngIf="!dataItem.ONLINE"/>
+                            <span
+                                    class="{{dataItem.ONLINE ? 'discontinued' : 'active'}}">
+                    </span>
+                        </ng-template>
+                    </kendo-grid-column>
+                    <kendo-grid-column field="FIO" title="Мастер ФИО" width="130" [class]="{'codeColumns': true}">
+                        <ng-template kendoGridCellTemplate let-dataItem>
+                            <span
+                                    *ngIf="dataItem.DATE_UDAL == null">{{dataItem.FIO}}</span>
+                            <span style="color: #D9534F"
+                                  *ngIf="dataItem.DATE_UDAL != null">{{dataItem.FIO}}</span>
+                        </ng-template>
+                    </kendo-grid-column>
+                    <kendo-grid-column field="distance" title="Путь" width="40" [class]="{'codeColumns': true}">
+                    </kendo-grid-column>
+                </kendo-grid>
+            </form>
+        </div>
+    </div>
+</div>

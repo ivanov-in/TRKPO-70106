@@ -1,0 +1,16 @@
+<div class="container d-flex justify-content-lg-start" style="margin-left: 30px; padding-left: 0px;">
+  <kendo-buttongroup [selection]="'single'">
+    <button kendoButton routerLink="/man/man_tasks" routerLinkActive="k-state-active">
+      Формирование заданий
+    </button>
+    <button kendoButton routerLink="/man/man_work_inspectors" routerLinkActive="k-state-active" >
+      Просмотр результатов работы инспекторов
+    </button>
+    <button kendoButton routerLink="/man/man_aggregated_reports" routerLinkActive="k-state-active" >
+      Просмотр агрегированных отчетов
+    </button>
+  </kendo-buttongroup>
+</div>
+<div style="padding-top: 14px;">
+  <router-outlet></router-outlet>
+</div>

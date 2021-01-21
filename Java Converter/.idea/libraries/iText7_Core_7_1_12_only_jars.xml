@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="iText7-Core-7.1.12-only-jars">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/Downloads/iText7-Core-7.1.12-only-jars.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+    <jarDirectory url="jar://$USER_HOME$/Downloads/iText7-Core-7.1.12-only-jars.zip!/" recursive="false" />
+  </library>
+</component>

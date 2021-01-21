@@ -1,0 +1,42 @@
+<div class="d-flex justify-content-center  " style="background-color: chocolate;">
+  <div class="d-flex align-items-start " style="height: 75vh; padding-top: 1px;">
+    <kendo-grid [data]="view" [rowClass]="rowCallback"
+                style="height: 74.8vh; padding-left: 30px; padding-right: 25px; border-style: none">
+      <ng-template kendoGridToolbarTemplate>
+      </ng-template>
+      <kendo-grid-column field="imei" title="IMEI" width="160" [class]="{'codeColumn': true}">
+      </kendo-grid-column>
+      <kendo-grid-column field="login" title="Логин" width="100" [class]="{'codeColumn': true}">
+      </kendo-grid-column>
+      <kendo-grid-column field="full_name" title="Ф.И.О" [class]="{'codeColumn': true}">
+      </kendo-grid-column>
+      <kendo-grid-column field="online" title="Онлайн" width="80" [class]="{'codeColumn': true}">
+        <ng-template kendoGridCellTemplate let-dataItem >
+          <img src="assets/online.png" width="10" style="pointer-events: none;" *ngIf="dataItem.online"/>
+          <img src="assets/ofline.png" width="10" style="pointer-events: none;" *ngIf="!dataItem.online"/>
+          <span
+            class="{{dataItem.online ? 'discontinued' : 'active'}}">
+                            {{dataItem.online ? "on" : "off"}}
+                    </span>
+        </ng-template>
+      </kendo-grid-column>
+      <kendo-grid-column field="last_active" title="Последняя активность" width="170" [class]="{'codeColumn': true}">
+      </kendo-grid-column>
+      <kendo-grid-column field="last_location" title="Последняя локация" width="170" [class]="{'codeColumn': true}">
+      </kendo-grid-column>
+      <kendo-grid-column field="power" title="Заряд" width="70" [class]="{'codeColumn': true}">
+      </kendo-grid-column>
+      <kendo-grid-column field="lock" title="Заблокирован" width="120" [class]="{'codeColumn': true}">
+        <ng-template kendoGridCellTemplate let-dataItem>
+          <input type="checkbox" [checked]="dataItem.lock" disabled/>
+        </ng-template>
+      </kendo-grid-column>
+      <kendo-grid-command-column title="" width="243">
+        <ng-template kendoGridCellTemplate>
+          <button kendoGridEditCommand [primary]="false">Сообщение</button>
+          <button kendoGridEditCommand [primary]="true">Управление</button>
+        </ng-template>
+      </kendo-grid-command-column>
+    </kendo-grid>
+  </div>
+</div>

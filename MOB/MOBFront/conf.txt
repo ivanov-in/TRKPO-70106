@@ -1,0 +1,3 @@
+js file bin\www
+app param dbreinit
+Ev DEBUG=Front:*

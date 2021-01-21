@@ -1,0 +1,34 @@
+<resources>
+    <string name="app_name">MIS</string>
+    <string name="log_tag_err">MYLOG ERR</string>
+    <string name="log_tag_ok">MYLOG ERR OK</string>
+    <string name="app_full_name">Мобильный инспектор АО «Татэнерго»</string>
+<!--    <string name="server_uri">http://91.224.107.213</string>
+    <string name="server_port">80</string>-->
+    <string name="server_uri">http://192.168.47.71</string>
+    <string name="server_port">7000</string>
+    <string name="server_path_get">mobback/get</string>
+    <string name="server_path_set">mobback/set</string>
+    <string name="DB_NAME">mis_db</string>
+    <string name="DB_PATH">/data/data/ru.infoenergo.mis/databases/</string>
+    <string name="linkMis">&lt;a href="http://91.224.107.213:80/mobback/mis">Скачать новую версию MIS&lt;/a></string>
+    <!--<string name="linkMis"><a href="http://91.224.107.213:80/mobback/mis">Скачать новую версию MIS</a></string>-->
+
+
+    <!-- Для актов -->
+    <string name="fio_kts">Ф.И.О представителя КТС: </string>
+    <string name="podpisi_kts">Представитель КТС: </string>
+    <string name="tel_kts">Телефон: </string>
+    <string name="tel_fake">+7(900)-000-00-00</string>
+    <string name="dat_fake">27.10.2020</string>
+    <string name="PRIMECHANIE"><u>ПРИМЕЧАНИЕ:</u></string>
+
+
+    <string name="mail_host">10.1.1.9</string>
+    <string name="mail_port">25</string>
+    <string name="email_for_act_sign">alfaintegrator1@gmail.com</string>
+    <string name="password_for_act_sign">kl0pik111</string>
+<!--    <string name="email_for_act_sign">lktatteplo@gmail.com</string>
+    <string name="password_for_act_sign">Lk123456789</string>-->
+
+</resources>

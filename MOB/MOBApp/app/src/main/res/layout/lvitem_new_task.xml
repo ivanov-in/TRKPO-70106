@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:minHeight="45dp"
+        android:descendantFocusability="blocksDescendants"
+        android:orientation="horizontal">
+    <TextView
+            android:id="@+id/tvNewTaskNumDog"
+            android:layout_width="0dp"
+            android:layout_weight="3"
+            android:layout_height="match_parent"
+            android:hint="№ договора, абонент"
+            android:padding="10dp"
+            style="@style/GvItemsTheme"
+    />
+    <TextView
+            android:id="@+id/tvNewTaskAbonName"
+            android:layout_width="0dp"
+            android:layout_weight="5"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:hint="Наименование объекта, адрес"
+            style="@style/GvItemsTheme"
+    />
+</LinearLayout>

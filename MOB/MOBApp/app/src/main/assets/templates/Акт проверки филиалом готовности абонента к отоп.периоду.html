@@ -1,0 +1,58 @@
+<head>
+<style>
+            body { margin-top: 0;  margin-left: 0; font-family: Times New Roman; font-size: 17px; }
+            table { width: 100%; border-collapse: collapse; margin-bottom: 8pt;}
+</style>
+</head>
+<body>
+<p style="text-align: center;"><strong>АКТ № %NUM_ACT от %DAT_ACT </strong><br /><strong>проверки филиалом готовности абонента к отопительному периоду %OTOP_PERIOD</strong></p>
+<p>&nbsp;</p>
+<p>Наименование абонента: <strong>%PAYER_NAME</strong></p>
+<p>Наименование объектов: <strong>%LIST_OBJ</strong></p>
+<p>Договор теплоснабжения:<strong> №%NDOG от %DAT_DOG;</strong><br />
+Акт составлен представителем:<strong> %FILIAL_ESO, %FIO_ESO,  %NAME_DOLZHN_ESO</strong><br />
+Проверка проводилась в присутствии: <strong>%NAME_DOLZHN_PODP, %FIO_PODP (тел. %TEL_PODP)</strong></p>
+<p style="text-align: right;"><span style="font-size: 9.0pt;">(должность, Ф.И.О, телефон абонента)</span></p>
+<p style="text-align: center;"><strong>Проверкой установлено:</strong></p>
+<p>
+Наличие и состояние КИП и автоматических регуляторов: <strong> %SOST_KIP_STR</strong><br />
+Наличие актов гидравлических испытаний, гидропневмопромывки:<strong> %NAL_ACT_GIDRO</strong><br />
+Состояние трубопроводов, арматуры и тепловой изоляции тепловых пунктов:<strong> %SOST_TUBE_STR</strong><br />
+Состояние теплопроводов тепловой сети, находящихся на балансе абонента:<strong> %SOST_NET_STR</strong><br />
+Состояние утепления зданий, ЦТП, ИТП:<strong> %SOST_UTEPL_STR</strong><br />
+Наличие паспортов тепловых энергоустановок, схем и инструкций для обслуживающего персонала:<strong> %NAL_PASP_STR</strong><br/>
+Отсутствие прямых соединений оборудования тепловых пунктов с водопроводом и канализацией:<strong> %NAL_DIRECT_CONNECT</strong><br />
+Задолженность за потребленную тепловую энергию:<strong> %SUM_DOLG</strong><br />
+</p>
+<p style="text-align: center;"><u>ПРИМЕЧАНИЯ</u>:</p>
+<p>Замечания к договору, комплектности документов (приложений к договору): <strong>%DOP_INFO</strong><br/>
+Наличие подписанной первичной документации: <strong>%NAL_PODP_DOC</strong><br />
+Оплата по калькуляции на возобновление подачи т/э: <strong> %OPL_CALCUL</strong><br />
+</p>
+<p><b>Пуск систем теплопотребления в отопительном периоде %OTOP_PERIOD возможен при выполнении следующих требований:<br/>
+- при отсутствии задолженности </b> за поставленную тепловую энергию и теплоноситель по договору теплоснабжения, в т.ч. по процентам за пользование чужими денежными средствами, за возобновление подачи тепловой энергии (после ограничения, отключения), по оплате аванса;<br/>  
+<b>- при наличии </b>оформленного надлежайшим образом <b>акта проверки готовности к отопительному периоду и паспорта готовности к отопительному периоду,<br/>
+- при наличии заявки</b> абонента на принятие тепловой энергии для нужд отопления.
+
+
+</p>
+<p>%REMARK_DOG</p>
+<table>
+<tr>
+<td valign="bottom" style="width: 40%; text-align: left;"><strong>Представитель ЭСО:</strong></td>
+<td valign="bottom" style="width: 60%; text-align: left;"><strong> %FIO_ESO</strong></td>
+</tr>
+<tr>
+<td width="40%">&nbsp;</td>
+<td valign="top" style="width: 60%; text-align: center;">(подпись)&nbsp;&nbsp;&nbsp;(Ф. И. О.)</td>
+</tr>
+<tr>
+<td valign="bottom" style="width: 40%; text-align: left;"><strong>Ответственный представитель потребителя:</strong></td>
+<td valign="bottom" style="width: 60%; text-align: left;"><strong>%FIO_PODP</strong></td>
+</tr>
+<tr>
+<td width="40%">&nbsp;</td>
+<td valign="top" style="width: 60%; text-align: center;">(подпись)&nbsp;&nbsp;&nbsp;(Ф. И. О.)</td>
+</tr>
+</table>
+</body>

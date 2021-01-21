@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- **********************************************************  -->
+<!--           спиннер для выпадющего списка целей -->
+<!-- **********************************************************  -->
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+          android:id="@+id/sp_item_purpose"
+          android:theme="@style/TvDataTheme"
+          android:singleLine="true"
+          android:layout_width="match_parent"
+          android:layout_height="40dp"
+          android:ellipsize="marquee"
+          android:textAlignment="inherit"/>
