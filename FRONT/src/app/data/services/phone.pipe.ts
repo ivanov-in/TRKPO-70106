@@ -1,23 +1,26 @@
-import { Pipe, PipeTransform } from '@angular/core';
+import {Pipe, PipeTransform} from '@angular/core';
 
 @Pipe({
     name: 'phone'
 })
-export class PhonePipe
-{
-    transform(tel)
-    {
-        var value = tel.toString().trim().replace(/^\+/, '');
+export class PhonePipe {
+    transform(tel) {
+
+        const value = tel.toString().trim().replace(/^\+/, '');
 
         if (value.match(/[^0-9]/)) {
             return tel;
         }
 
-        var country, city, number;
+
+        let country;
+        let city;
+        // tslint:disable-next-line:variable-name
+        let number;
 
         switch (value.length) {
             case 10: // +1PPP####### -> C (PPP) ###-####
-                country = '+'+7;
+                country = '+' + 7;
                 city = value.slice(0, 3);
                 number = value.slice(3);
                 break;
@@ -38,12 +41,12 @@ export class PhonePipe
                 return tel;
         }
 
-        if (country == 1) {
-            country = "";
+        if (country === 1) {
+            country = '';
         }
 
         number = number.slice(0, 3) + '-' + number.slice(3);
 
-        return (country + " (" + city + ") " + number).trim();
+        return (country + ' (' + city + ') ' + number).trim();
     }
 }

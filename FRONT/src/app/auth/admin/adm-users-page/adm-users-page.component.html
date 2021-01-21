@@ -24,7 +24,7 @@
                         <p>Введите ФИО пользователя</p>
                         <!--                        <input kendoTextBox style="width: 620px" [(ngModel)]="personTEL"-->
                         <!--                               [placeholder]="'+7 (000) 000-00-00'"/>-->
-                        <kendo-maskedtextbox style="width: 620px" [(ngModel)]="personTEL"></kendo-maskedtextbox>
+                        <kendo-maskedtextbox style="width: 620px" [(ngModel)]="personTEL" [mask]="'+7 (000) 000-0000'"></kendo-maskedtextbox>
                         <!--                        [mask]="'+7 (000) 000-0000'"-->
                         <p>Введите телефон</p>
                         <div class="section">
@@ -84,8 +84,7 @@
             </kendo-grid-column>
             <kendo-grid-column field="TEL" title="Телефон" [class]="{'codeColumn': true}">
                 <ng-template kendoGridCellTemplate let-dataItem>
-                    {{dataItem.TEL }}
-                    <!--                    | phone-->
+                    {{dataItem.TEL | phone}}
                 </ng-template>
             </kendo-grid-column>
             <kendo-grid-column field="ROLELIST_RU" title="Роли" width="350" [class]="{'codeColumn': true}">

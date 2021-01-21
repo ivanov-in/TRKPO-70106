@@ -20,7 +20,7 @@
         </div>
         <div style="padding: 0.5rem 0.5rem 0.5rem 0.5rem;">
             <kendo-label text="Редактировать телефон">
-                <kendo-maskedtextbox  style="width: 100%" [(ngModel)]="modelOut.TEL" (valueChange)="onEdit($event)"></kendo-maskedtextbox>
+                <kendo-maskedtextbox  style="width: 100%" [(ngModel)]="modelOut.TEL"  [mask]="'+7 (000) 000-0000'" (valueChange)="onEdit($event)"></kendo-maskedtextbox>
             </kendo-label>
         </div>
         <div class="container d-flex justify-content-between" style="padding: 0.5rem">
