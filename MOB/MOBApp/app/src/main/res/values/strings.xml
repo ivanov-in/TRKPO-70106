@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MIS</string>
+    <string name="app_name">Буквоед</string>
     <string name="log_tag_err">MYLOG ERR</string>
     <string name="log_tag_ok">MYLOG ERR OK</string>
     <string name="app_full_name">Мобильный инспектор АО «Татэнерго»</string>
