@@ -78,10 +78,11 @@
                   android:parentActivityName=".ListHistoryObjectActivity"/>
         <activity android:name=".ListHistoryObjectActivity"
                   android:parentActivityName=".TaskActivity"/>
+        <!-- МБ ЭТО МОЖНО БУДЕТ УДАЛИТЬ. ПОПРОБОВАТЬ В СЛЕДУЮЩЕЙ СБОРКЕ!!!!!!!!!!!!!!
         <activity android:name=".DogovorActivity"
                   android:windowSoftInputMode="stateHidden"
                   android:configChanges="screenSize|keyboard"
-                  android:parentActivityName=".TaskActivity"/>
+                  android:parentActivityName=".TaskActivity"/>-->
         <activity android:name=".TaskActivity"
                   android:configChanges="orientation|screenSize|keyboard"
                   android:windowSoftInputMode="stateHidden"

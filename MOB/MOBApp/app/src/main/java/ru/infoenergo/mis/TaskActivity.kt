@@ -25,6 +25,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import android.widget.AdapterView.OnItemSelectedListener
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.FileProvider
@@ -134,7 +135,7 @@ class TaskActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
                     setText("")
                     isActivated = false
                     setPadding(10)
-                    setBackgroundColor(android.R.color.transparent)
+                    setBackgroundColor(resources.getColor(android.R.color.transparent))
                     setBackgroundResource(R.drawable.frame_radius5)
                 }
 
@@ -285,7 +286,7 @@ class TaskActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
                     editTextAddress.apply {
                         setText(_task.address)
                         setPadding(10)
-                        setBackgroundColor(android.R.color.transparent)
+                        setBackgroundColor(resources.getColor(android.R.color.transparent))
                         setBackgroundResource(R.drawable.frame_radius5)
                     }
 
@@ -298,12 +299,12 @@ class TaskActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
                     // Контакты
                     etTaskFioContact.apply {
                         setText(_task.fio_contact)
-                        setBackgroundColor(android.R.color.transparent)
+                        setBackgroundColor(resources.getColor(android.R.color.transparent))
                     }
 
                     etTaskTelContact.apply {
                         setText(_task.tel_contact)
-                        setBackgroundColor(android.R.color.transparent)
+                        setBackgroundColor(resources.getColor(android.R.color.transparent))
                     }
 
                     // Цели
@@ -1535,6 +1536,7 @@ class TaskActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
 
     // Поворот фотографии
     // --------------------------------------------------------
+    @RequiresApi(Build.VERSION_CODES.P)
     private fun getCapturedImage(selectedPhotoUri: Uri): Uri? {
         try {
             val rotatedBitmap: Bitmap?
@@ -1846,22 +1848,7 @@ class TaskActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
                 this.startActivity(intent)
                 return true
             }
-            // Просмотр договора
-            // ------------------------------
-            R.id.menu_view_heat_contract -> {
-                if (_task.kod_dog == 0) {
-                    Toast.makeText(this, "Отсутствуют данные договора", Toast.LENGTH_LONG).show()
-                    return false
-                }
-                val intent = Intent(this@TaskActivity, DogovorActivity::class.java)
-                intent.putExtra("TASK_ID", _idTask)
-                intent.putExtra("ID_INSPECTOR", _idInspector)
-                intent.putExtra("KOD_DOG", _task.kod_dog)
-                intent.putExtra("NDOG", _task.ndog)
 
-                this.startActivity(intent)
-                return true
-            }
             // Zulu
             // ----------------
             R.id.menu_zulu -> {

@@ -20,4 +20,5 @@
     <color name="colorLightGreen">#B7EAB9</color>
     <color name="colorLauncherOrange">#FF3C00</color>
     <color name="fontObject">#27316C</color>
+    <color name="transparen">#80000000</color>
 </resources>
