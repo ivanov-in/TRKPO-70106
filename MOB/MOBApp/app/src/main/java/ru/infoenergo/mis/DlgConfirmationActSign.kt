@@ -76,7 +76,7 @@ class DlgConfirmationActSign(
         }
 
         val builder = AlertDialog.Builder(activity)
-        val inflater: LayoutInflater = activity!!.layoutInflater
+
         try {
             // слушатель на кнопку отмены
             // ----------------------------------
