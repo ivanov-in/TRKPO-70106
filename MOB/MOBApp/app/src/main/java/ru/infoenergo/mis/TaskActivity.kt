@@ -65,7 +65,6 @@ class TaskActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
     private var _idTask: Int = 0
     private var _idInspector: Int = 0
     private var _task: Task = Task()
-    private var dlgPaperAct: DlgAddPaperAct? = null
 
     // фотографии, прикрепленные к задаче
     private var _taskPhotos: ArrayList<FileInfo> = ArrayList()
@@ -1489,16 +1488,6 @@ class TaskActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
                             .show()
                         return
                     }
-
-                    if (data.clipData != null) {
-                        act.uri = data.clipData!!.getItemAt(0).uri
-                        dlgPaperAct = DlgAddPaperAct(act)
-                        dlgPaperAct!!.show(supportFragmentManager, "PAPER_ACT")
-                    } else if (data.data != null) {
-                        act.uri = data.data!!
-                        dlgPaperAct = DlgAddPaperAct(act)
-                        dlgPaperAct!!.show(supportFragmentManager, "PAPER_ACT")
-                    }
                 }
             }
 
@@ -2006,16 +1995,7 @@ class TaskActivity : AppCompatActivity(), DatePickerDialog.OnDateSetListener,
         // Если был закончен вызов диалога добавления бумажного акта
         // ---------------------------------------------------------
         try {
-            dlgPaperAct?.apply {
-                if (this.onCancel) {
-                    insertPaperActToLocalDB(
-                        this.act.uri!!, this.act.is_signed,
-                        _actForAttach.id_act, _actForAttach.npp, _actForAttach.num_act
-                    )
-                    loadAttachments()
-                    dlgPaperAct = null
-                }
-            }
+
 
         } catch (e: Exception) {
             println("$TAG_ERR on cancel dlgPaperAct: ${e.message}")

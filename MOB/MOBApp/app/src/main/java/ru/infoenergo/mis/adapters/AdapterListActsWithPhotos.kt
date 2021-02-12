@@ -11,7 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.*
 import androidx.core.graphics.drawable.DrawableCompat
-import ru.infoenergo.mis.DlgFullSizeImage
 import ru.infoenergo.mis.R
 import ru.infoenergo.mis.TaskActivity
 import ru.infoenergo.mis.dbhandler.DbHandlerLocalRead
@@ -93,8 +92,6 @@ class AdapterListActsWithPhotos() : BaseAdapter(), View.OnCreateContextMenuListe
                 it.background = buttonDrawable
                 return@setOnClickListener
             }
-            val dlg = DlgFullSizeImage(photos)
-            dlg.show((context as TaskActivity).supportFragmentManager, "PHOTOS_ACT")
         }
 
         view?.setOnClickListener {
