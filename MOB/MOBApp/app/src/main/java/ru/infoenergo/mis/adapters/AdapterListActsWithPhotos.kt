@@ -52,20 +52,6 @@ class AdapterListActsWithPhotos() : BaseAdapter(), View.OnCreateContextMenuListe
         var viewHolder = ActViewHolder()
         var view = convertView
 
-        if (convertView == null) {
-
-            view = inflater.inflate(R.layout.lvitem_task_acts_with_photo, parent, false)
-            viewHolder.icon = view.findViewById(R.id.imgTaskActIcon) as ImageView
-            viewHolder.name = view.findViewById(R.id.tvTaskActName) as TextView
-            viewHolder.signed = view.findViewById(R.id.chkBoxTaskActSigned) as CheckBox
-            viewHolder.paper = view.findViewById(R.id.chkBoxTaskActPaper) as CheckBox
-            viewHolder.attach = view.findViewById(R.id.btnShowActs) as Button
-
-            view.tag = viewHolder
-        } else {
-            viewHolder = convertView.tag as ActViewHolder
-        }
-
         val item = getItem(position)
 
         viewHolder.icon?.apply {
