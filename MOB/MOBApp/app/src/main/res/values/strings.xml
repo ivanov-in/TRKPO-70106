@@ -2,7 +2,7 @@
     <string name="app_name">Буквоед</string>
     <string name="log_tag_err">MYLOG ERR</string>
     <string name="log_tag_ok">MYLOG ERR OK</string>
-    <string name="app_full_name">Мобильный инспектор АО «Татэнерго»</string>
+    <string name="app_full_name">Буквоед</string>
 <!--    <string name="server_uri">http://91.224.107.213</string>
     <string name="server_port">80</string>-->
     <string name="server_uri">http://192.168.47.71</string>
